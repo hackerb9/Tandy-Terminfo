@@ -21,6 +21,7 @@ Set your TERM environment variable to one of the available terminal types (see b
 There are different terminal types for the Model 100 (`td100`) and the
 Model 200 (`td200`) as those have a different number of lines.
 
+<img src="README.md.d/labelbutton.jpg" align="right">
 There are also different types depending upon whether you have your
 status line disabled or not. By default it is presumed you will
 disable the status line by pressing the LABEL button. If you do not
@@ -65,18 +66,29 @@ While setting the `TERM` environment variable will get you most of the way to a 
 
 You can test whether it worked by pressing Control-L. If it clears the screen, then you have correctly installed the TERMINFO files. You can also try running a `curses` program, such as the BSD game "worms" which animates ASCII worms crawling on your screen. (`apt install bsdgames`)
 
+If you have trouble with the screen ocassionally scrolling, be sure
+you have the status line turned off by pressing the LABEL button.
+
 Note that some poorly written programs do not use the TERMINFO file to send the correct escape sequences. Instead they presume your terminal speaks VT102 or "ANSI". Fortunately, this is not very common.  
 
 # Notes on using the TELCOM program
 
 * For a standard serial port @9600 baud, type this command in TELCOM:
+
     stat 88n1enn
+
 * 19200 bps works fine if your UNIX getty is configured to talk that speed:
+
     stat 98n1enn
+
 * Software flow control (XON/XOFF) is absolutely necessary as the 8250 UART has a one byte buffer. 
-* Hardware flow control (RTSCTS) is not available.
+
+* Hardware flow control (RTS/CTS) is not available.
+
 * Because of network latency software flow control may be inadequate over `ssh`.
+
 * To connect to a PC running UNIX, you'll need a null modem cable.
+
 * The Tandy Model 200 has a *FEMALE* 25 pin RS-232c port. 
 
 ## Special keys:
@@ -93,9 +105,12 @@ Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
 
 # History
 
-This started out as a woefully inadequate TERMCAP entry for Xenix in the back of the Radio Shack manual. It claims to be based on the DEC VT52, but that seems rather approximate.
+This started out as a woefully inadequate TERMCAP entry for Xenix in
+the back of the Radio Shack manual. It claims to be based on the DEC
+VT52, but that seems approximate at best.
 
-Just for historical interest, here is the original Tandy 16/Xenix termcap entry from page 72 of the TELCOM Manual:
+Just for historical interest, here is the original Tandy 16/Xenix
+termcap entry from page 72 of the TELCOM Manual:
 
     n1|td200|Tandy 200:\
       :am:bs:xt:co#40:li#16:al=\EL:dl=\EM:cd=^L:ce=\EK:cl=\EE:cm=\EY%+ %+ :\
