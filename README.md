@@ -99,7 +99,7 @@ Note that some poorly written programs do not use the TERMINFO file to send the 
     ~    GRPH SHIFT ]    Tilde
     {    GRPH 9          Open curly brace
     }    GRPH 0          Close curly brace
-    ^@   GRPH P		     Sends 0x80, useful in Emacs to set the mark 
+    ^@   GRPH P		 Sends 0x80, useful in Emacs to set the mark 
 
 Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
 
@@ -140,8 +140,8 @@ you can enable a serial port login like so:
     systemctl enable serial-getty@ttyS0
     systemctl start serial-getty@ttyS0
 
-Presuming you have a serial port on ttyS0, of course. If you have a
-USB to serial converter, try ttyACM0.
+Presuming you have a serial port on `ttyS0`, of course. If you have a
+USB to serial converter, try `ttyACM0`.
 
 There may be a way to change the baud rates accepted using systemd,
 but I don't know it. What I did is copy over the symlink that `enable`
@@ -153,8 +153,12 @@ created and then edited the file by hand.
     emacs serial-getty@ttyS0.service
 
 If you set the baud rate to multiple values, the agetty program will
-switch to the next one whenever you hit the ENTER key if it's at the
-wrong speed. For example, you could use the following:
+switch to the next one, if it's at the wrong speed, whenever you hit
+the ENTER key. For example, you could use the following:
 
     ExecStart=-/sbin/agetty 115200,19200,9600,300 %I $TERM
 
+When you connect with your Tandy portable, you'll see some garbage
+characters instead of a Login prompt because it is talking at 115,200
+bps. When you hit Enter, it'll try again at 19200. If you still get
+line noise, hit Enter once more for 9600.
