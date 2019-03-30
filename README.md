@@ -1,2 +1,101 @@
 # Tandy-Terminfo
-Tandy Model 200 Terminfo for screen control on UNIX machines
+Tandy Model 100, 102, 200 Terminfo for screen control on UNIX machines
+
+# What is this?
+When using the TELCOM terminal program on a Tandy portable computer such as the Model 200, the remote host needs to know how to send escape sequences to do things like clear the screen, move the cursor, show text in reverse, and so on. In UNIX, that information is stored in the TERMINFO database and then used by setting the TERM environmet variable. 
+
+This repository provides both the [source TERMINFO](tandy.terminfo) file and the [compiled versions](terminfo/t/). 
+
+# Installation
+Download the [source TERMINFO](tandy.terminfo) file and compile it with `tic` on your UNIX host.
+
+    tic tandy.terminfo
+    
+That will create the proper files in your `.terminfo` directory so they can be used immediately.
+
+# Usage
+Set your TERM environment variable to one of the available terminal types (see below) to inform programs how to talk to your Tandy. For example,
+
+    export TERM=td200
+    
+There are different terminal types for the Model 100 (td100) and the Model 200 (td200) as those have a different number of lines. There are also different types depending upon whether you have your status line disabled or not. If you disable the status line, use the `-ns` (no-status) variant, like so,
+
+    export TERM=td200-ns
+    
+For convenience, there are aliases so you can refer to the TERM by number of lines instead.
+
+# The list of available terminals
+
+* `td200`: Tandy Model 200 with status line. 40 columns x 15 rows.
+  Alias: `td200-15`.
+* `td200-ns`: Tandy 200 without status line. 40 columns x 16 rows.
+  Alias:`td200-16`.
+* `td100`: Tandy Model 100 or 102 with status line. 40 columns x 7 rows.
+  Aliases: `td102`,`td200-7`.
+* `td100-ns`: Tandy 100 or 102 without status line. 40 columns x 8 rows.
+  Aliases: ``td102-ns`, td100-8`, `td102-8`.
+
+# Suggestions
+
+While setting the `TERM` environment variable will get you most of the way to a usable interface, there are some other commands which I recommend running when using a Tandy portable as a terminal. You can put these in your .bash_profile so they'll be sourced when you login or you can put them in a file and use `source` to read the commands into your current shell. 
+
+    # Set terminal type to Tandy 200 with no status line
+    export TERM=td200-ns
+    # Turn on software flow control (^S/^Q)
+    stty ixon ixoff
+    # Send ASCII, not Unicode UTF-8 characters
+    export LANG=C
+    # Some programs don't pay attention to the size in the TERMINFO
+    stty rows 16 cols 40
+    # Backspace key sends ^H not ^?
+    stty erase ^H
+
+# Notes on using the TELCOM program
+
+* For a standard serial port @9600 baud, type this command in TELCOM:
+    stat 88n1enn
+* 19200 bps works fine if your UNIX getty is configured to talk that speed:
+    stat 98n1enn
+* Software flow control (XON/XOFF) is absolutely necessary as the 8250 UART has a one byte buffer. 
+* Hardware flow control (RTSCTS) is not available.
+* Because of network latency software flow control may be inadequate over `ssh`.
+* To connect to a PC running UNIX, you'll need a null modem cable.
+* The Tandy Model 200 has a *FEMALE* 25 pin RS-232c port. 
+
+## Special keys:
+
+    \    GRPH -
+    |    GRPH SHIFT _
+    `	   GRPH [
+    ~	   GRPH SHIFT ]
+    {	   GRPH 9
+    }	   GRPH 0
+    ^@   GRPH P		(Sends 0x80, useful in Emacs to set the mark) 
+
+Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
+
+# History
+
+This started out as a woefully inadequate TERMCAP entry for Xenix in the back of the Radio Shack manual. It claims to be based on the DEC VT52, but that seems rather approximate.
+
+Just for historical interest, here is the original Tandy 16/Xenix termcap entry from page 72 of the TELCOM Manual:
+
+    n1|td200|Tandy 200:\
+      :am:bs:xt:co#40:li#16:al=\EL:dl=\EM:cd=^L:ce=\EK:cl=\EE:cm=\EY%+ %+ :\
+      :nd=^\:dn=^_:up=\EA:se=\Eq:so=\Ep:kl=^J:kr=^^:ku=^^:kd=^_:
+
+# Future
+
+This will hopefully eventually be added to the official TERMINFO databases used by BSD and GNU/Linux systems, but it'd be good to find out all the undocumented features before doing that. 
+
+## Questions
+
+* How does one write to the status line? 
+  It's not vt52 as that didn't have tsl/fsl.
+  h19? Nope. Didn't quite work.
+  vt100-s? Nope. Failed completely.
+  Wyse 50 labels? TODO.
+* Is it possible to read the Function keys? 
+* What about VT100 line drawing characters?
+* Should the `td200` entry default to presuming the status line _off_ (which is the preferred way to use it) or _on_ (which is how the TELCOM software always starts up). 
+* Can the TELECOM status line be switched on and off by escape codes? 
