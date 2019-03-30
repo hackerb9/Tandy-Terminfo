@@ -1,5 +1,8 @@
-# Reconstructed via infocmp from
-# file: /home/ben/.terminfo/t/td200
+# Terminfo for the Tandy portable computers from the early 1980's.
+# They came with a simple TELCOM program in ROM.
+# td200 is the Tandy Model 200.
+# td100 is the Tandy Model 100 and Model 102.
+
 td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
     lines#16, has_status_line@,
     use=td200-15-s, 
