@@ -2,7 +2,7 @@
 Tandy Model 100, 102, 200 Terminfo for screen control on UNIX machines
 
 # What is this?
-When using the TELCOM terminal program on a Tandy portable computer such as the Model 200, the remote host needs to know how to send escape sequences to do things like clear the screen, move the cursor, show text in reverse, and so on. In UNIX, that information is stored in the TERMINFO database and then used by setting the TERM environmet variable. 
+When using the TELCOM terminal program on a Tandy portable computer such as the Model 200, the remote host needs to know how to send escape sequences to do things like clear the screen, move the cursor, show text in reverse, and so on. In UNIX, that information is stored in the TERMINFO database and then used by setting the TERM environment variable. 
 
 This repository provides both the [source TERMINFO](tandy.terminfo) file and the [compiled versions](terminfo/t/). 
 
