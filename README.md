@@ -35,17 +35,17 @@ number of lines instead of whether it has a status line (`td200-15`).
 # The list of available terminals
 
 * `td200`: Tandy Model 200 (no status line). 40 columns x 16 rows.
-  Alias: `td200-ns`, `td200-16`.
+  Aliases: `td200-ns`, `td200-16`.
 * `td200-s`: Tandy Model 200 (has status line). 40 columns x 15 rows.
   Alias:`td200-15`.
 * `td100`: Tandy Model 100 (no status line). 40 columns x 8 rows.
   Aliases: `td100-ns`, `td100-8`
 * `td100-s`: Tandy Model 100 (has status line). 40 columns x 7 rows.
-  Aliases: ``td100-7`
+  Alias: `td100-7`
 * `td102`: Tandy Model 102 (no status line). 40 columns x 8 rows.
   Aliases: `td102-ns`, `td102-8`
 * `td102-s`: Tandy Model 102 (has status line). 40 columns x 7 rows.
-  Aliases: ``td102-7`
+  Alias: ``td102-7`
 
 # Suggestions
 
