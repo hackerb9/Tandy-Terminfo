@@ -4,7 +4,7 @@ Tandy Model 100, 102, 200 Terminfo for screen control on UNIX machines
 # What is this?
 When using the TELCOM terminal program on a Tandy portable computer such as the Model 200, the remote host needs to know how to send escape sequences to do things like clear the screen, move the cursor, show text in reverse, and so on. In UNIX, that information is stored in the TERMINFO database and then used by setting the TERM environment variable. 
 
-This repository provides both the [source TERMINFO](tandy.terminfo) file and the [compiled versions](terminfo/t/). 
+This repository provides both the [source TERMINFO](tandy.terminfo) file and the [compiled versions](.terminfo/t/). 
 
 # Installation
 Download the [source TERMINFO](tandy.terminfo) file and compile it with `tic` on your UNIX host.
@@ -18,11 +18,18 @@ Set your TERM environment variable to one of the available terminal types (see b
 
     export TERM=td200
     
-There are different terminal types for the Model 100 (td100) and the Model 200 (td200) as those have a different number of lines. There are also different types depending upon whether you have your status line disabled or not. If you disable the status line, use the `-ns` (no-status) variant, like so,
+There are different terminal types for the Model 100 (`td100`) and the
+Model 200 (`td200`) as those have a different number of lines.
 
-    export TERM=td200-ns
+There are also different types depending upon whether you have your
+status line disabled or not. By default it is presumed you will
+disable the status line by pressing the LABEL button. If you do not
+wish to disable the status line, use the `-s` variant, like so,
+
+    export TERM=td200-s
     
-For convenience, there are aliases so you can refer to the TERM by number of lines instead.
+For convenience, there are aliases so you can refer to the TERM by
+number of lines instead of whether it has a status line (`td200-15`).
 
 # The list of available terminals
 
@@ -38,7 +45,6 @@ For convenience, there are aliases so you can refer to the TERM by number of lin
   Aliases: `td102-ns`, `td102-8`
 * `td102-s`: Tandy Model 102 (has status line). 40 columns x 7 rows.
   Aliases: ``td102-7`
-
 
 # Suggestions
 
