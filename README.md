@@ -143,6 +143,12 @@ you can enable a serial port login like so:
 Presuming you have a serial port on `ttyS0`, of course. If you have a
 USB to serial converter, try `ttyACM0`.
 
+## Optional: allow different baud rates
+
+The default baud rates should work with the Tandy portables as 9600 is
+one of the standard ones. However, I wanted to allow both higher and
+lower speeds. 
+
 There may be a way to change the baud rates accepted using systemd,
 but I don't know it. What I did is copy over the symlink that `enable`
 created and then edited the file by hand.
