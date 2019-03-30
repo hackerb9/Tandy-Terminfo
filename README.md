@@ -131,3 +131,30 @@ This will hopefully eventually be added to the official TERMINFO databases used 
 * What about VT100 line drawing characters?
 * Should the `td200` entry default to presuming the status line _off_ (which is the preferred way to use it) or _on_ (which is how the TELCOM software always starts up). 
 * Can the TELECOM status line be switched on and off by escape codes? 
+
+# Enabling a serial login on Unix systems with systemd and agetty
+
+If you have a UNIX box running `systemd`, such as Debian GNU/Linux,
+you can enable a serial port login like so:
+
+    systemctl enable serial-getty@ttyS0
+    systemctl start serial-getty@ttyS0
+
+Presuming you have a serial port on ttyS0, of course. If you have a
+USB to serial converter, try ttyACM0.
+
+There may be a way to change the baud rates accepted using systemd,
+but I don't know it. What I did is copy over the symlink that `enable`
+created and then edited the file by hand.
+
+    cd /etc/systemd/system/getty.target.wants/
+    rm serial-getty@ttyS0.service
+    cp /lib/systemd/system/serial-getty@.service serial-getty@ttyS0.service
+    emacs serial-getty@ttyS0.service
+
+If you set the baud rate to multiple values, the agetty program will
+switch to the next one whenever you hit the ENTER key if it's at the
+wrong speed. For example, you could use the following:
+
+    ExecStart=-/sbin/agetty 115200,19200,9600,300 %I $TERM
+
