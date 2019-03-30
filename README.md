@@ -50,6 +50,12 @@ While setting the `TERM` environment variable will get you most of the way to a 
     # Backspace key sends ^H not ^?
     stty erase ^H
 
+# Testing
+
+You can test whether it worked by pressing Control-L. If it clears the screen, then you have correctly installed the TERMINFO files. You can also try running a `curses` program, such as the BSD game "worms" which animates ASCII worms crawling on your screen. (`apt install bsdgames`)
+
+Note that some poorly written programs do not use the TERMINFO file to send the correct escape sequences. Instead they presume your terminal speaks VT102 or "ANSI". Fortunately, this is not very common.  
+
 # Notes on using the TELCOM program
 
 * For a standard serial port @9600 baud, type this command in TELCOM:
@@ -64,13 +70,13 @@ While setting the `TERM` environment variable will get you most of the way to a 
 
 ## Special keys:
 
-    \    GRPH -
-    |    GRPH SHIFT _
-    `	   GRPH [
-    ~	   GRPH SHIFT ]
-    {	   GRPH 9
-    }	   GRPH 0
-    ^@   GRPH P		(Sends 0x80, useful in Emacs to set the mark) 
+    \    GRPH -          Backslash
+    |    GRPH SHIFT _    Pipe
+    `    GRPH [          Backtick
+    ~    GRPH SHIFT ]    Tilde
+    {    GRPH 9          Open curly brace
+    }    GRPH 0          Close curly brace
+    ^@   GRPH P		     Sends 0x80, useful in Emacs to set the mark 
 
 Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
 
