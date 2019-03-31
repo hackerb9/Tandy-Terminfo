@@ -45,11 +45,16 @@ number of lines instead of whether it has a status line (`td200-15`).
 * `td102`: Tandy Model 102 (no status line). 40 columns x 8 rows.
   Aliases: `td102-ns`, `td102-8`
 * `td102-s`: Tandy Model 102 (has status line). 40 columns x 7 rows.
-  Alias: ``td102-7`
+  Alias: `td102-7`
 
 # Suggestions
 
-While setting the `TERM` environment variable will get you most of the way to a usable interface, there are some other commands which I recommend running when using a Tandy portable as a terminal. You can put these in your .bash_profile so they'll be sourced when you login or you can put them in a file and use `source` to read the commands into your current shell. 
+While setting the `TERM` environment variable will get you most of the
+way to a usable interface, there are some other commands which I
+recommend running when using a Tandy portable as a terminal. You can
+put these in your `.bash_profile` so they'll be sourced when you login
+or you can put them in a file and use `source filename` to read the
+commands into your current shell.
 
     # Set terminal type to Tandy 200 with no status line
     export TERM=td200-ns
@@ -99,7 +104,7 @@ Note that some poorly written programs do not use the TERMINFO file to send the 
     ~    GRPH SHIFT ]    Tilde
     {    GRPH 9          Open curly brace
     }    GRPH 0          Close curly brace
-    ^@   GRPH P		 Sends 0x80, useful in Emacs to set the mark 
+    ^@   GRPH P          Sends 0x80, useful in Emacs to set the mark 
 
 Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
 
@@ -107,7 +112,7 @@ Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
 
 This started out as a woefully inadequate TERMCAP entry for Xenix in
 the back of the Radio Shack manual. It claims to be based on the DEC
-VT52, but that seems approximate at best.
+VT52, but that seems [approximate](compare.vt52) at best.
 
 Just for historical interest, here is the original Tandy 16/Xenix
 termcap entry from page 72 of the TELCOM Manual:
@@ -131,6 +136,10 @@ This will hopefully eventually be added to the official TERMINFO databases used 
 * What about VT100 line drawing characters?
 * Should the `td200` entry default to presuming the status line _off_ (which is the preferred way to use it) or _on_ (which is how the TELCOM software always starts up). 
 * Can the TELECOM status line be switched on and off by escape codes? 
+* Eight bit codes show up as graphics characters, but they are not in
+  Latin-1 order. Is there something that can be done about that? It'd
+  be nice to have umlauts and such
+
 
 # Enabling a serial login on Unix systems with systemd and agetty
 
@@ -168,3 +177,10 @@ When you connect with your Tandy portable, you'll see some garbage
 characters instead of a Login prompt because it is talking at 115,200
 bps. When you hit Enter, it'll try again at 19200. If you still get
 line noise, hit Enter once more for 9600.
+
+# Further Reading
+
+* terminfo(5) - terminal capability data base
+* tic(1) - the TERMINFO entry-description compiler
+* infocmp(1) - compare or print out TERMINFO descriptions
+* [Tandy 200 TELCOM manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft)
