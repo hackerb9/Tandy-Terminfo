@@ -1,21 +1,15 @@
-# Terminfo for the Tandy portable computers from the early 1980's.
-# They came with a simple TELCOM program in ROM.
+# Terminfo for the Tandy portable computers from the early 1980's
+# which came with a simple TELCOM program in ROM.
 # td200 is the Tandy Model 200, 40 cols by 16 rows.
 # td100 is the Tandy Model 100, 40 cols by 8 rows.
 # If you have the status line on, you lose a row, so use the -s version.
 
-td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
-    lines#16, has_status_line@,
-    use=td200-15-s,
-
 # Only known difference between td200 and td100 TELCOM is number of lines.
 td100|td100-8-ns|td100-8|td100-ns|Tandy 100 no status line,
-    lines#8, has_status_line@,
-    use=td200-15-s,
+    lines#8, use=td200-16-ns,
 
 td100-7-s|td100-7|td100-s|Tandy 100 has status line,
-    lines#7,
-    use=td200-15-s,
+    lines#7, use=td200-15-s,
 
 # Is there any difference between the Model 100 and the Model 102?
 td102|td102-8-ns|td102-8|td102-ns|Tandy 102 no status line,
@@ -25,22 +19,32 @@ td102-7-s|td102-7|td102-s|Tandy 102 has status line,
     use=td100-7-s,
 
 td200-15-s|td200-15|td200-s|Tandy 200 has status line,
+	lines#15, has_status_line,
+	reset_1string=\Eq\EE,
+	use=td200-16-ns,
+
+td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
+	lines#16, has_status_line@, 
+	columns#40, init_tabs#8,
+	reset_1string=\Eq\EE,
 	auto_left_margin,auto_right_margin,
 	backspaces_with_bs,
 	dest_tabs_magic_smso, xon_xoff,
-	columns#40, init_tabs#8,
-	has_status_line, lines#15,
 	bell=^G, carriage_return=^M,
 	clr_eol=\EK, clr_eos=\EJ,
-	column_address=\EY %p1%' '%+%c,
 	cursor_address=\EY%p1%' '%+%c%p2%' '%+%c,
-	cursor_up=\EA, cursor_down=\EB,
-	cursor_right=\EC, cursor_left=\ED,
+	column_address=\EY %p1%' '%+%c,
+	row_address=\EY%p1%' '%+%c ,
+	cursor_up=\EA,
+	cursor_down=\EB,
+	cursor_right=\EC,
+	cursor_left=\ED,
 	clear_screen=\EE,
 	cursor_home=\EH,
-	cursor_invisible=\EQ,
+	insert_line=\EL,
+	delete_line=\EM, 
 	cursor_normal=\EP,
-	delete_line=\EM, insert_line=\EL,
+	cursor_invisible=\EQ,
 	enter_reverse_mode=\Ep,
 	enter_standout_mode=\Ep,
 	exit_standout_mode=\Eq,
@@ -49,7 +53,5 @@ td200-15-s|td200-15|td200-s|Tandy 200 has status line,
 	key_up=^^, key_down=^_,
 	key_left=^], key_right=^\,
 	newline=^M^J,
-	reset_1string=\Eq\EE,
-	row_address=\EY%p1%' '%+%c ,
 	scroll_forward=^J,
 	set_attributes@,
