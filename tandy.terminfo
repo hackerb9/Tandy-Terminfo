@@ -1,22 +1,22 @@
 # Terminfo for the Tandy portable computers from the early 1980's
 # which came with a simple TELCOM program in ROM.
-# td200 is the Tandy Model 200, 40 cols by 16 rows.
-# td100 is the Tandy Model 100, 40 cols by 8 rows.
-# If you have the status line on, you lose a row, so use the -s version.
+# td200 is the Tandy 200, 40 cols by 16 rows.
+# td100 is the TRS-80 Model 100, 40 cols by 8 rows.
+# If the status line is on, you lose a row and should use the -s variant.
 
 
 # Only known difference between td200 and td100 TELCOM is number of lines.
-td100|td100-8-ns|td100-8|td100-ns|Tandy 100 no status line,
+td100|td100-8-ns|td100-8|td100-ns|TRS-80 Model 100 no status line,
     lines#8, use=td200-16-ns,
 
-td100-7-s|td100-7|td100-s|Tandy 100 has status line,
+td100-7-s|td100-7|td100-s|TRS-80 Model 100 has status line,
     lines#7, use=td200-15-s,
 
 # Is there any difference between the Model 100 and the Model 102?
-td102|td102-8-ns|td102-8|td102-ns|Tandy 102 no status line,
+td102|td102-8-ns|td102-8|td102-ns|TRS-80 Model 102 no status line,
     use=td100,
 
-td102-7-s|td102-7|td102-s|Tandy 102 has status line,
+td102-7-s|td102-7|td102-s|TRS-80 Model 102 has status line,
     use=td100-7-s,
 
 td200-15-s|td200-15|td200-s|Tandy 200 has status line,
