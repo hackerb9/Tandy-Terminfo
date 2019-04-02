@@ -4,6 +4,7 @@
 # td100 is the Tandy Model 100, 40 cols by 8 rows.
 # If you have the status line on, you lose a row, so use the -s version.
 
+
 # Only known difference between td200 and td100 TELCOM is number of lines.
 td100|td100-8-ns|td100-8|td100-ns|Tandy 100 no status line,
     lines#8, use=td200-16-ns,
@@ -21,6 +22,7 @@ td102-7-s|td102-7|td102-s|Tandy 102 has status line,
 td200-15-s|td200-15|td200-s|Tandy 200 has status line,
 	lines#15, has_status_line,
 	init_1string=\ET,
+	dis_status_line=\EU\EY0 \ER\EA\ET,
 	use=td200-16-ns,
 
 td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
@@ -44,6 +46,7 @@ td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
 	delete_line=\EM, 
 	cursor_normal=\EP,
 	cursor_invisible=\EQ,
+	dis_status_line=\EU\EY0 \ES\EM,
 	enter_reverse_mode=\Ep,
 	enter_standout_mode=\Ep,
 	exit_standout_mode=\Eq,
@@ -54,3 +57,8 @@ td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
 	newline=^M^J,
 	scroll_forward=^J,
 	set_attributes@,
+
+# Marginalia: terminfo can be taught to disable a status line, but it
+# doesn't know how to re-enable one. What I've done is abuse the 'dsl'
+# (dis_status_line) string to mean both. It enables the status line
+# for terminal variants like td200-s that have a status line.
