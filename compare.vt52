@@ -1,0 +1,90 @@
+$ 
+$ infocmp -L -c td200 vt52
+comparing td200 to vt52. SHOWING ONLY VALUES THEY HAVE IN COMMON.
+    comparing booleans.
+	back_color_erase= F.
+	can_change= F.
+	ceol_standout_glitch= F.
+	col_addr_glitch= F.
+	cpi_changes_res= F.
+	cr_cancels_micro_mode= F.
+	eat_newline_glitch= F.
+	erase_overstrike= F.
+	generic_type= F.
+	hard_copy= F.
+	hard_cursor= F.
+	has_meta_key= F.
+	has_print_wheel= F.
+	has_status_line= F.
+	hue_lightness_saturation= F.
+	insert_null_glitch= F.
+	lpi_changes_res= F.
+	memory_above= F.
+	memory_below= F.
+	move_insert_mode= F.
+	move_standout_mode= F.
+	needs_xon_xoff= F.
+	no_esc_ctlc= F.
+	no_pad_char= F.
+	non_dest_scroll_region= F.
+	non_rev_rmcup= F.
+	over_strike= F.
+	prtr_silent= F.
+	row_addr_glitch= F.
+	semi_auto_right_margin= F.
+	status_line_esc_ok= F.
+	tilde_glitch= F.
+	transparent_underline= F.
+    comparing numbers.
+	init_tabs= 8.
+    comparing strings.
+	bell= '^G'.
+	carriage_return= '^M'.
+	clr_eol= '\EK'.
+	clr_eos= '\EJ'.
+	cursor_address= '\EY%p1%' '%+%c%p2%' '%+%c'.
+	cursor_home= '\EH'.
+	cursor_right= '\EC'.
+	cursor_up= '\EA'.
+	key_backspace= '^H'.
+	newline= '^M^J'.
+	scroll_forward= '^J'.
+	scroll_reverse= '\EI'.
+	tab= '^I'.
+$ 
+$ infocmp -L -d td200 vt52 | tr , : | column -t -s:
+# comparing td200 to vt52 SHOWING ONLY VALUES THAT DIFFER.
+
+    comparing booleans.          td200              vt52
+	auto_left_margin         T                  F.
+	auto_right_margin        T                  F.
+	backspaces_with_bs       F                  T.
+	dest_tabs_magic_smso     T                  F.
+	xon_xoff                 T                  F.
+
+    comparing numbers.           td200              vt52
+	columns                  40                  80.
+	lines                    16                  24.
+
+    comparing strings.           td200              vt52
+	acs_chars                NULL                '+h.k0affggolpnqprrss'.
+	clear_screen             '\EE'               '\EH\EJ'.
+	column_address           '\EY %p1%' '%+%c'   NULL.
+	cursor_down              '^J'                '\EB'.
+	cursor_invisible         '\EQ'               NULL.
+	cursor_left              '^H'                '\ED'.
+	cursor_normal            '\EP'               NULL.
+	delete_line              '\EM'               NULL.
+	enter_alt_charset_mode   NULL                '\EF'.
+	enter_reverse_mode       '\Ep'               NULL.
+	enter_standout_mode      '\Ep'               NULL.
+	exit_alt_charset_mode    NULL                '\EG'.
+	exit_attribute_mode      '\Eq'               NULL.
+	exit_standout_mode       '\Eq'               NULL.
+	insert_line              '\EL'               NULL.
+	key_down                 '^_'                '\EB'.
+	key_left                 '^]'                '\ED'.
+	key_right                '^\'                '\EC'.
+	key_up                   '^^'                '\EA'.
+	reset_1string            '\Eq\EE'            NULL.
+	row_address              '\EY%p1%' '%+%c '   NULL.
