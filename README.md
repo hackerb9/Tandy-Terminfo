@@ -69,12 +69,20 @@ commands into your current shell.
 
 # Testing
 
-You can test whether it worked by pressing Control-L. If it clears the screen, then you have correctly installed the TERMINFO files. You can also try running a `curses` program, such as the BSD game "worms" which animates ASCII worms crawling on your screen. (`apt install bsdgames`)
+You can test whether it worked by pressing Control-L. If it clears the
+screen, then you have correctly installed the TERMINFO files. You can
+also try running a `curses` program, such as the BSD game "worms"
+which animates ASCII worms crawling on your screen. (`apt install
+bsdgames`)
+
+# Problems
 
 If you have trouble with the screen ocassionally scrolling, be sure
 you have the status line turned off by pressing the LABEL button.
 
-Note that some poorly written programs do not use the TERMINFO file to send the correct escape sequences. Instead they presume your terminal speaks VT102 or "ANSI". Fortunately, this is not very common.  
+Note that some poorly written programs do not use the TERMINFO file to
+send the correct escape sequences. Instead they presume your terminal
+speaks VT102 or "ANSI". Fortunately, this is not very common. 
 
 # Notes on using the TELCOM program
 
