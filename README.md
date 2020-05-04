@@ -81,7 +81,7 @@ arrow keys will work in Bash and other programs that use libreadline.
 	Control-^: previous-history
 	Control-_: next-history
 	Control-]: forward-char
-	Control-\: backward-char	# Use 'stty quit ^-' to make this work.
+	Control-\: backward-char	# Use 'stty quit undef' to make this work.
 	$endif
 
 ## Testing
@@ -94,7 +94,7 @@ bsdgames`)
 
 ## Problems
 
-* If you have trouble with the screen ocassionally scrolling, be sure
+* If you have trouble with the screen occasionally scrolling, be sure
   you have the status line turned off by pressing the LABEL button.
 
 * If you are trying to use the arrow keys, many applications will not
