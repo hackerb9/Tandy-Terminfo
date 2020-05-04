@@ -86,7 +86,7 @@ arrow keys will work in Bash and other programs that use libreadline.
 
 ### .emacs for flow control
 
-Emacs, by default uses C-s for search. You can tell emacs that the
+Emacs by default uses C-s for search. You can tell emacs that the
 td200 will be using C-s for XON/XOFF flow control by adding this to
 your .emacs file:
 
