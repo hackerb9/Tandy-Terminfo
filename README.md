@@ -23,7 +23,7 @@ Model 200 (`td200`) as those have a different number of lines.
 
 <img src="README.md.d/labelbutton.jpg" align="right">
 There are also different types depending upon whether you have your
-status line disabled or not. By default it is presumed you will
+status line ("labels") disabled or not. By default it is presumed you will
 disable the status line by pressing the LABEL button. If you do not
 wish to disable the status line, use the `-s` variant, like so,
 
@@ -67,7 +67,7 @@ commands into your current shell.
     stty rows 16 cols 40
     # Backspace key sends ^H not ^?
     stty erase ^H
-    # Left arrow sends ^\, so don't use that to abort and dump core.
+    # Right arrow key sends ^\, so don't use that to abort and dump core.
     stty quit ^-
 
 ### .inputrc for arrow keys
@@ -230,3 +230,273 @@ line noise, hit Enter once more for 9600.
 * tic(1) - the TERMINFO entry-description compiler
 * infocmp(1) - compare or print out TERMINFO descriptions
 * [Tandy 200 TELCOM manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft)
+
+# Table of Escape Sequences
+
+* \eA: cursor Up
+* \eB: cursor Down (is ^J equivalent?)
+* \eC: cursor Right
+* \eD: cursor Left (is ^H equivalent?)
+* \eE: clear screen (same as \ej?)
+* \e:
+* \eH: cursor home
+* \eI: Types Answerback id "#RSM200"
+* \eJ: clear to the end of screen
+* \eK: clear to the end of line
+* \eL: insert line
+* \eM: delete line
+* \eP: cursor normal
+* \eQ: cursor invisible
+* \eR: _not used_ mystery! (restore saved line?)
+* \eS: _not used_ mystery! (save current line?)
+* \eT: enable status line (used only in init for variants which want the labels)
+* \eU: disable status line
+* \eV: _not used_ disable scrolling
+* \eW: enable scrolling (used only in init)
+* \eY: Move to cursor address
+* \ej: _not used_ Clear screen
+* \ep: Inverse text
+* \eq: Normal text
+* \er: _not used_ Something weird. Erases current line and displays " 7A tua". Huh?
+
+# NOTEs
+
+* What Tandy calls "LABELS" I call a
+  "Status Line" because in terminfo
+  parlance "Soft Labels" is for text
+  above reprogrammable Function keys.
+  From a Unix program's perspective,
+  the Tandy Function keys are
+  immutable. While "Status Line" is
+  not quite correct as it doesn't
+  show any status, it is more correct
+  than the alternatives.
+
+* Terminfo allows codes to overwrite
+  the status line using tsl/fsl. We
+  could implement tsl, but I don't
+  see how we'd define fsl which is
+  supposed to pop back to the
+  previous cursor location. Since
+  ncurses never uses tsl/fsl, there's
+  probably no point in trying.
+
+  For anyone who cares to try, the
+  following will overwrite your
+  status line for one second and then
+  restore it.
+
+    echo $'\eU\eY0 \eS\eM'$(date)$'\eT'
+    sleep 1
+    echo $'\eU\eY0 \eR\eT'
+
+* Disable/re-enable status line
+
+  Terminfo doesn't support enabling
+  status lines, probably because
+  ncurses can't even use them. It
+  can, however, disable them with
+  "dsl".
+
+  So, I made a kludge that I think
+  actually works pretty well: the
+  "dsl" sequence for variants with
+  status lines actually enables it. I
+  think terminfo should either add
+  enable_status_line or just let dsl
+  mean "default_status_line": do the
+  right thing for this terminal.
+
+  Just for fun, my dsl strings also
+  save and restore the labels in the
+  status line using the undocumented
+  \eS and \eR escape sequence. This
+  works to properly turn off the
+  status line then to re-enable it:
+
+      $ TERM=td200
+      $ tput dsl
+      $ TERM=td200-s
+      $ tput dsl
+
+  By default, the Tandy terminals do
+  *not* rewrite the last line of the
+  screen when the status line is
+  enabled with an escape sequence. That
+  means you would not get back the line
+  that says "Prev Down Up Full". 
+
+* scroll back can be faked with HOME,
+  Insert Line \eH\eL. But should we?
+  Nah. Ncurses is smart enough to do it
+  for us.
+
+
+
+# TODO
+
+* Why do man pages have \e[m sent at
+  the end of each line, but only when
+  my PAGER is less?
+
+* Why do some programs use ANSI
+  colors when my terminal isn't
+  capable of it?
+
+  * Bash for completions.
+    (Disambiguating multiple
+    completions when hitting tab twice)
+  * git status
+  * gcc error message
+  * apt install
+
+  Is it too much trouble these days
+  to link with ncurses?
+
+* nano requires the -p option or else it grumbles about XON/XOFF
+
+* w3m doesn't work because it
+  disables flow control. However, it
+  can be run within emacs in
+  w3m-mode.
+
+* Try alternative charset 8bit?
+  ac=+X,X.X
+
+       The block graphic characters can be specified by three string capabili‐
+       ties:
+
+       as     start the alternative charset
+
+       ae     end the alternative charset
+
+       ac     pairs  of  characters.   The  first character is the name of the
+              block graphic symbol and the second characters  is  its  defini‐
+              tion.
+
+       The following names are available:
+
+       +    right arrow (>)
+       ,    left arrow (<)
+       .    down arrow (v)
+       0    full square (#)
+       I    lantern (#)
+       -    upper arrow (^)
+       '    rhombus (+)
+       a    chess board (:)
+       f    degree (')
+       g    plus-minus (#)
+       h    square (#)
+       j    right bottom corner (+)
+       k    right upper corner (+)
+       l    left upper corner (+)
+       m    left bottom corner (+)
+       n    cross (+)
+       o    upper horizontal line (-)
+       q    middle horizontal line (-)
+       s    bottom horizontal line (_)
+       t    left tee (+)
+       u    right tee (+)
+       v    bottom tee (+)
+       w    normal tee (+)
+       x    vertical line (|)
+       ~    paragraph (???)
+
+       The  values in parentheses are suggested defaults which are used by the
+       curses library, if the capabilities are missing.
+
+*   Line Graphics
+       Many  terminals have alternate character sets useful for forms-drawing.
+       Terminfo and curses build in support for the  drawing  characters  sup‐
+       ported  by  the VT100, with some characters from the AT&T 4410v1 added.
+       This alternate character set may be specified by the acsc capability.
+
+       Glyph                           ACS                Ascii         VT100
+       Name                            Name               Default       Name
+       UK pound sign                   ACS_STERLING       f             }
+       arrow pointing down             ACS_DARROW         v             .
+       arrow pointing left             ACS_LARROW         <             ,
+
+       arrow pointing right            ACS_RARROW         >             +
+       arrow pointing up               ACS_UARROW         ^             -
+       board of squares                ACS_BOARD          #             h
+       bullet                          ACS_BULLET         o             ~
+       checker board (stipple)         ACS_CKBOARD        :             a
+       degree symbol                   ACS_DEGREE         \             f
+       diamond                         ACS_DIAMOND        +             `
+       greater-than-or-equal-to        ACS_GEQUAL         >             z
+       greek pi                        ACS_PI             *             {
+       horizontal line                 ACS_HLINE          -             q
+       lantern symbol                  ACS_LANTERN        #             i
+       large plus or crossover         ACS_PLUS           +             n
+       less-than-or-equal-to           ACS_LEQUAL         <             y
+       lower left corner               ACS_LLCORNER       +             m
+       lower right corner              ACS_LRCORNER       +             j
+       not-equal                       ACS_NEQUAL         !             |
+       plus/minus                      ACS_PLMINUS        #             g
+       scan line 1                     ACS_S1             ~             o
+       scan line 3                     ACS_S3             -             p
+       scan line 7                     ACS_S7             -             r
+       scan line 9                     ACS_S9             _             s
+       solid square block              ACS_BLOCK          #             0
+       tee pointing down               ACS_TTEE           +             w
+       tee pointing left               ACS_RTEE           +             u
+       tee pointing right              ACS_LTEE           +             t
+       tee pointing up                 ACS_BTEE           +             v
+       upper left corner               ACS_ULCORNER       +             l
+       upper right corner              ACS_URCORNER       +             k
+       vertical line                   ACS_VLINE          |             x
+
+       The best way to define a new device's graphics set is to add  a  column
+       to  a  copy of this table for your terminal, giving the character which
+       (when emitted between smacs/rmacs switches) will  be  rendered  as  the
+       corresponding graphic.  Then read off the VT100/your terminal character
+       pairs right to left in sequence; these become the ACSC string.
+
+* Broken: scroll_reverse \eI just prints the letters "#RSM200", which I presume stands for Radio-Shack Model 200.
+
+* Cursor keys work in vi, but not in
+  Emacs. Emacs is doing something
+  clever to get around xon/xoff brain
+  damage. Right (^]) takes over for
+  Search Forward (normally ^S) and Up
+  (^^) is bound to quote next character
+  (usually ^Q). This is actually kind
+  of handy for me since I never use the
+  arrow keys. I just wish they had
+  bound one of the others to run Help,
+  since that is missing as ^H.
+
+* In light of orig.terminfo, double check
+  reset_1string
+
+* Checked and good: clr_eos,
+ auto_left_margin, backspaces_with_bs,
+ cursor_home, cursor_invisible,
+ cursor_normal, cursor_right,
+ cursor_down, init_tabs,
+ column/row_adddress, key_left,
+ key_right,
+
+
+comparing origtd200 to td200.
+    comparing booleans.
+	auto_left_margin: F:T.
+	xon_xoff: F:T.
+    comparing numbers.
+	init_tabs: NULL, 8.
+    comparing strings.
+	clr_eos: '^L', '\EJ'.
+	column_address: NULL, '\EY %p1%' '%+%c'.
+	cursor_down: '^_', '^J'.
+	cursor_home: NULL, '\EH'.
+	cursor_invisible: NULL, '\EQ'.
+	cursor_normal: NULL, '\EP'.
+	cursor_right: '^\', '\EC'.
+	enter_reverse_mode: NULL, '\Ep'.
+	exit_attribute_mode: NULL, '\Eq'.
+	key_left: '^J', '^]'.
+	key_right: '^^', '^\'.
+	reset_1string: NULL, '\Eq\EE'.
+	row_address: NULL, '\EY%p1%' '%+%c '.
+	scroll_reverse: NULL, '\EI'.
