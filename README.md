@@ -347,7 +347,8 @@ line noise, hit Enter once more for 9600.
   for us.
 
 
-* Comparing origtd200 to td200.
+* Comparing [original terminfo](orig.terminfo) from the TELCOM manual
+  to [this terminfo](tandy.terminfo) using infocmp.
 
 	  comparing booleans.
 	  auto_left_margin: F:T.
