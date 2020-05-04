@@ -56,6 +56,7 @@ put these in your `.bash_profile` so they'll be sourced when you login
 or you can put them in a file and use `source filename` to read the
 commands into your current shell.
 
+### tandy.bash_profile
     # Set terminal type to Tandy 200 with no status line
     export TERM=td200-ns
     # Turn on software flow control (^S/^Q)
@@ -69,7 +70,9 @@ commands into your current shell.
     # Left arrow sends ^\, so don't use that to abort and dump core.
     stty quit ^-
 
-I also recommend adding the following to your .inputrc so that the
+### .inputrc for arrow keys
+
+I also recommend adding the following to your `.inputrc` so that the
 arrow keys will work in Bash and other programs that use libreadline.
 
 	$if term=td200
