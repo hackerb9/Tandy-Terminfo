@@ -1,3 +1,5 @@
+<img align="right" src="README.md.d/worms-lowres.gif">
+
 # Tandy-Terminfo
 Tandy Model 100, 102, 200 Terminfo for screen control on UNIX machines
 
