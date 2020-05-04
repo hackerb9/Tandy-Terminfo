@@ -66,6 +66,18 @@ commands into your current shell.
     stty rows 16 cols 40
     # Backspace key sends ^H not ^?
     stty erase ^H
+    # Left arrow sends ^\, so don't use that to abort and dump core.
+    stty quit ^-
+
+I also recommend adding the following to your .inputrc so that the
+arrow keys will work in Bash and other programs that use libreadline.
+
+	$if term=td200
+	Control-^: previous-history
+	Control-_: next-history
+	Control-]: forward-char
+	Control-\: backward-char	# Use 'stty quit ^-' to make this work.
+	$endif
 
 ## Testing
 
