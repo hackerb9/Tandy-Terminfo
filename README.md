@@ -349,26 +349,26 @@ line noise, hit Enter once more for 9600.
 
 * Comparing origtd200 to td200.
 
-    comparing booleans.
-	auto_left_margin: F:T.
-	xon_xoff: F:T.
-    comparing numbers.
-	init_tabs: NULL, 8.
-    comparing strings.
-	clr_eos: '^L', '\EJ'.
-	column_address: NULL, '\EY %p1%' '%+%c'.
-	cursor_down: '^_', '^J'.
-	cursor_home: NULL, '\EH'.
-	cursor_invisible: NULL, '\EQ'.
-	cursor_normal: NULL, '\EP'.
-	cursor_right: '^\', '\EC'.
-	enter_reverse_mode: NULL, '\Ep'.
-	exit_attribute_mode: NULL, '\Eq'.
-	key_left: '^J', '^]'.
-	key_right: '^^', '^\'.
-	reset_1string: NULL, '\Eq\EE'.
-	row_address: NULL, '\EY%p1%' '%+%c '.
-	scroll_reverse: NULL, '\EI'.
+	  comparing booleans.
+	  auto_left_margin: F:T.
+	  xon_xoff: F:T.
+	  comparing numbers.
+	  init_tabs: NULL, 8.
+	  comparing strings.
+	  clr_eos: '^L', '\EJ'.
+	  column_address: NULL, '\EY %p1%' '%+%c'.
+	  cursor_down: '^_', '^J'.
+	  cursor_home: NULL, '\EH'.
+	  cursor_invisible: NULL, '\EQ'.
+	  cursor_normal: NULL, '\EP'.
+	  cursor_right: '^\', '\EC'.
+	  enter_reverse_mode: NULL, '\Ep'.
+	  exit_attribute_mode: NULL, '\Eq'.
+	  key_left: '^J', '^]'.
+	  key_right: '^^', '^\'.
+	  reset_1string: NULL, '\Eq\EE'.
+	  row_address: NULL, '\EY%p1%' '%+%c '.
+	  scroll_reverse: NULL, '\EI'.
 
 
 ## TODO
