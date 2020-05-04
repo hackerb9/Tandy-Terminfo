@@ -137,7 +137,7 @@ bsdgames`)
   please file a bug with this project. Bug reports are always
   appreciated.
 
-# Notes on using the TELCOM program
+## Notes on using the TELCOM program
 
 * For a standard serial port @9600 baud, type this command in TELCOM:
 
@@ -157,7 +157,7 @@ bsdgames`)
 
 * The Tandy Model 200 has a *FEMALE* 25 pin RS-232c port. 
 
-## Special keys:
+### Special keys:
 
     \    GRPH -          Backslash
     |    GRPH SHIFT _    Pipe
@@ -202,7 +202,7 @@ This will hopefully eventually be added to the official TERMINFO databases used 
   be nice to have umlauts and such
 
 
-# Enabling a serial login on Unix systems with systemd and agetty
+## Enabling a serial login on Unix systems with systemd and agetty
 
 If you have a UNIX box running `systemd`, such as Debian GNU/Linux,
 you can enable a serial port login like so:
@@ -246,7 +246,7 @@ line noise, hit Enter once more for 9600.
 * infocmp(1) - compare or print out TERMINFO descriptions
 * [Tandy 200 TELCOM manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft)
 
-# Table of Escape Sequences
+## Table of Escape Sequences
 
 * \eA: cursor Up
 * \eB: cursor Down (is ^J equivalent?)
@@ -274,7 +274,7 @@ line noise, hit Enter once more for 9600.
 * \eq: Normal text
 * \er: _not used_ Something weird. Erases current line and displays " 7A tua". Huh?
 
-# NOTEs
+## NOTEs
 
 * What Tandy calls "LABELS" I call a
   "Status Line" because in terminfo
@@ -348,10 +348,10 @@ line noise, hit Enter once more for 9600.
 
 
 
-# TODO
+## TODO
 
-* Why do man pages have \e[m sent at
-  the end of each line, but only when
+* Why do man pages have `\e[m` sent at
+  the end of each line, but *only* when
   my PAGER is less?
 
 * Why do some programs use ANSI
@@ -368,7 +368,7 @@ line noise, hit Enter once more for 9600.
   Is it too much trouble these days
   to link with ncurses?
 
-* nano requires the -p option or else it grumbles about XON/XOFF
+* `nano` requires the -p option or else it grumbles about XON/XOFF
 
 * w3m doesn't work because it
   disables flow control. However, it
@@ -420,53 +420,53 @@ line noise, hit Enter once more for 9600.
        The  values in parentheses are suggested defaults which are used by the
        curses library, if the capabilities are missing.
 
-*   Line Graphics
-       Many  terminals have alternate character sets useful for forms-drawing.
-       Terminfo and curses build in support for the  drawing  characters  sup‐
-       ported  by  the VT100, with some characters from the AT&T 4410v1 added.
-       This alternate character set may be specified by the acsc capability.
+* Line Graphics
 
-       Glyph                           ACS                Ascii         VT100
-       Name                            Name               Default       Name
-       UK pound sign                   ACS_STERLING       f             }
-       arrow pointing down             ACS_DARROW         v             .
-       arrow pointing left             ACS_LARROW         <             ,
+  Many  terminals have alternate character sets useful for forms-drawing.
+  Terminfo and curses build in support for the  drawing  characters  sup‐
+  ported  by  the VT100, with some characters from the AT&T 4410v1 added.
+  This alternate character set may be specified by the `acsc` capability.
 
-       arrow pointing right            ACS_RARROW         >             +
-       arrow pointing up               ACS_UARROW         ^             -
-       board of squares                ACS_BOARD          #             h
-       bullet                          ACS_BULLET         o             ~
-       checker board (stipple)         ACS_CKBOARD        :             a
-       degree symbol                   ACS_DEGREE         \             f
-       diamond                         ACS_DIAMOND        +             `
-       greater-than-or-equal-to        ACS_GEQUAL         >             z
-       greek pi                        ACS_PI             *             {
-       horizontal line                 ACS_HLINE          -             q
-       lantern symbol                  ACS_LANTERN        #             i
-       large plus or crossover         ACS_PLUS           +             n
-       less-than-or-equal-to           ACS_LEQUAL         <             y
-       lower left corner               ACS_LLCORNER       +             m
-       lower right corner              ACS_LRCORNER       +             j
-       not-equal                       ACS_NEQUAL         !             |
-       plus/minus                      ACS_PLMINUS        #             g
-       scan line 1                     ACS_S1             ~             o
-       scan line 3                     ACS_S3             -             p
-       scan line 7                     ACS_S7             -             r
-       scan line 9                     ACS_S9             _             s
-       solid square block              ACS_BLOCK          #             0
-       tee pointing down               ACS_TTEE           +             w
-       tee pointing left               ACS_RTEE           +             u
-       tee pointing right              ACS_LTEE           +             t
-       tee pointing up                 ACS_BTEE           +             v
-       upper left corner               ACS_ULCORNER       +             l
-       upper right corner              ACS_URCORNER       +             k
-       vertical line                   ACS_VLINE          |             x
+      Glyph                           ACS                Ascii         VT100
+      Name                            Name               Default       Name
+      UK pound sign                   ACS_STERLING       f             }
+      arrow pointing down             ACS_DARROW         v             .
+      arrow pointing left             ACS_LARROW         <             ,
+      arrow pointing right            ACS_RARROW         >             +
+      arrow pointing up               ACS_UARROW         ^             -
+      board of squares                ACS_BOARD          #             h
+      bullet                          ACS_BULLET         o             ~
+      checker board (stipple)         ACS_CKBOARD        :             a
+      degree symbol                   ACS_DEGREE         \             f
+      diamond                         ACS_DIAMOND        +             `
+      greater-than-or-equal-to        ACS_GEQUAL         >             z
+      greek pi                        ACS_PI             *             {
+      horizontal line                 ACS_HLINE          -             q
+      lantern symbol                  ACS_LANTERN        #             i
+      large plus or crossover         ACS_PLUS           +             n
+      less-than-or-equal-to           ACS_LEQUAL         <             y
+      lower left corner               ACS_LLCORNER       +             m
+      lower right corner              ACS_LRCORNER       +             j
+      not-equal                       ACS_NEQUAL         !             |
+      plus/minus                      ACS_PLMINUS        #             g
+      scan line 1                     ACS_S1             ~             o
+      scan line 3                     ACS_S3             -             p
+      scan line 7                     ACS_S7             -             r
+      scan line 9                     ACS_S9             _             s
+      solid square block              ACS_BLOCK          #             0
+      tee pointing down               ACS_TTEE           +             w
+      tee pointing left               ACS_RTEE           +             u
+      tee pointing right              ACS_LTEE           +             t
+      tee pointing up                 ACS_BTEE           +             v
+      upper left corner               ACS_ULCORNER       +             l
+      upper right corner              ACS_URCORNER       +             k
+      vertical line                   ACS_VLINE          |             x
 
-       The best way to define a new device's graphics set is to add  a  column
-       to  a  copy of this table for your terminal, giving the character which
-       (when emitted between smacs/rmacs switches) will  be  rendered  as  the
-       corresponding graphic.  Then read off the VT100/your terminal character
-       pairs right to left in sequence; these become the ACSC string.
+  The best way to define a new device's graphics set is to add  a  column
+  to  a  copy of this table for your terminal, giving the character which
+  (when emitted between smacs/rmacs switches) will  be  rendered  as  the
+  corresponding graphic.  Then read off the VT100/your terminal character
+  pairs right to left in sequence; these become the ACSC string.
 
 * Broken: scroll_reverse \eI just prints the letters "#RSM200", which I presume stands for Radio-Shack Model 200.
 
@@ -486,15 +486,16 @@ line noise, hit Enter once more for 9600.
   reset_1string
 
 * Checked and good: clr_eos,
- auto_left_margin, backspaces_with_bs,
- cursor_home, cursor_invisible,
- cursor_normal, cursor_right,
- cursor_down, init_tabs,
- column/row_adddress, key_left,
- key_right,
+  auto_left_margin, backspaces_with_bs,
+  cursor_home, cursor_invisible,
+  cursor_normal, cursor_right,
+  cursor_down, init_tabs,
+  column/row_adddress, key_left,
+  key_right,
 
 
-comparing origtd200 to td200.
+## Comparing origtd200 to td200.
+
     comparing booleans.
 	auto_left_margin: F:T.
 	xon_xoff: F:T.
