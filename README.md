@@ -301,9 +301,9 @@ line noise, hit Enter once more for 9600.
   status line for one second and then
   restore it.
 
-    echo $'\eU\eY0 \eS\eM'$(date)$'\eT'
-    sleep 1
-    echo $'\eU\eY0 \eR\eT'
+	  echo $'\eU\eY0 \eS\eM'$(date)$'\eT'
+	  sleep 1
+	  echo $'\eU\eY0 \eR\eT'
 
 * Disable/re-enable status line
 
