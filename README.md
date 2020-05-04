@@ -1,19 +1,19 @@
 # Tandy-Terminfo
 Tandy Model 100, 102, 200 Terminfo for screen control on UNIX machines
 
-# What is this?
+## What is this?
 When using the TELCOM terminal program on a Tandy portable computer such as the Model 200, the remote host needs to know how to send escape sequences to do things like clear the screen, move the cursor, show text in reverse, and so on. In UNIX, that information is stored in the TERMINFO database and then used by setting the TERM environment variable. 
 
 This repository provides both the [source TERMINFO](tandy.terminfo) file and the [compiled versions](.terminfo/t/). 
 
-# Installation
+## Installation
 Download the [source TERMINFO](tandy.terminfo) file and compile it with `tic` on your UNIX host.
 
     tic tandy.terminfo
     
 That will create the proper files in your `.terminfo` directory so they can be used immediately.
 
-# Usage
+## Usage
 Set your TERM environment variable to one of the available terminal types (see below) to inform programs how to talk to your Tandy. For example,
 
     export TERM=td200
@@ -32,7 +32,7 @@ wish to disable the status line, use the `-s` variant, like so,
 For convenience, there are aliases so you can refer to the TERM by
 number of lines instead of whether it has a status line (`td200-15`).
 
-# The list of available terminals
+## The list of available terminals
 
 * `td200`: Tandy Model 200 (no status line). 40 columns x 16 rows.
   Aliases: `td200-ns`, `td200-16`.
@@ -47,7 +47,7 @@ number of lines instead of whether it has a status line (`td200-15`).
 * `td102-s`: Tandy Model 102 (has status line). 40 columns x 7 rows.
   Alias: `td102-7`
 
-# Suggestions
+## Suggestions
 
 While setting the `TERM` environment variable will get you most of the
 way to a usable interface, there are some other commands which I
@@ -67,7 +67,7 @@ commands into your current shell.
     # Backspace key sends ^H not ^?
     stty erase ^H
 
-# Testing
+## Testing
 
 You can test whether it worked by pressing Control-L. If it clears the
 screen, then you have correctly installed the TERMINFO files. You can
@@ -75,14 +75,37 @@ also try running a `curses` program, such as the BSD game "worms"
 which animates ASCII worms crawling on your screen. (`apt install
 bsdgames`)
 
-# Problems
+## Problems
 
-If you have trouble with the screen ocassionally scrolling, be sure
-you have the status line turned off by pressing the LABEL button.
+* If you have trouble with the screen ocassionally scrolling, be sure
+  you have the status line turned off by pressing the LABEL button.
 
-Note that some poorly written programs do not use the TERMINFO file to
-send the correct escape sequences. Instead they presume your terminal
-speaks VT102 or "ANSI". Fortunately, this is not very common. 
+* If you are trying to use the arrow keys, many applications will not
+  accept them because Tandy's TELCOM program sends them as simple
+  control-key characters instead of escape sequences.
+
+        key_up=^^, key_down=^_,
+        key_left=^], key_right=^\,
+
+* If control-L clears the screen, but certain programs show
+  uninterpreted escape sequences (e.g., `0;m`), then the problem is
+  that those programs are not using TERMINFO correctly. They are
+  instead implementing VT102 or "ANSI" terminal escape sequences
+  themselves which not only is redundant work, it is incorrect.
+
+  Reportedly buggy programs:
+  * man and pacman
+  * bash's PS1 prompt
+  * w3m (works if *Display With Color* option is set to 0, `w3m -color=0`)
+  * git (works, but shows `31m` for colors). 
+
+  You can test if an application is indeed buggy by running `xterm -ti
+  vt52 -tn vt52`. If that terminal shows the same errors as on your
+  Tandy Model 100/102/200, then it is the program that is at fault and
+  you should file a bug report with that project. On the other hand,
+  if vt52 works (does not show escape sequences) but Tandy doesn't,
+  please file a bug with this project. Bug reports are always
+  appreciated.
 
 # Notes on using the TELCOM program
 
@@ -116,7 +139,7 @@ speaks VT102 or "ANSI". Fortunately, this is not very common.
 
 Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
 
-# History
+## History
 
 This started out as a woefully inadequate TERMCAP entry for Xenix in
 the back of the Radio Shack manual. It claims to be based on the DEC
@@ -129,11 +152,11 @@ termcap entry from page 72 of the TELCOM Manual:
       :am:bs:xt:co#40:li#16:al=\EL:dl=\EM:cd=^L:ce=\EK:cl=\EE:cm=\EY%+ %+ :\
       :nd=^\:dn=^_:up=\EA:se=\Eq:so=\Ep:kl=^J:kr=^^:ku=^^:kd=^_:
 
-# Future
+## Future
 
 This will hopefully eventually be added to the official TERMINFO databases used by BSD and GNU/Linux systems, but it'd be good to find out all the undocumented features before doing that. 
 
-## Questions
+### Questions
 
 * How does one write to the status line? 
   It's not vt52 as that didn't have tsl/fsl.
@@ -160,7 +183,7 @@ you can enable a serial port login like so:
 Presuming you have a serial port on `ttyS0`, of course. If you have a
 USB to serial converter, try `ttyACM0`.
 
-## Optional: allow different baud rates
+### Optional: allow different baud rates
 
 The default baud rates should work with the Tandy portables as 9600 is
 one of the standard ones. However, I wanted to allow both higher and
@@ -186,7 +209,7 @@ characters instead of a Login prompt because it is talking at 115,200
 bps. When you hit Enter, it'll try again at 19200. If you still get
 line noise, hit Enter once more for 9600.
 
-# Further Reading
+## Further Reading
 
 * terminfo(5) - terminal capability data base
 * tic(1) - the TERMINFO entry-description compiler
