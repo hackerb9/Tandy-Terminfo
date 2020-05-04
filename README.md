@@ -84,6 +84,17 @@ arrow keys will work in Bash and other programs that use libreadline.
 	Control-\: backward-char	# Use 'stty quit undef' to make this work.
 	$endif
 
+### .emacs for flow control
+
+Emacs, by default uses C-s for search. You can tell emacs that the
+td200 will be using C-s for XON/XOFF flow control by adding this to
+your .emacs file:
+
+	;; Tandy 200 is too slow and 
+	;; requires XON/XOFF flow control.
+	(enable-flow-control-on "td200")
+
+
 ## Testing
 
 You can test whether it worked by pressing Control-L. If it clears the
@@ -103,6 +114,8 @@ bsdgames`)
 
         key_up=^^, key_down=^_,
         key_left=^], key_right=^\,
+
+  However, see the workaround above for Bash and other readline programs.
 
 * If control-L clears the screen, but certain programs show
   uninterpreted escape sequences (e.g., `0;m`), then the problem is
