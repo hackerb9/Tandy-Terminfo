@@ -347,6 +347,29 @@ line noise, hit Enter once more for 9600.
   for us.
 
 
+* Comparing origtd200 to td200.
+
+    comparing booleans.
+	auto_left_margin: F:T.
+	xon_xoff: F:T.
+    comparing numbers.
+	init_tabs: NULL, 8.
+    comparing strings.
+	clr_eos: '^L', '\EJ'.
+	column_address: NULL, '\EY %p1%' '%+%c'.
+	cursor_down: '^_', '^J'.
+	cursor_home: NULL, '\EH'.
+	cursor_invisible: NULL, '\EQ'.
+	cursor_normal: NULL, '\EP'.
+	cursor_right: '^\', '\EC'.
+	enter_reverse_mode: NULL, '\Ep'.
+	exit_attribute_mode: NULL, '\Eq'.
+	key_left: '^J', '^]'.
+	key_right: '^^', '^\'.
+	reset_1string: NULL, '\Eq\EE'.
+	row_address: NULL, '\EY%p1%' '%+%c '.
+	scroll_reverse: NULL, '\EI'.
+
 
 ## TODO
 
@@ -420,7 +443,34 @@ line noise, hit Enter once more for 9600.
        The  values in parentheses are suggested defaults which are used by the
        curses library, if the capabilities are missing.
 
-* Line Graphics
+* Broken: scroll_reverse `\eI` just prints the letters "#RSM200",
+  which I presume stands for Radio-Shack Model 200.
+
+* Cursor keys work in vi, but not in
+  Emacs. Emacs is doing something
+  clever to get around xon/xoff brain
+  damage. Right (^]) takes over for
+  Search Forward (normally ^S) and Up
+  (^^) is bound to quote next character
+  (usually ^Q). This is actually kind
+  of handy for me since I never use the
+  arrow keys. I just wish they had
+  bound one of the others to run Help,
+  since that is missing as ^H.
+
+* In light of orig.terminfo, double check
+  reset_1string
+
+* Checked and good: clr_eos,
+  auto_left_margin, backspaces_with_bs,
+  cursor_home, cursor_invisible,
+  cursor_normal, cursor_right,
+  cursor_down, init_tabs,
+  column/row_adddress, key_left,
+  key_right,
+
+
+## Line Graphics (from the terminfo(5) manpage)
 
   Many  terminals have alternate character sets useful for forms-drawing.
   Terminfo and curses build in support for the  drawing  characters  sup‐
@@ -467,52 +517,3 @@ line noise, hit Enter once more for 9600.
   (when emitted between smacs/rmacs switches) will  be  rendered  as  the
   corresponding graphic.  Then read off the VT100/your terminal character
   pairs right to left in sequence; these become the ACSC string.
-
-* Broken: scroll_reverse \eI just prints the letters "#RSM200", which I presume stands for Radio-Shack Model 200.
-
-* Cursor keys work in vi, but not in
-  Emacs. Emacs is doing something
-  clever to get around xon/xoff brain
-  damage. Right (^]) takes over for
-  Search Forward (normally ^S) and Up
-  (^^) is bound to quote next character
-  (usually ^Q). This is actually kind
-  of handy for me since I never use the
-  arrow keys. I just wish they had
-  bound one of the others to run Help,
-  since that is missing as ^H.
-
-* In light of orig.terminfo, double check
-  reset_1string
-
-* Checked and good: clr_eos,
-  auto_left_margin, backspaces_with_bs,
-  cursor_home, cursor_invisible,
-  cursor_normal, cursor_right,
-  cursor_down, init_tabs,
-  column/row_adddress, key_left,
-  key_right,
-
-
-## Comparing origtd200 to td200.
-
-    comparing booleans.
-	auto_left_margin: F:T.
-	xon_xoff: F:T.
-    comparing numbers.
-	init_tabs: NULL, 8.
-    comparing strings.
-	clr_eos: '^L', '\EJ'.
-	column_address: NULL, '\EY %p1%' '%+%c'.
-	cursor_down: '^_', '^J'.
-	cursor_home: NULL, '\EH'.
-	cursor_invisible: NULL, '\EQ'.
-	cursor_normal: NULL, '\EP'.
-	cursor_right: '^\', '\EC'.
-	enter_reverse_mode: NULL, '\Ep'.
-	exit_attribute_mode: NULL, '\Eq'.
-	key_left: '^J', '^]'.
-	key_right: '^^', '^\'.
-	reset_1string: NULL, '\Eq\EE'.
-	row_address: NULL, '\EY%p1%' '%+%c '.
-	scroll_reverse: NULL, '\EI'.
