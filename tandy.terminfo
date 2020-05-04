@@ -57,6 +57,7 @@ td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
 	newline=^M^J,
 	scroll_forward=^J,
 	set_attributes@,
+	max_colors@,
 
 ### Marginalia: terminfo can be
 # taught to disable a status line,
