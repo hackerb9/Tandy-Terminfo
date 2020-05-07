@@ -70,7 +70,7 @@ commands into your current shell.
     # Backspace key sends ^H not ^?
     stty erase ^H
     # Right arrow key sends ^\, so don't use that to abort and dump core.
-    stty quit ^-
+    stty quit undef
 
 ### .inputrc for arrow keys
 
