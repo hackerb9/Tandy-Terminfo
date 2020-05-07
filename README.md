@@ -78,10 +78,11 @@ I also recommend adding the following to your `.inputrc` so that the
 arrow keys will work in Bash and other programs that use libreadline.
 
 	$if term=td200
+	Control-?: delete-char
 	Control-^: previous-history
 	Control-_: next-history
-	Control-]: forward-char
-	Control-\: backward-char	# Use 'stty quit undef' to make this work.
+	Control-]: backward-char
+	Control-\: forward-char	# Use 'stty quit undef' to make this work.
 	$endif
 
 ### .emacs for flow control
