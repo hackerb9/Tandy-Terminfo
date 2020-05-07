@@ -1,0 +1,270 @@
+t<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>README.html</title>
+
+</head>
+
+<body>
+
+<h1>Tandy-Terminfo</h1>
+
+<p>Tandy Model 100, 102, 200 Terminfo for screen control on UNIX machines</p>
+
+<h2>What is this?</h2>
+
+<p>When using the TELCOM terminal program on a Tandy portable computer such as the Model 200, the remote host needs to know how to send escape sequences to do things like clear the screen, move the cursor, show text in reverse, and so on. In UNIX, that information is stored in the TERMINFO database and then used by setting the TERM environment variable.</p>
+
+<p>This repository provides both the <a href="tandy.terminfo">source TERMINFO</a> file and the <a href=".terminfo/t/">compiled versions</a>.</p>
+
+<h2>Installation</h2>
+
+<p>Download the <a href="tandy.terminfo">source TERMINFO</a> file and compile it with <code>tic</code> on your UNIX host.</p>
+
+<pre><code>tic tandy.terminfo
+</code></pre>
+
+<p>That will create the proper files in your <code>.terminfo</code> directory so they can be used immediately.</p>
+
+<h2>Usage</h2>
+
+<p>Set your TERM environment variable to one of the available terminal types (see below) to inform programs how to talk to your Tandy. For example,</p>
+
+<pre><code>export TERM=td200
+</code></pre>
+
+<p>There are different terminal types for the Model 100 (<code>td100</code>) and the
+Model 200 (<code>td200</code>) as those have a different number of lines.</p>
+
+<p><img src="README.md.d/labelbutton.jpg" align="right">
+There are also different types depending upon whether you have your
+status line disabled or not. By default it is presumed you will
+disable the status line by pressing the LABEL button. If you do not
+wish to disable the status line, use the <code>-s</code> variant, like so,</p>
+
+<pre><code>export TERM=td200-s
+</code></pre>
+
+<p>For convenience, there are aliases so you can refer to the TERM by
+number of lines instead of whether it has a status line (<code>td200-15</code>).</p>
+
+<h2>The list of available terminals</h2>
+
+<ul>
+<li><code>td200</code>: Tandy Model 200 (no status line). 40 columns x 16 rows.
+Aliases: <code>td200-ns</code>, <code>td200-16</code>.</li>
+<li><code>td200-s</code>: Tandy Model 200 (has status line). 40 columns x 15 rows.
+Alias:<code>td200-15</code>.</li>
+<li><code>td100</code>: Tandy Model 100 (no status line). 40 columns x 8 rows.
+Aliases: <code>td100-ns</code>, <code>td100-8</code></li>
+<li><code>td100-s</code>: Tandy Model 100 (has status line). 40 columns x 7 rows.
+Alias: <code>td100-7</code></li>
+<li><code>td102</code>: Tandy Model 102 (no status line). 40 columns x 8 rows.
+Aliases: <code>td102-ns</code>, <code>td102-8</code></li>
+<li><code>td102-s</code>: Tandy Model 102 (has status line). 40 columns x 7 rows.
+Alias: <code>td102-7</code></li>
+</ul>
+
+
+<h2>Suggestions</h2>
+
+<p>While setting the <code>TERM</code> environment variable will get you most of the
+way to a usable interface, there are some other commands which I
+recommend running when using a Tandy portable as a terminal. You can
+put these in your <code>.bash_profile</code> so they&rsquo;ll be sourced when you login
+or you can put them in a file and use <code>source filename</code> to read the
+commands into your current shell.</p>
+
+<pre><code># Set terminal type to Tandy 200 with no status line
+export TERM=td200-ns
+# Turn on software flow control (^S/^Q)
+stty ixon ixoff
+# Send ASCII, not Unicode UTF-8 characters
+export LANG=C
+# Some programs don't pay attention to the size in the TERMINFO
+stty rows 16 cols 40
+# Backspace key sends ^H not ^?
+stty erase ^H
+# Left arrow sends ^\, so don't use that to abort and dump core.
+stty quit ^-
+</code></pre>
+
+<p>I also recommend adding the following to your .inputrc so that the
+arrow keys will work in Bash and other programs that use libreadline.</p>
+
+<pre><code>$if term=td200
+Control-^: previous-history
+Control-_: next-history
+Control-]: forward-char
+Control-\: backward-char    # Use 'stty quit ^-' to make this work.
+$endif
+</code></pre>
+
+<h2>Testing</h2>
+
+<p>You can test whether it worked by pressing Control-L. If it clears the
+screen, then you have correctly installed the TERMINFO files. You can
+also try running a <code>curses</code> program, such as the BSD game &ldquo;worms&rdquo;
+which animates ASCII worms crawling on your screen. (<code>apt install
+bsdgames</code>)</p>
+
+<h2>Problems</h2>
+
+<ul>
+<li><p>If you have trouble with the screen ocassionally scrolling, be sure
+you have the status line turned off by pressing the LABEL button.</p></li>
+<li><p>If you are trying to use the arrow keys, many applications will not
+accept them because Tandy&rsquo;s TELCOM program sends them as simple
+control-key characters instead of escape sequences.</p>
+
+<pre><code>  key_up=^^, key_down=^_,
+  key_left=^], key_right=^\,
+</code></pre></li>
+<li><p>If control-L clears the screen, but certain programs show
+uninterpreted escape sequences (e.g., <code>0;m</code>), then the problem is
+that those programs are not using TERMINFO correctly. They are
+instead implementing VT102 or &ldquo;ANSI&rdquo; terminal escape sequences
+themselves which not only is redundant work, it is incorrect.</p>
+
+<p>Reportedly buggy programs:</p>
+
+<ul>
+<li>man and pacman</li>
+<li>bash&rsquo;s PS1 prompt</li>
+<li>w3m (works if <em>Display With Color</em> option is set to 0, <code>w3m -color=0</code>)</li>
+<li>git (works, but shows <code>31m</code> for colors).</li>
+</ul>
+
+
+<p>You can test if an application is indeed buggy by running <code>xterm -ti
+vt52 -tn vt52</code>. If that terminal shows the same errors as on your
+Tandy Model 100/102/200, then it is the program that is at fault and
+you should file a bug report with that project. On the other hand,
+if vt52 works (does not show escape sequences) but Tandy doesn&rsquo;t,
+please file a bug with this project. Bug reports are always
+appreciated.</p></li>
+</ul>
+
+
+<h1>Notes on using the TELCOM program</h1>
+
+<ul>
+<li><p>For a standard serial port @9600 baud, type this command in TELCOM:</p>
+
+<p>  stat 88n1enn</p></li>
+<li><p>19200 bps works fine if your UNIX getty is configured to talk that speed:</p>
+
+<p>  stat 98n1enn</p></li>
+<li><p>Software flow control (XON/XOFF) is absolutely necessary as the 8250 UART has a one byte buffer.</p></li>
+<li><p>Hardware flow control (RTS/CTS) is not available.</p></li>
+<li><p>Because of network latency software flow control may be inadequate over <code>ssh</code>.</p></li>
+<li><p>To connect to a PC running UNIX, you&rsquo;ll need a null modem cable.</p></li>
+<li><p>The Tandy Model 200 has a <em>FEMALE</em> 25 pin RS-232c port.</p></li>
+</ul>
+
+
+<h2>Special keys:</h2>
+
+<pre><code>\    GRPH -          Backslash
+|    GRPH SHIFT _    Pipe
+`    GRPH [          Backtick
+~    GRPH SHIFT ]    Tilde
+{    GRPH 9          Open curly brace
+}    GRPH 0          Close curly brace
+^@   GRPH P          Sends 0x80, useful in Emacs to set the mark 
+</code></pre>
+
+<p>Note that Tandy docs say CTRL-@ is supposed to work, but it does not.</p>
+
+<h2>History</h2>
+
+<p>This started out as a woefully inadequate TERMCAP entry for Xenix in
+the back of the Radio Shack manual. It claims to be based on the DEC
+VT52, but that seems <a href="compare.vt52">approximate</a> at best.</p>
+
+<p>Just for historical interest, here is the original Tandy 16/Xenix
+termcap entry from page 72 of the TELCOM Manual:</p>
+
+<pre><code>n1|td200|Tandy 200:\
+  :am:bs:xt:co#40:li#16:al=\EL:dl=\EM:cd=^L:ce=\EK:cl=\EE:cm=\EY%+ %+ :\
+  :nd=^\:dn=^_:up=\EA:se=\Eq:so=\Ep:kl=^J:kr=^^:ku=^^:kd=^_:
+</code></pre>
+
+<h2>Future</h2>
+
+<p>This will hopefully eventually be added to the official TERMINFO databases used by BSD and GNU/Linux systems, but it&rsquo;d be good to find out all the undocumented features before doing that.</p>
+
+<h3>Questions</h3>
+
+<ul>
+<li>How does one write to the status line?
+It&rsquo;s not vt52 as that didn&rsquo;t have tsl/fsl.
+h19? Nope. Didn&rsquo;t quite work.
+vt100-s? Nope. Failed completely.
+Wyse 50 labels? TODO.</li>
+<li>Is it possible to read the Function keys?</li>
+<li>What about VT100 line drawing characters?</li>
+<li>Should the <code>td200</code> entry default to presuming the status line <em>off</em> (which is the preferred way to use it) or <em>on</em> (which is how the TELCOM software always starts up).</li>
+<li>Can the TELECOM status line be switched on and off by escape codes?</li>
+<li>Eight bit codes show up as graphics characters, but they are not in
+Latin-1 order. Is there something that can be done about that? It&rsquo;d
+be nice to have umlauts and such</li>
+</ul>
+
+
+<h1>Enabling a serial login on Unix systems with systemd and agetty</h1>
+
+<p>If you have a UNIX box running <code>systemd</code>, such as Debian GNU/Linux,
+you can enable a serial port login like so:</p>
+
+<pre><code>systemctl enable serial-getty@ttyS0
+systemctl start serial-getty@ttyS0
+</code></pre>
+
+<p>Presuming you have a serial port on <code>ttyS0</code>, of course. If you have a
+USB to serial converter, try <code>ttyACM0</code>.</p>
+
+<h3>Optional: allow different baud rates</h3>
+
+<p>The default baud rates should work with the Tandy portables as 9600 is
+one of the standard ones. However, I wanted to allow both higher and
+lower speeds.</p>
+
+<p>There may be a way to change the baud rates accepted using systemd,
+but I don&rsquo;t know it. What I did is copy over the symlink that <code>enable</code>
+created and then edited the file by hand.</p>
+
+<pre><code>cd /etc/systemd/system/getty.target.wants/
+rm serial-getty@ttyS0.service
+cp /lib/systemd/system/serial-getty@.service serial-getty@ttyS0.service
+emacs serial-getty@ttyS0.service
+</code></pre>
+
+<p>If you set the baud rate to multiple values, the agetty program will
+switch to the next one, if it&rsquo;s at the wrong speed, whenever you hit
+the ENTER key. For example, you could use the following:</p>
+
+<pre><code>ExecStart=-/sbin/agetty 115200,19200,9600,300 %I $TERM
+</code></pre>
+
+<p>When you connect with your Tandy portable, you&rsquo;ll see some garbage
+characters instead of a Login prompt because it is talking at 115,200
+bps. When you hit Enter, it&rsquo;ll try again at 19200. If you still get
+line noise, hit Enter once more for 9600.</p>
+
+<h2>Further Reading</h2>
+
+<ul>
+<li>terminfo(5) - terminal capability data base</li>
+<li>tic(1) - the TERMINFO entry-description compiler</li>
+<li>infocmp(1) - compare or print out TERMINFO descriptions</li>
+<li><a href="https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft">Tandy 200 TELCOM manual</a></li>
+</ul>
+
+
+</body>
+</html>
