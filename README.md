@@ -293,10 +293,10 @@ terminfo](tandy.terminfo) for this project.
 	$ infocmp -L -d origtd200 td200 | tr , : | column -t -s:
 	comparing origtd200 to td200.
 		comparing booleans.
-			auto_left_margin        F     T.
-			xon_xoff                F     T.
+			auto_left_margin        F       T.
+			xon_xoff                F       T.
 		comparing numbers.
-			init_tabs               NULL   8.
+			init_tabs               NULL    8.
 		comparing strings.
 			clr_eos                 '^L'   '\EJ'.
 			cursor_down             '^_'   '\EB'.
