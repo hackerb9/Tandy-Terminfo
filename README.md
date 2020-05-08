@@ -325,10 +325,12 @@ out all the undocumented features before doing that. (See below).
 
 * Eight bit codes show up as graphics characters, but they are not in
   Latin-1 order. Is there something that can be done about that? It'd
-  be nice to have umlauts and such.
+  be nice to have umlauts and such. What is easiest: hacking the
+  TELECOM binary, writing a C program to create a PTY and translate
+  character by character, or create a "locale charmap"?
 
-* Does all escape sequences (including the undocumented ones) work the
-  same on a Model 100?
+* Do all escape sequences (including the undocumented ones) work the
+  same on a Model 100? 
 
 ## Implementation Notes
 
@@ -364,7 +366,7 @@ out all the undocumented features before doing that. (See below).
 * Why I overloaded dsl:
 
   Terminfo doesn't support enabling status lines. It can, however,
-  disable them with "dsl". I used dsl in this normal way for the td
+  disable them with "dsl". I used dsl in this normal way for the
   terminal types without a status line (e.g., `td200`).
 
   However, I made a kludge that I think actually works pretty well:
