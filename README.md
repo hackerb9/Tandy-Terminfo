@@ -319,19 +319,6 @@ This will hopefully eventually be added to the official TERMINFO
 databases used by BSD and GNU/Linux systems, but it'd be good to find
 out all the undocumented features before doing that. (See below).
 
-### Questions
-
-* Is it possible to read the Function keys? 
-
-* Eight bit codes show up as graphics characters, but they are not in
-  Latin-1 order. Is there something that can be done about that? It'd
-  be nice to have umlauts and such. What is easiest: hacking the
-  TELECOM binary, writing a C program to create a PTY and translate
-  character by character, or create a "locale charmap"?
-
-* Do all escape sequences (including the undocumented ones) work the
-  same on a Model 100? 
-
 ## Implementation Notes
 
 * What Tandy calls "LABELS" I call a
@@ -404,6 +391,19 @@ out all the undocumented features before doing that. (See below).
   (which is the preferred way to use it), not _on_ (which is how the
   TELCOM software always starts up).
 
+
+## Questions
+
+* Is it possible to read the Function keys? 
+
+* Eight bit codes show up as graphics characters, but they are not in
+  Latin-1 order. Is there something that can be done about that? It'd
+  be nice to have umlauts and such. What is easiest: hacking the
+  TELECOM binary, writing a C program to create a PTY and translate
+  character by character, or create a "locale charmap"?
+
+* Do all escape sequences (including the undocumented ones) work the
+  same on a Model 100? 
 
 ## TODO
 
