@@ -290,28 +290,28 @@ Using captoinfo we can convert the above entry to
 [terminfo](orig.terminfo) and compare it to [the current
 terminfo](tandy.terminfo) for this project.
 
-	$ infocmp -L  origtd200  td200
+	$ infocmp -L -d origtd200 td200 | tr , : | column -t -s:
 	comparing origtd200 to td200.
 		comparing booleans.
-			auto_left_margin: F:T.
-			xon_xoff: F:T.
+			auto_left_margin        F     T.
+			xon_xoff                F     T.
 		comparing numbers.
-			init_tabs: NULL, 8.
+			init_tabs               NULL   8.
 		comparing strings.
-			clr_eos: '^L', '\EJ'.
-			cursor_down: '^_', '\EB'.
-			cursor_home: NULL, '\EH'.
-			cursor_invisible: NULL, '\EQ'.
-			cursor_left: '^H', '\ED'.
-			cursor_normal: NULL, '\EP'.
-			cursor_right: '^\', '\EC'.
-			dis_status_line: NULL, '\EU\EY0 \ES\EM'.
-			enter_reverse_mode: NULL, '\Ep'.
-			exit_attribute_mode: NULL, '\Eq'.
-			init_1string: NULL, '\EU'.
-			init_2string: NULL, '\EW\Eq\EE'.
-			key_left: '\n', '^]'.
-			key_right: '^^', '^\'.
+			clr_eos                 '^L'   '\EJ'.
+			cursor_down             '^_'   '\EB'.
+			cursor_home             NULL   '\EH'.
+			cursor_invisible        NULL   '\EQ'.
+			cursor_left             '^H'   '\ED'.
+			cursor_normal           NULL   '\EP'.
+			cursor_right            '^\'   '\EC'.
+			dis_status_line         NULL   '\EU\EY0 \ES\EM'.
+			enter_reverse_mode      NULL   '\Ep'.
+			exit_attribute_mode     NULL   '\Eq'.
+			init_1string            NULL   '\EU'.
+			init_2string            NULL   '\EW\Eq\EE'.
+			key_left                '\n'   '^]'.
+			key_right               '^^'   '^\'.
 
 ## Future
 
@@ -428,7 +428,8 @@ out all the undocumented features before doing that. (See below).
 
 * Implement VT100 line drawing characters. It looks like they exist
   in the Model 100 characterset, so we just need to create the `acsc`
-  capability and set `smacs` and `rmacs` to the empty string. 
+  capability and set `smacs` and `rmacs` to the empty string. (See
+  Line Graphics below).
 
 ### Line Graphics (verbatim from the terminfo(5) manpage)
 
