@@ -317,7 +317,8 @@ terminfo](tandy.terminfo) for this project.
 
 This will hopefully eventually be added to the official TERMINFO
 databases used by BSD and GNU/Linux systems, but it'd be good to find
-out all the undocumented features before doing that. (See below).
+out all the undocumented features before doing that. (See Questions
+and TODO below).
 
 ## Implementation Notes
 
