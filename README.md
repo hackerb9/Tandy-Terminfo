@@ -125,7 +125,8 @@ bsdgames`)
   themselves which not only is redundant work, it is incorrect.
 
   Reportedly buggy programs:
-  * man and pacman
+  * man (works if `PAGER=more` but not `less`)
+  * pacman
   * bash's PS1 prompt
   * w3m (works if *Display With Color* option is set to 0, `w3m -color=0`)
   * git (works, but shows `31m` for colors). 
