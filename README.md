@@ -116,9 +116,9 @@ command line.
       echo -ne "\n\t"
       if type $(basename $0)>/dev/null 2>&1
       then
-	echo ". $(basename $0)"
+        echo ". $(basename $0)"
       else
-	echo "source $0"
+        echo "source $0"
       fi
       echo
       exit 1
