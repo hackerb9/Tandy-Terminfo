@@ -79,19 +79,49 @@ put these in your `.bash_profile` so they'll be sourced when you login
 or you can put them in a file and use `source filename` to read the
 commands into your current shell.
 
-### tandy.bash_profile
+### td200 .bash_profile
+
+Here is a shell script you can either
+put in your .bash_profile or source
+from the command line which configures
+the teminal and sets up workarounds for
+some programs.
+
     # Set terminal type to Tandy 200
     export TERM=td200
+    # Send ASCII, not Unicode UTF-8 chars
+    export LANG=C
+    # Reset the terminal (turns off labels)
+    reset
     # Turn on software flow control (^S/^Q)
     stty ixon ixoff
-    # Send ASCII, not Unicode UTF-8 characters
-    export LANG=C
-    # Some programs don't pay attention to the size in the TERMINFO
+    # Some apps ignore the size in TERMINFO
     stty rows 16 cols 40
     # Backspace key sends ^H not ^?
     stty erase ^H
     # Right arrow key sends ^\, so don't use that to abort and dump core.
     stty quit undef
+
+    # Workarounds
+    export MANPAGER=more
+    export MANWIDTH=40
+    export GCC_COLORS=""
+    alias nano="nano -Op"
+    alias w3m="w3m -color=0"
+
+    if [ $SHLVL -gt 1 ]; then
+      echo "Error, do not run this script."
+      echo "It must be sourced, like so:"
+      echo -ne "\n\t"
+      if type $(basename $0)>/dev/null 2>&1
+      then
+	echo ". $(basename $0)"
+      else
+	echo "source $0"
+      fi
+      echo
+      exit 1
+    fi
 
 ### .inputrc for arrow keys
 
