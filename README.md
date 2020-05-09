@@ -279,32 +279,31 @@ detected.)
 Here are the escape sequences which my Tandy 200 responds to.
 
 Sequence | Meaning
----------|----------------------------------
-	 \eA | cursor Up
-	 \eB | cursor Down (^J may be equivalent)
-	 \eC | cursor Right
-	 \eD | cursor Left (^H may be equivalent)
-	 \eE | clear screen (\ej may be equivalent)
-	 \eH | cursor home
-	 \eI | type answerback id ("#RSM200" on my Radio-Shack Model 200)
-	 \eJ | clear to the end of screen
-	 \eK | clear to the end of line
-	 \eL | insert line
-	 \eM | delete line
-	 \eP | cursor normal
-	 \eQ | cursor invisible
-	 \eR | _not documented nor used_ mystery! (restore saved line)
-	 \eS | _not documented nor used_ mystery! (save current line)
-	 \eT | enable status line (used only in init for variants which have labels)
-	 \eU | disable status line
-	 \eV | _not used_ disable scrolling
-	 \eW | enable scrolling (used only in init)
-	 \eY | Move to cursor address
-	 \ej | _not used_ Clear screen
-	 \ep | Inverse text
-	 \eq | Normal text
-	 \er | _not used_ mystery! Erases current line and displays "7A tua"
-	 Huh? 
+---------|---------------------------------
+ \eA	 | cursor Up
+ \eB	 | cursor Down (^J may be equivalent)
+ \eC	 | cursor Right
+ \eD	 | cursor Left (^H may be equivalent)
+ \eE	 | clear screen (\ej may be equivalent)
+ \eH	 | cursor home
+ \eI	 | type answerback id ("#RSM200" on my Radio-Shack Model 200)
+ \eJ	 | clear to the end of screen
+ \eK	 | clear to the end of line
+ \eL	 | insert line
+ \eM	 | delete line
+ \eP	 | cursor normal
+ \eQ	 | cursor invisible
+ \eR	 | _not documented nor used_ mystery! (restore saved line)
+ \eS	 | _not documented nor used_ mystery! (save current line)
+ \eT	 | enable status line (used only in init for variants which have labels)
+ \eU	 | disable status line
+ \eV	 | _not used_ disable scrolling
+ \eW	 | enable scrolling (used only in init)
+ \eY	 | Move to cursor address
+ \ej	 | _not used_ Clear screen
+ \ep	 | Inverse text
+ \eq	 | Normal text
+ \er	 | _not used_ mystery! Erases current line and displays **"7A tua"**
 
 ## History
 
