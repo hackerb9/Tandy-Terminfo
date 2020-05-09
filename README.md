@@ -342,7 +342,7 @@ terminfo file so I can use Tandy's Extended ASCII. (See TODO below).
 ## History
 
 This started out as a woefully inadequate TERMCAP entry for
-Microsoft's Xenix in the back of the Radio Shack TELCOM manual. (Yes,
+Microsoft's Xenix in the back of the TELCOM manual. (Yes,
 Microsoft had their own flavor of UNIX back then. And you could buy it
 at Radio Shack on their [TRS-80 Model 16](https://archive.org/details/RSC-09_Computer_Catalog_1983_Radio_Shack/page/n3/mode/1up)
 computer). Just for historical interest, [here](orig.termcap) is the
