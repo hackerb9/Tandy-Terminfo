@@ -83,10 +83,10 @@ commands into your current shell.
 
 Here is a shell script, [td200](td200),
 which configures the teminal and sets
-up workarounds for some programs. You
-can either copy it verbatim into your
-.bash_profile or source it from the
-command line.
+up workarounds for some programs.
+Because it sets environment variables,
+you must source it by `source td200` or
+`. td200`.
 
     # Set terminal type to Tandy 200
     export TERM=td200
@@ -124,10 +124,29 @@ command line.
       exit 1
     fi
 
+Tip 1: If you put the `td200` program
+in your PATH and make it executable,
+you can source it without specifying
+the full path. For example, `. td200` .
+
+Tip 2: You can automatically source the
+td200 script from your .bash_profile
+automatically when logging in from a
+serial port like so:
+
+    # If logging in from a serial console,
+    # it's my Tandy 200 Portable Computer.
+    if [[ $(tty) =~ /dev/tty(S|ACM) ]]
+    then
+       source $HOME/bin/td200
+    fi
+
 ### .inputrc for arrow keys
 
-I also recommend adding the following to your `.inputrc` so that the
-arrow keys will work in Bash and other programs that use libreadline.
+I also recommend adding the following
+to your `.inputrc` so that the arrow
+keys will work in Bash and other
+programs that use libreadline.
 
 	$if term=td200
 	    Control-^: previous-history
