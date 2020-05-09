@@ -79,13 +79,14 @@ put these in your `.bash_profile` so they'll be sourced when you login
 or you can put them in a file and use `source filename` to read the
 commands into your current shell.
 
-### td200 .bash_profile
+### td200 or .bash_profile
 
-Here is a shell script you can either
-put in your .bash_profile or source
-from the command line which configures
-the teminal and sets up workarounds for
-some programs.
+Here is a shell script, [td200](td200),
+which configures the teminal and sets
+up workarounds for some programs. You
+can either copy it verbatim into your
+.bash_profile or source it from the
+command line.
 
     # Set terminal type to Tandy 200
     export TERM=td200
