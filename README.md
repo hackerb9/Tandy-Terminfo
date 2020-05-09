@@ -273,6 +273,9 @@ detected.)
 * tic(1) - the TERMINFO entry-description compiler
 * infocmp(1) - compare or print out TERMINFO descriptions
 * [Tandy 200 TELCOM manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft)
+  Particularly:
+  * [Table of Escape Sequence Codes](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n48/mode/1up)
+  * [TERMCAP for use with Microsoft Xenix](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n40/mode/1up):
 
 ## Table of Escape Sequences
 
