@@ -80,8 +80,8 @@ or you can put them in a file and use `source filename` to read the
 commands into your current shell.
 
 ### tandy.bash_profile
-    # Set terminal type to Tandy 200 with no status line
-    export TERM=td200-ns
+    # Set terminal type to Tandy 200
+    export TERM=td200
     # Turn on software flow control (^S/^Q)
     stty ixon ixoff
     # Send ASCII, not Unicode UTF-8 characters
