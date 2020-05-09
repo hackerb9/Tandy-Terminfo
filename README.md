@@ -344,10 +344,9 @@ terminfo file so I can use Tandy's Extended ASCII. (See TODO below).
 This started out as a woefully inadequate TERMCAP entry for
 Microsoft's Xenix in the back of the Radio Shack TELCOM manual. (Yes,
 Microsoft had their own flavor of UNIX back then. And you could buy it
-at RadioShack on their TRS-80 Model 16 computer). Just for historical
-interest, [here](orig.termcap) is the original Tandy 16/Xenix termcap
-entry from [page 72 of the TELCOM
-Manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n40/mode/1up):
+at Radio Shack on their [TRS-80 Model 16](https://archive.org/details/RSC-09_Computer_Catalog_1983_Radio_Shack/page/n3/mode/1up)
+computer). Just for historical interest, [here](orig.termcap) is the
+original Tandy 16/Xenix termcap entry from [page 72 of the TELCOM Manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n40/mode/1up):
 
     n1|td200|Tandy 200:\
       :am:bs:xt:co#40:li#16:al=\EL:dl=\EM:cd=^L:ce=\EK:cl=\EE:cm=\EY%+ %+ :\
