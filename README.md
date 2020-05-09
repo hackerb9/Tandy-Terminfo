@@ -284,7 +284,7 @@ Sequence | Meaning | Notes
  \eB     | cursor Down | ^J may be equivalent.
  \eC     | cursor Right
  \eD     | cursor Left | ^H may be equivalent.
- \eE     | clear screen | \ej may be equivalent, undocumented in TELCOM manual, but this is what the sample TERMCAP in the same manual actually uses.
+ \eE     | clear screen | \ej may be equivalent, undocumented in [TELCOM manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n48/mode/1up), but this is what the sample TERMCAP in the same manual actually uses.
  \eH     | cursor home
  \eI     | type answerback id | Types **"#RSM200"** on my Radio-Shack Model 200.
  \eJ     | clear to the end of screen
