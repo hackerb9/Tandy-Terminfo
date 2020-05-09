@@ -280,31 +280,31 @@ Here are the escape sequences which my Tandy 200 responds to.
 
 Sequence | Meaning | Notes
 ---------|---------|------
- \eA	 | cursor Up
- \eB	 | cursor Down | ^J may be equivalent
- \eC	 | cursor Right
- \eD	 | cursor Left | ^H may be equivalent
- \eE	 | clear screen | \ej may be equivalent, undocumented in TELCOM manual, but this is what the sample TERMCAP in the same manual actually uses
- \eH	 | cursor home
- \eI	 | type answerback id | Types **"#RSM200"** on my Radio-Shack Model 200
- \eJ	 | clear to the end of screen
- \eK	 | clear to the end of line
- \eL	 | insert line
- \eM	 | delete line
- \eP	 | cursor normal
- \eQ	 | cursor invisible
- \eR	 | restore saved line | _not documented,_ currently used by dsl to restore status line
- \eS	 | save current line | _not documented,_ currently used by dsl to save status line
- \eT	 | enable status line | used in init for variants which have a status line (e.g. td200-s)
- \eU	 | disable status line | used in init_1string for variants which have no status line (e.g. td200)
- \eV	 | disable scrolling | _not used_
- \eW	 | enable scrolling | used in init_2string for `reset`.
- \eY	 | Move to cursor address *r,c* | cursor_address=\eY%p1%' '%+%c%p2%' '%+%c <br/> Row and column are sent as single bytes which start at 32 (ASCII space) for zero
- \ej	 | Clear screen | _not used_, \eE is the same
- \el	 | Clear line | _not used_, terminfo does not have this as a single function, instead it always moves to column 0 and uses clear to end of line (\eK). Unlike Delete line (\eM), this does not close the gap by moving lines up.
- \ep	 | Inverse text
- \eq	 | Normal text
- \er	 | _not used_ mystery! Erases current line and displays **"7A tua"** on my Tandy 200
+ \eA     | cursor Up
+ \eB     | cursor Down | ^J may be equivalent
+ \eC     | cursor Right
+ \eD     | cursor Left | ^H may be equivalent
+ \eE     | clear screen | \ej may be equivalent, undocumented in TELCOM manual, but this is what the sample TERMCAP in the same manual actually uses
+ \eH     | cursor home
+ \eI     | type answerback id | Types **"#RSM200"** on my Radio-Shack Model 200
+ \eJ     | clear to the end of screen
+ \eK     | clear to the end of line
+ \eL     | insert line
+ \eM     | delete line
+ \eP     | cursor normal
+ \eQ     | cursor invisible
+ \eR     | restore saved line | _not documented,_ currently used by dsl to restore status line
+ \eS     | save current line | _not documented,_ currently used by dsl to save status line
+ \eT     | enable status line | used in init for variants which have a status line (e.g. td200-s)
+ \eU     | disable status line | used in init_1string for variants which have no status line (e.g. td200)
+ \eV     | disable scrolling | _not used_
+ \eW     | enable scrolling | used in init_2string for `reset`.
+ \eY     | Move to cursor address *r,c* | cursor_address=\eY%p1%' '%+%c%p2%' '%+%c <br/> Row and column are sent as single bytes which start at 32 (ASCII space) for zero
+ \ej     | Clear screen | _not used_, \eE is the same
+ \el     | Clear line | _not used_, terminfo does not have this as a single function, instead it always moves to column 0 and uses clear to end of line (\eK). Unlike Delete line (\eM), this does not close the gap by moving lines up.
+ \ep     | Inverse text
+ \eq     | Normal text
+ \er     | _not used_ mystery! Erases current line and displays **"7A tua"** on my Tandy 200
 
 ## History
 
