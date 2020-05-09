@@ -156,7 +156,7 @@ your .emacs file:
 
   You can test if an application is indeed buggy by running `xterm -ti
   vt52 -tn vt52`. If that terminal shows the same errors as on your
-  Tandy Model 100/102/200, then it is the program that is at fault and
+  Tandy 200 (or Model 100), then it is the program that is at fault and
   you should file a bug report with that project. On the other hand,
   if vt52 works (does not show escape sequences) but Tandy doesn't,
   please file a bug with this project. (Bug reports are always
