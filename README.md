@@ -281,21 +281,21 @@ Here are the escape sequences which my Tandy 200 responds to.
 Sequence | Meaning
 ---------|----------------------------------
 	 \eA | cursor Up
-	 \eB | cursor Down (is ^J equivalent?)
+	 \eB | cursor Down (^J may be equivalent)
 	 \eC | cursor Right
-	 \eD | cursor Left (is ^H equivalent?)
-	 \eE | clear screen (same as \ej?)
+	 \eD | cursor Left (^H may be equivalent)
+	 \eE | clear screen (\ej may be equivalent)
 	 \eH | cursor home
-	 \eI | Types Answerback id, "#RSM200" on my Radio-Shack Model 200. 
+	 \eI | type answerback id ("#RSM200" on my Radio-Shack Model 200)
 	 \eJ | clear to the end of screen
 	 \eK | clear to the end of line
 	 \eL | insert line
 	 \eM | delete line
 	 \eP | cursor normal
 	 \eQ | cursor invisible
-	 \eR | _not used_ mystery! (restore saved line?)
-	 \eS | _not used_ mystery! (save current line?)
-	 \eT | enable status line (used only in init for variants which want the labels)
+	 \eR | _not documented nor used_ mystery! (restore saved line)
+	 \eS | _not documented nor used_ mystery! (save current line)
+	 \eT | enable status line (used only in init for variants which have labels)
 	 \eU | disable status line
 	 \eV | _not used_ disable scrolling
 	 \eW | enable scrolling (used only in init)
@@ -303,7 +303,7 @@ Sequence | Meaning
 	 \ej | _not used_ Clear screen
 	 \ep | Inverse text
 	 \eq | Normal text
-	 \er | _not used_ Something weird. Erases current line and displays "7A tua". 
+	 \er | _not used_ mystery! Erases current line and displays "7A tua"
 	 Huh? 
 
 ## History
