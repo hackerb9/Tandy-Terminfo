@@ -279,7 +279,7 @@ detected.)
 Here are the escape sequences which my Tandy 200 responds to.
 
 Sequence | Meaning | Notes
----------|---------------------------------
+---------|---------|------
  \eA	 | cursor Up
  \eB	 | cursor Down | ^J may be equivalent
  \eC	 | cursor Right
