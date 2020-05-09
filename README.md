@@ -114,9 +114,9 @@ Emacs by default uses C-s for search. You can tell emacs that the
 td200 will be using C-s for XON/XOFF flow control by adding this to
 your .emacs file:
 
-	;; Tandy 200 is too slow and 
-	;; requires XON/XOFF flow control.
-	(enable-flow-control-on "td200")
+	;; Tandy 200/100/102 requires
+	;; XON/XOFF flow control.
+	(enable-flow-control-on "td200" "td100" "td102")
 
 
 ## Problems
