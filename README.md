@@ -317,7 +317,7 @@ screen clearing are the same, it is just different enough to cause
 problems.
 
 1. Perhaps most noteworthy is that TELCOM uses one of the escape
-sequences, \eI: the VT52's scroll_reverse, for a completely different
+sequences, \eI, the VT52's scroll_reverse, for a completely different
 purpose. So, if you are editing a file with `TERM=vt52` and you scroll
 back, your Tandy portable will muck up the screen and type its
 "Answerback ID" into your file.
