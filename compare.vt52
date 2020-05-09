@@ -1,6 +1,6 @@
 $ 
-$ infocmp -L -c td200 vt52
-comparing td200 to vt52. SHOWING ONLY VALUES THEY HAVE IN COMMON.
+$ infocmp -L -c td200 vt52	# SHOWING ONLY VALUES THEY HAVE IN COMMON.
+comparing td200 to vt52.
     comparing booleans.
 	back_color_erase= F.
 	can_change= F.
@@ -39,52 +39,51 @@ comparing td200 to vt52. SHOWING ONLY VALUES THEY HAVE IN COMMON.
 	init_tabs= 8.
     comparing strings.
 	bell= '^G'.
-	carriage_return= '^M'.
+	carriage_return= '\r'.
 	clr_eol= '\EK'.
 	clr_eos= '\EJ'.
 	cursor_address= '\EY%p1%' '%+%c%p2%' '%+%c'.
+	cursor_down= '\EB'.
 	cursor_home= '\EH'.
+	cursor_left= '\ED'.
 	cursor_right= '\EC'.
 	cursor_up= '\EA'.
 	key_backspace= '^H'.
-	newline= '^M^J'.
-	scroll_forward= '^J'.
-	scroll_reverse= '\EI'.
+	newline= '\r\n'.
+	scroll_forward= '\n'.
 	tab= '^I'.
 $ 
 $ infocmp -L -d td200 vt52 | tr , : | column -t -s:
 # comparing td200 to vt52 SHOWING ONLY VALUES THAT DIFFER.
 
-    comparing booleans.          td200              vt52
-	auto_left_margin         T                  F.
-	auto_right_margin        T                  F.
-	backspaces_with_bs       F                  T.
-	dest_tabs_magic_smso     T                  F.
-	xon_xoff                 T                  F.
-
-    comparing numbers.           td200              vt52
-	columns                  40                  80.
-	lines                    16                  24.
-
-    comparing strings.           td200              vt52
-	acs_chars                NULL                '+h.k0affggolpnqprrss'.
-	clear_screen             '\EE'               '\EH\EJ'.
-	column_address           '\EY %p1%' '%+%c'   NULL.
-	cursor_down              '^J'                '\EB'.
-	cursor_invisible         '\EQ'               NULL.
-	cursor_left              '^H'                '\ED'.
-	cursor_normal            '\EP'               NULL.
-	delete_line              '\EM'               NULL.
-	enter_alt_charset_mode   NULL                '\EF'.
-	enter_reverse_mode       '\Ep'               NULL.
-	enter_standout_mode      '\Ep'               NULL.
-	exit_alt_charset_mode    NULL                '\EG'.
-	exit_attribute_mode      '\Eq'               NULL.
-	exit_standout_mode       '\Eq'               NULL.
-	insert_line              '\EL'               NULL.
-	key_down                 '^_'                '\EB'.
-	key_left                 '^]'                '\ED'.
-	key_right                '^\'                '\EC'.
-	key_up                   '^^'                '\EA'.
-	reset_1string            '\Eq\EE'            NULL.
-	row_address              '\EY%p1%' '%+%c '   NULL.
+comparing td200 to vt52.
+    comparing booleans.
+	auto_left_margin         T                 F.
+	auto_right_margin        T                 F.
+	backspaces_with_bs       F                 T.
+	dest_tabs_magic_smso     T                 F.
+	xon_xoff                 T                 F.
+    comparing numbers.
+	columns                  40                 80.
+	lines                    16                 24.
+    comparing strings.
+	acs_chars                NULL               '+h.k0affggolpnqprrss'.
+	clear_screen             '\EE'              '\EH\EJ'.
+	cursor_invisible         '\EQ'              NULL.
+	cursor_normal            '\EP'              NULL.
+	delete_line              '\EM'              NULL.
+	dis_status_line          '\EU\EY0 \ES\EM'   NULL.
+	enter_alt_charset_mode   NULL               '\EF'.
+	enter_reverse_mode       '\Ep'              NULL.
+	enter_standout_mode      '\Ep'              NULL.
+	exit_alt_charset_mode    NULL               '\EG'.
+	exit_attribute_mode      '\Eq'              NULL.
+	exit_standout_mode       '\Eq'              NULL.
+	init_1string             '\EU'              NULL.
+	init_2string             '\EW\Eq\EE'        NULL.
+	insert_line              '\EL'              NULL.
+	key_down                 '^_'               '\EB'.
+	key_left                 '^]'               '\ED'.
+	key_right                '^\'               '\EC'.
+	key_up                   '^^'               '\EA'.
+	scroll_reverse           NULL               '\EI'.
