@@ -452,9 +452,8 @@ and TODO below).
 
   However, I made a kludge that I think actually works pretty well:
   the "dsl" sequence for variants _with_ status lines actually enables
-  it. I think terminfo should either add "*enable*_status_line" or just
-  let dsl mean "*default*_status_line": do the right thing for this
-  terminal.
+  it. I think terminfo ought to add "*enable*_status_line" to match 
+  "*disable*_status_line".
 
   Just for fun, my dsl strings also
   save and restore the labels in the
@@ -493,7 +492,7 @@ and TODO below).
 * Eight bit codes show up as graphics characters, but they are not in
   Latin-1 order. Is there something that can be done about that? It'd
   be nice to have umlauts and such. What is easiest: hacking the
-  TELECOM binary, writing a C program to create a PTY and translate
+  TELCOM binary, writing a C program to create a PTY and translate
   character by character, or create a "locale charmap"?
 
 * Do all escape sequences (including the undocumented ones) work the
