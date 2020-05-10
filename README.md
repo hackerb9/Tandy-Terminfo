@@ -231,9 +231,9 @@ your .emacs file:
   shown on the screen. A workaround is to login from another terminal
   on the local host after ssh has started and run:
  
-    stty -F /dev/ttyS0 ixoff
+      stty -F /dev/ttyS0 ixoff
 
- (Where `ttyS0` is the name of the serial port you are logging in from.)
+  (Where `ttyS0` is the name of the serial port you are logging in from.)
  
 * To connect to a PC running UNIX, you'll need a null modem cable.
 
