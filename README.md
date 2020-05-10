@@ -203,14 +203,14 @@ your .emacs file:
 	(workaround, `nano -p` or `set preserve` in .nanorc)
   * apt
   * pacman
+  * ssh disables flow control (workaround, see below).
 
   You can test if an application is indeed buggy by running `xterm -ti
   vt52 -tn vt52`. If that terminal shows the same errors as on your
-  Tandy 200 (or Model 100), then it is the program that is at fault and
-  you should file a bug report with that project. On the other hand,
-  if vt52 works (does not show escape sequences) but Tandy doesn't,
-  please file a bug with this project. (Bug reports are always
-  appreciated.)
+  Tandy 200 (or Model 100), then it is the program that is at fault
+  and you should file a bug report with that project. On the other
+  hand, if vt52 works (does not show escape sequences), please file a
+  bug with this project. (Bug reports are always appreciated.)
 
 ## Notes on using the TELCOM program
 
@@ -227,8 +227,14 @@ your .emacs file:
 
 * Hardware flow control (RTS/CTS) is not available.
 
-* Because of network latency software flow control may be inadequate over `ssh`.
+* Because `ssh` disables flow control, it will often have garbage
+  shown on the screen. A workaround is to login from another terminal
+  on the local host after ssh has started and run:
+ 
+    stty -F /dev/ttyS0 ixoff
 
+ (Where `ttyS0` is the name of the serial port you are logging in from.)
+ 
 * To connect to a PC running UNIX, you'll need a null modem cable.
 
 * The Tandy Model 200 has a *FEMALE* 25 pin RS-232c port. 
