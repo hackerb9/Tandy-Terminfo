@@ -21,7 +21,7 @@ Download the [source TERMINFO](tandy.terminfo) file and compile it
 with `tic` on your UNIX host.
 
     tic tandy.terminfo
-    
+
 That will create the proper files in your `.terminfo` directory so
 they can be used immediately.
 
@@ -32,7 +32,7 @@ types (see below) to inform programs how to talk to your Tandy. For
 example,
 
     export TERM=td200
-    
+
 There are different terminal types for the Model 100 (`td100`) and the
 Model 200 (`td200`) as those have a different number of lines.
 
@@ -43,7 +43,7 @@ will disable the status line by pressing the LABEL button. If you do
 not wish to disable the status line, use the `-s` variant, like so,
 
     export TERM=td200-s
-    
+
 For convenience, there are aliases so you can refer to the TERM by
 number of lines instead of whether it has a status line (`td200-15`).
 
@@ -197,9 +197,9 @@ your .emacs file:
   * gcc error messages (workaround, `export GCC_COLORS=""`)
   * w3m colors (workaround `w3m -color=0` or use **O**ptions to set
     *Display With Color* to 0)
-  * w3m disables flow control (workaround, w3m-mode in emacs works fine) 
+  * w3m disables flow control (workaround, w3m-mode in emacs works fine)
   * git (workaround, disable ANSI color using `git config --add color.ui false`)
-  * nano mumbles about XON/XOFF 
+  * nano mumbles about XON/XOFF
 	(workaround, `nano -p` or `set preserve` in .nanorc)
   * apt
   * pacman
@@ -230,14 +230,14 @@ your .emacs file:
 * Because `ssh` disables flow control, it will often have garbage
   shown on the screen. A workaround is to login from another terminal
   on the local host after ssh has started and run:
- 
+
       stty -F /dev/ttyS0 ixoff
 
   (Where `ttyS0` is the name of the serial port you are logging in from.)
- 
+
 * To connect to a PC running UNIX, you'll need a null modem cable.
 
-* The Tandy Model 200 has a *FEMALE* 25 pin RS-232c port. 
+* The Tandy Model 200 has a *FEMALE* 25 pin RS-232c port.
 
 ### Special keys:
 
@@ -247,7 +247,7 @@ your .emacs file:
     ~    GRPH SHIFT ]    Tilde
     {    GRPH 9          Open curly brace
     }    GRPH 0          Close curly brace
-    ^@   GRPH P          Sends 0x80, useful in Emacs to set the mark 
+    ^@   GRPH P          Sends 0x80, useful in Emacs to set the mark
 
 Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
 
@@ -359,10 +359,60 @@ the last minute that it's not always true.
 capabilities that TELCOM has will not be used: reverse mode, delete
 line, toggle status line, and hide cursor.
 
-The only feature which the VT52 sported that TELCOM does not support
-(yet!) is Alternate Character Set mode for box drawing and glyphs. I
-am currently working on figuring out if I can add 8-bit codes to the
-terminfo file so I can use Tandy's Extended ASCII. (See TODO below).
+### Alternate Character Set
+
+One feature available on the VT52 supports is Alternate Character Set
+(ACS) mode, which uses 7-bit ASCII characters for box drawing and glyphs
+such as π. It would at first glance appear that TELCOM does not
+support it since the \eF and \eG escape sequences which enter and exit
+ACS are not implemented.
+
+However, since it is possible to embed 8-bit codes into the terminfo
+file, we can use Tandy's Extended ASCII to represent those characters
+in the acsc string. Here is the mapping I came up with:
+
+
+Glyph<br/>Name    | VT100<br/>Name | TRS80<br/>Model 100 | Notes
+-----------------------|-----------|---------------------|--------------
+UK pound sign          | }		   |  	\243
+arrow pointing down    | .         |	\231
+arrow pointing left    | ,         |	\233
+arrow pointing right   | +         |	\232
+arrow pointing up      | -         |	\230
+board of squares       | h         |	\345	| Substitute 2x2 checkerboard
+bullet                 | ~         |	\235	| Substitute diamond
+checker board (stipple)| a         |	\377
+degree symbol          | f         |	\246
+diamond                | `         |	\235
+greater-than-or-equal-to| z		   |			| NO TANDY 200 EQUIVALENT
+greek pi               | {         |	\210
+horizontal line        | q         |	\361
+lantern symbol         | i         |	\251	| Substitute Section symbol.
+large plus or crossover| n         |	\372
+less-than-or-equal-to  | y         |	\251
+lower left corner      | m         |	\366
+lower right corner     | j         |	\367
+not-equal              | |         |	\212
+plus/minus             | g         |	\215
+scan line 1            | o		   |			| NO TANDY 200 EQUIVALENT
+scan line 3            | p		   |			| NO TANDY 200 EQUIVALENT
+scan line 7            | r		   |			| NO TANDY 200 EQUIVALENT
+scan line 9            | s		   |			| NO TANDY 200 EQUIVALENT
+solid square block     | 0         |	\357
+tee pointing down      | w         |	\363
+tee pointing left      | u         |	\371
+tee pointing right     | t         |	\364
+tee pointing up        | v         |	\370
+upper left corner      | l         |	\360
+upper right corner     | k         |	\362
+vertical line          | x         |	\365
+
+    smacs=\eF,rmacs=\eG,
+	acsc=}\243.\231\,\233+\232-\230h\345~\235a\377f\246`\235{\210q\361i\251n\372y\251m\366j\367|\212g\2150\357w\363u\371t\364v\370l\360k\362x\365,
+
+Note that smacs/rmacs don't actually do anything any more, but they
+appear to need to be defined in order for ACS to work. Setting them to
+\eF and \eG is compatible with the VT52 definition and causes no harm.
 
 ## History
 
@@ -377,7 +427,7 @@ original Tandy 16/Xenix termcap entry from [page 72 of the TELCOM Manual](https:
       :am:bs:xt:co#40:li#16:al=\EL:dl=\EM:cd=^L:ce=\EK:cl=\EE:cm=\EY%+ %+ :\
       :nd=^\:dn=^_:up=\EA:se=\Eq:so=\Ep:kl=^J:kr=^^:ku=^^:kd=^_:
 
-### Differences 
+### Differences
 
 Using captoinfo we can convert the above entry to
 [terminfo](orig.terminfo) and compare it to [the current
@@ -452,7 +502,7 @@ and TODO below).
 
   However, I made a kludge that I think actually works pretty well:
   the "dsl" sequence for variants _with_ status lines actually enables
-  it. I think terminfo ought to add "*enable*_status_line" to match 
+  it. I think terminfo ought to add "*enable*_status_line" to match
   "*disable*_status_line".
 
   Just for fun, my dsl strings also
@@ -460,7 +510,7 @@ and TODO below).
   status line using the undocumented
   \eS and \eR escape sequence. This
   works to properly turn off the
-  status line then to re-enable it on 
+  status line then to re-enable it on
   my Tandy 200 (but I have not tested
   a Model 100 or 102):
 
@@ -474,7 +524,7 @@ and TODO below).
   screen when the status line is
   enabled with an escape sequence. That
   means you would not get back the line
-  that says "Prev Down Up Full". 
+  that says "Prev Down Up Full".
 
 * Reminder to self: although scroll backward can be faked with HOME,
   Insert Line (\eH\eL), there's no point in doing it since ncurses
@@ -487,7 +537,7 @@ and TODO below).
 
 ## Questions
 
-* Is it possible to read the Function keys? 
+* Is it possible to read the Function keys?
 
 * Eight bit codes show up as graphics characters, but they are not in
   Latin-1 order. Is there something that can be done about that? It'd
@@ -496,7 +546,7 @@ and TODO below).
   character by character, or create a "locale charmap"?
 
 * Do all escape sequences (including the undocumented ones) work the
-  same on a Model 100? 
+  same on a Model 100?
 
 ## TODO
 
@@ -506,7 +556,7 @@ and TODO below).
 
 * Maybe report bugs to projects which presume ANSI colors are always
   available. Why don't programs like `git` link with ncurses?
-  
+
 * Investigate creating a new charmap for locale. (See `locale -m` and
   `locale(1)`)
 
@@ -616,5 +666,3 @@ and TODO below).
 
        The  values in parentheses are suggested defaults which are used by the
        curses library, if the capabilities are missing.
-
-
