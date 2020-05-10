@@ -292,45 +292,80 @@ detected.)
 * tic(1) - the TERMINFO entry-description compiler
 * infocmp(1) - compare or print out TERMINFO descriptions
 * [Tandy 200 TELCOM manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft)
+  Particularly:
+  * [Table of Escape Sequence Codes](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n48/mode/1up)
+  * [TERMCAP for use with Microsoft Xenix](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n40/mode/1up):
 
 ## Table of Escape Sequences
 
 Here are the escape sequences which my Tandy 200 responds to.
 
-* \eA: cursor Up
-* \eB: cursor Down (is ^J equivalent?)
-* \eC: cursor Right
-* \eD: cursor Left (is ^H equivalent?)
-* \eE: clear screen (same as \ej?)
-* \eH: cursor home
-* \eI: Types Answerback id, "#RSM200" on my Radio-Shack Model 200. 
-* \eJ: clear to the end of screen
-* \eK: clear to the end of line
-* \eL: insert line
-* \eM: delete line
-* \eP: cursor normal
-* \eQ: cursor invisible
-* \eR: _not used_ mystery! (restore saved line?)
-* \eS: _not used_ mystery! (save current line?)
-* \eT: enable status line (used only in init for variants which want the labels)
-* \eU: disable status line
-* \eV: _not used_ disable scrolling
-* \eW: enable scrolling (used only in init)
-* \eY: Move to cursor address
-* \ej: _not used_ Clear screen
-* \ep: Inverse text
-* \eq: Normal text
-* \er: _not used_ Something weird. Erases current line and displays "7A tua". 
-  Huh? 
+Sequence | Meaning | Notes
+---------|---------|------
+ \eA     | cursor Up
+ \eB     | cursor Down | ^J may be equivalent.
+ \eC     | cursor Right
+ \eD     | cursor Left | ^H may be equivalent.
+ \eE     | clear screen | \ej may be equivalent, undocumented in [TELCOM manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n48/mode/1up), but this is what the sample TERMCAP in the same manual actually uses.
+ \eH     | cursor home
+ \eI     | type answerback id | Types **"#RSM200"** on my Radio-Shack Model 200.
+ \eJ     | clear to the end of screen
+ \eK     | clear to the end of line
+ \eL     | insert line
+ \eM     | delete line
+ \eP     | cursor normal
+ \eQ     | cursor invisible
+ \eR     | restore saved line | _not documented,_ currently used by dsl to restore status line.
+ \eS     | save current line | _not documented,_ currently used by dsl to save status line.
+ \eT     | enable status line | used in init for variants which have a status line (e.g. td200-s).
+ \eU     | disable status line | used in init_1string for variants which have no status line (e.g. td200).
+ \eV     | disable scrolling | _not used,_ not defined by terminfo. (Was this ever useful?)
+ \eW     | enable scrolling | used in init_2string for `reset`.
+ \eY     | Move to cursor address *r,c* | cursor_address=\eY%p1%' '%+%c%p2%' '%+%c <br/> Row and column are sent as single bytes which start at 32 (ASCII space) for zero.
+ \ej     | Clear screen | _not used,_ \eE is the same
+ \el     | Clear line | _not used,_ terminfo does not define this function. Unlike Delete line (\eM), this does not close the gap by moving lines up.
+ \ep     | Inverse text
+ \eq     | Normal text
+ \er     | mystery! | _not used._ Erases current line and displays **"7A tua"** on my Tandy 200.
+
+### Comparison with VT52
+
+The TELCOM manual claims the terminal is DEC VT52 compatible, but that
+seems [approximate](compare.vt52). While the cursor movement and
+screen clearing are the same, it is just different enough to cause
+problems.
+
+1. Perhaps most noteworthy is that TELCOM uses one of the escape
+sequences, \eI, the VT52's scroll_reverse, for a completely different
+purpose. So, if you are editing a file with `TERM=vt52` and you scroll
+back, your Tandy portable will muck up the screen and type its
+"Answerback ID" into your file.
+
+1. Additionally, the sequences expected for the arrow keys have been
+redefined to control characters. This is rather inconvenient as those
+control characters were already used for other things and it is a
+rather questionable decision to redefine them. I would bet dollars to
+donuts that Radio-Shack came up with this kludge after writing a
+program that sends exactly one byte for each key and only realizing at
+the last minute that it's not always true.
+
+1. A final downside of using the VT52 terminfo file is that extra
+capabilities that TELCOM has will not be used: reverse mode, delete
+line, toggle status line, and hide cursor.
+
+The only feature which the VT52 sported that TELCOM does not support
+(yet!) is Alternate Character Set mode for box drawing and glyphs. I
+am currently working on figuring out if I can add 8-bit codes to the
+terminfo file so I can use Tandy's Extended ASCII. (See TODO below).
 
 ## History
 
-This started out as a woefully inadequate TERMCAP entry for Xenix in
-the back of the Radio Shack manual. It claims to be based on the DEC
-VT52, but that seems [approximate](compare.vt52) at best.
-
-Just for historical interest, [here](orig.termcap) is the original
-Tandy 16/Xenix termcap entry from page 72 of the TELCOM Manual:
+This started out as a woefully inadequate TERMCAP entry for
+Microsoft's Xenix in the back of the TELCOM manual. (Yes,
+Microsoft had their own flavor of UNIX back then. And you could buy it
+at Radio Shack on their [TRS-80 Model 16](https://archive.org/details/RSC-09_Computer_Catalog_1983_Radio_Shack/page/n3/mode/1up)
+computer). Just for historical interest, [here](orig.termcap) is the
+original Tandy 16/Xenix termcap entry from [page 72 of the TELCOM Manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n40/mode/1up):
 
     n1|td200|Tandy 200:\
       :am:bs:xt:co#40:li#16:al=\EL:dl=\EM:cd=^L:ce=\EK:cl=\EE:cm=\EY%+ %+ :\
