@@ -361,16 +361,28 @@ line, toggle status line, and hide cursor.
 
 ### Alternate Character Set
 
-One feature available on the VT52 supports is Alternate Character Set
-(ACS) mode, which uses 7-bit ASCII characters for box drawing and glyphs
-such as π. It would at first glance appear that TELCOM does not
-support it since the \eF and \eG escape sequences which enter and exit
-ACS are not implemented.
+One feature supported by the VT52 is Alternate Character Set (ACS)
+mode. ACS uses 7-bit ASCII characters for box drawing and glyphs such
+as π. It would at first glance appear that TELCOM does not support it
+since the VT52 \eF and \eG escape sequences which enter and exit ACS
+are not implemented.
 
 However, since it is possible to embed 8-bit codes into the terminfo
 file, we can use Tandy's Extended ASCII to represent those characters
-in the acsc string. Here is the mapping I came up with:
+directly in the acs_chars string. 
 
+    acs_chars=}\243.\231\,\233+\232-\230h\345~\235a\377f\246`\235{\210q\361i\251n\372y\251m\366j\367|\212g\2150\357w\363u\371t\364v\370l\360k\362x\365,
+    enter_alt_charset_mode=\eF,
+    exit_alt_charset_mode=\eG,
+
+Note that although TELCOM doesn't need the enter and
+exit_alt_charset_mode sequences, they appear to be required by ncurses
+for ACS to work. Setting them to \eF and \eG is compatible with the
+VT52 definition and causes no harm.
+
+#### ACS Chars as a table
+
+Here is the character mapping represented by the acs_chars string above:
 
 Glyph<br/>Name    | VT100<br/>Name | TRS80<br/>Model 100 | Notes
 -----------------------|-----------|---------------------|--------------
@@ -407,12 +419,6 @@ upper left corner      | l         |	\360
 upper right corner     | k         |	\362
 vertical line          | x         |	\365
 
-    smacs=\eF,rmacs=\eG,
-	acsc=}\243.\231\,\233+\232-\230h\345~\235a\377f\246`\235{\210q\361i\251n\372y\251m\366j\367|\212g\2150\357w\363u\371t\364v\370l\360k\362x\365,
-
-Note that smacs/rmacs don't actually do anything any more, but they
-appear to need to be defined in order for ACS to work. Setting them to
-\eF and \eG is compatible with the VT52 definition and causes no harm.
 
 ## History
 
