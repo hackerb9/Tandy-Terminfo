@@ -369,10 +369,10 @@ are ignored.
 
 However, since it is possible to embed 8-bit codes into the terminfo
 file, we can use Tandy's Extended ASCII to represent those characters
-directly in the acs_chars string. 
+directly in the acs_chars string.
 
     acs_chars=}\243.\231\,\233+\232
-			  -\230h\345~\235a\377
+			  -\230h\345~\325a\377
 			  f\246`\235{\210q\361
 			  i\251n\372y\251m\366
 			  j\367|\212g\2150\357
@@ -389,40 +389,40 @@ definition and causes no harm.
 
 Here is the character mapping represented by the acs_chars string above:
 
-Glyph Name | VT100<br/>Name | Tandy<br/>Model 200<br/>(octal) | Notes
------------------------|-----------|---------------------|--------------
-UK pound sign          | }		   |  	\243
-arrow pointing down    | .         |	\231
-arrow pointing left    | ,         |	\233
-arrow pointing right   | +         |	\232
-arrow pointing up      | -         |	\230
-board of squares       | h         |	\345	| Substitute 2x2 checkerboard
-bullet                 | ~         |	\235	| Substitute diamond
-checker board (stipple)| a         |	\377
-degree symbol          | f         |	\246
-diamond                | `         |	\235
-greater-than-or-equal-to| z		   |			| NO TANDY 200 EQUIVALENT
-greek pi               | {         |	\210
-horizontal line        | q         |	\361
-lantern symbol         | i         |	\251	| Substitute Section symbol.
-large plus or crossover| n         |	\372
-less-than-or-equal-to  | y         |	\251
-lower left corner      | m         |	\366
-lower right corner     | j         |	\367
-not-equal              | |         |	\212
-plus/minus             | g         |	\215
-scan line 1            | o		   |			| NO TANDY 200 EQUIVALENT
-scan line 3            | p		   |			| NO TANDY 200 EQUIVALENT
-scan line 7            | r		   |			| NO TANDY 200 EQUIVALENT
-scan line 9            | s		   |			| NO TANDY 200 EQUIVALENT
-solid square block     | 0         |	\357
-tee pointing down      | w         |	\363
-tee pointing left      | u         |	\371
-tee pointing right     | t         |	\364
-tee pointing up        | v         |	\370
-upper left corner      | l         |	\360
-upper right corner     | k         |	\362
-vertical line          | x         |	\365
+Glyph|Name | VT100<br/>Name | Model 100<br/>charset<br/>(octal) | Notes
+--|-----------------------|-----------|---------------------|--------------
+£ |UK pound sign          | }         | \243
+↓ |arrow pointing down    | .         | \231
+← |arrow pointing left    | ,         | \233
+→ |arrow pointing right   | +         | \232
+↑ |arrow pointing up      | -         | \230
+⯐ |board of squares       | h         | \345    | Substitute 2x2 checkerboard
+· |bullet                 | ~         | \325    | Substitute o-slash (ø)
+▒ |checker board (stipple)| a         | \377
+° |degree symbol          | f         | \246
+◆ |diamond                | `         | \235
+≥ |greater-than-or-equal-to| z        |         | NO TANDY 200 EQUIVALENT
+π |greek pi               | {         | \210
+─ |horizontal line        | q         | \361
+ɸ |lantern symbol         | i         | \251    | Substitute Section symbol.
+┼ |large plus or crossover| n         | \372
+≤ |less-than-or-equal-to  | y         | \251
+└ |lower left corner      | m         | \366
+┘ |lower right corner     | j         | \367
+≠ |not-equal              | |         | \212
+± |plus/minus             | g         | \215
+⎺ |scan line 1            | o         |         | NO TANDY 200 EQUIVALENT
+⎻ |scan line 3            | p         |         | NO TANDY 200 EQUIVALENT
+⎼ |scan line 7            | r         |         | NO TANDY 200 EQUIVALENT
+⎽ |scan line 9            | s         |         | NO TANDY 200 EQUIVALENT
+█ |solid square block     | 0         | \357
+┬ |tee pointing down      | w         | \363
+┤ |tee pointing left      | u         | \371
+├ |tee pointing right     | t         | \364
+┴ |tee pointing up        | v         | \370
+┌ |upper left corner      | l         | \360
+┐ |upper right corner     | k         | \362
+│ |vertical line          | x         | \365
 
 
 ## History
