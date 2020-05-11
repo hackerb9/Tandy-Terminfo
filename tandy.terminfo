@@ -9,17 +9,17 @@
 td100|td100-8-ns|td100-8|td100-ns|TRS-80 Model 100 no status line,
     lines#8, use=td200-16-ns,
 
-td100-7-s|td100-7|td100-s|TRS-80 Model 100 has status line,
+td100-7-s|td100-7|td100-s|TRS-80 Model 100 with status line,
     lines#7, use=td200-15-s,
 
 # Is there any difference between the Model 100 and the Model 102?
 td102|td102-8-ns|td102-8|td102-ns|TRS-80 Model 102 no status line,
     use=td100,
 
-td102-7-s|td102-7|td102-s|TRS-80 Model 102 has status line,
+td102-7-s|td102-7|td102-s|TRS-80 Model 102 with status line,
     use=td100-7-s,
 
-td200-15-s|td200-15|td200-s|Tandy 200 has status line,
+td200-15-s|td200-15|td200-s|Tandy 200 with status line,
 	lines#15, has_status_line,
 	init_1string=\ET,
 	dis_status_line=\EU\EY0 \ER\EA\EK\ET,
@@ -58,6 +58,13 @@ td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
 	scroll_forward=^J,
 	set_attributes@,
 	max_colors@,
+        acs_chars=}\243.\231\,\233+\232
+                  -\230h\345~\325a\377
+                  f\246`\235{\210q\361
+                  i\251n\372m\366
+                  j\367|\212g\2150\357
+                  w\363u\371t\364v\370
+                  l\360k\362x\365,
 
 ### Marginalia: terminfo can be
 # taught to disable a status line,
