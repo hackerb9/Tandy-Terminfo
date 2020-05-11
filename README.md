@@ -389,7 +389,7 @@ definition and causes no harm.
 
 Here is the character mapping represented by the acs_chars string above:
 
-Glyph<br/>Name    | VT100<br/>Name | TRS80<br/>Model 100 | Notes
+Glyph Name | VT100<br/>Name | Tandy<br/>Model 200<br/>(octal) | Notes
 -----------------------|-----------|---------------------|--------------
 UK pound sign          | }		   |  	\243
 arrow pointing down    | .         |	\231
