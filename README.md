@@ -371,7 +371,13 @@ However, since it is possible to embed 8-bit codes into the terminfo
 file, we can use Tandy's Extended ASCII to represent those characters
 directly in the acs_chars string. 
 
-    acs_chars=}\243.\231\,\233+\232-\230h\345~\235a\377f\246`\235{\210q\361i\251n\372y\251m\366j\367|\212g\2150\357w\363u\371t\364v\370l\360k\362x\365,
+    acs_chars=}\243.\231\,\233+\232
+			  -\230h\345~\235a\377
+			  f\246`\235{\210q\361
+			  i\251n\372y\251m\366
+			  j\367|\212g\2150\357
+			  w\363u\371t\364v\370
+			  l\360k\362x\365,
     enter_alt_charset_mode=\eF,
     exit_alt_charset_mode=\eG,
 
