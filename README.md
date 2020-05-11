@@ -365,7 +365,7 @@ One feature supported by the VT52 is Alternate Character Set (ACS)
 mode. ACS uses 7-bit ASCII characters for box drawing and glyphs such
 as π. It would at first glance appear that TELCOM does not support it
 since the VT52 \eF and \eG escape sequences which enter and exit ACS
-are not implemented.
+are ignored.
 
 However, since it is possible to embed 8-bit codes into the terminfo
 file, we can use Tandy's Extended ASCII to represent those characters
@@ -375,10 +375,9 @@ directly in the acs_chars string.
     enter_alt_charset_mode=\eF,
     exit_alt_charset_mode=\eG,
 
-Note that although TELCOM doesn't need the enter and
-exit_alt_charset_mode sequences, they appear to be required by ncurses
-for ACS to work. Setting them to \eF and \eG is compatible with the
-VT52 definition and causes no harm.
+Note that although TELCOM doesn't need the enter/exit_alt_charset_mode
+sequences, setting them to \eF and \eG is compatible with the VT52
+definition and causes no harm.
 
 #### ACS Chars as a table
 
