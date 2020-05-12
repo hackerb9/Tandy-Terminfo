@@ -424,7 +424,7 @@ Glyph|Name | VT100<br/>Name | Model 100<br/>charset<br/>(octal) | Notes
 ≥ |greater-than-or-equal-to| z        |         | NO TANDY 200 EQUIVALENT
 π |greek pi               | {         | \210
 ─ |horizontal line        | q         | \361
-ɸ |lantern symbol         | i         | \251    | Substitute Section symbol.
+ɸ |lantern symbol         | i         | \251    | Substitute Section symbol
 ┼ |large plus or crossover| n         | \372
 ≤ |less-than-or-equal-to  | y         | \251
 └ |lower left corner      | m         | \366
@@ -462,30 +462,32 @@ original Tandy 16/Xenix termcap entry from [page 72 of the TELCOM Manual](https:
 
 Using captoinfo we can convert the above entry to
 [terminfo](orig.terminfo) and compare it to [the current
-terminfo](tandy.terminfo) for this project.
+terminfo](tandy.terminfo) for this project. As you can see, there was
+a lot I was able to add.
 
-	$ infocmp -L -d origtd200 td200 | tr , : | column -t -s:
-	comparing origtd200 to td200.
-		comparing booleans.
-			auto_left_margin        F       T.
-			xon_xoff                F       T.
-		comparing numbers.
-			init_tabs               NULL    8.
-		comparing strings.
-			clr_eos                 '^L'   '\EJ'.
-			cursor_down             '^_'   '\EB'.
-			cursor_home             NULL   '\EH'.
-			cursor_invisible        NULL   '\EQ'.
-			cursor_left             '^H'   '\ED'.
-			cursor_normal           NULL   '\EP'.
-			cursor_right            '^\'   '\EC'.
-			dis_status_line         NULL   '\EU\EY0 \ES\EM'.
-			enter_reverse_mode      NULL   '\Ep'.
-			exit_attribute_mode     NULL   '\Eq'.
-			init_1string            NULL   '\EU'.
-			init_2string            NULL   '\EW\Eq\EE'.
-			key_left                '\n'   '^]'.
-			key_right               '^^'   '^\'.
+    $ infocmp -L -d origtd200 td200 | tr , : | column -t -s:
+    comparing origtd200 to td200.
+        comparing booleans.
+            auto_left_margin        F       T.
+            xon_xoff                F       T.
+        comparing numbers.
+            init_tabs               NULL    8.
+        comparing strings.
+            acs_chars               NULL   '+\232\054\233-\230.\2310\357`\235a\377f\246g\215h\345i\251j\367k\362l\360m\366n\372q\361t\364u\371v\370w\363x\365{\210|\212}\243~\325'.
+            clr_eos                 '^L'   '\EJ'.
+            cursor_down             '^_'   '\EB'.
+            cursor_home             NULL   '\EH'.
+            cursor_invisible        NULL   '\EQ'.
+            cursor_left             '^H'   '\ED'.
+            cursor_normal           NULL   '\EP'.
+            cursor_right            '^\'   '\EC'.
+            dis_status_line         NULL   '\EU\EY0 \ES\EM'.
+            enter_reverse_mode      NULL   '\Ep'.
+            exit_attribute_mode     NULL   '\Eq'.
+            init_1string            NULL   '\EU'.
+            init_2string            NULL   '\EW\Eq\EE'.
+            key_left                '\n'   '^]'.
+            key_right               '^^'   '^\'.
 
 ## Future
 
