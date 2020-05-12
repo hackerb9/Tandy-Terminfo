@@ -208,7 +208,7 @@ you can enable a serial port login like so:
     systemctl enable serial-getty@ttyS0
     systemctl start serial-getty@ttyS0
 
-If you have a USB to serial converter, try `ttyACM0` instead of `ttyS0`.
+(For a USB to serial converter, try `ttyACM0` instead of `ttyS0`.)
 
 When you connect with your Tandy portable, you'll see some garbage
 characters instead of a Login prompt and need to hit ENTER several
