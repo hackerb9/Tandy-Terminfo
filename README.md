@@ -73,11 +73,11 @@ bsdgames`).
 ## Suggestions
 
 While setting the `TERM` environment variable will get you most of the
-way to a usable interface, there are some other commands which hackerb9
-recommends running when using a Tandy portable as a terminal. You can
-put these in your `.bash_profile` so they'll be sourced when you login
-or you can put them in a file and use `source filename` to read the
-commands into your current shell.
+way to a usable interface, there are some other commands which the
+author, hackerb9, recommends running when using a Tandy portable as a
+terminal. You can put these in your `.bash_profile` so they'll be
+sourced when you login or you can put them in a file and use `source
+filename` to read the commands into your current shell.
 
 ### td200 or .bash_profile
 
