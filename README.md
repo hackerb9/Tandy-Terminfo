@@ -73,8 +73,8 @@ bsdgames`).
 ## Suggestions
 
 While setting the `TERM` environment variable will get you most of the
-way to a usable interface, there are some other commands which I
-recommend running when using a Tandy portable as a terminal. You can
+way to a usable interface, there are some other commands which hackerb9
+recommends running when using a Tandy portable as a terminal. You can
 put these in your `.bash_profile` so they'll be sourced when you login
 or you can put them in a file and use `source filename` to read the
 commands into your current shell.
@@ -143,10 +143,9 @@ serial port like so:
 
 ### .inputrc for arrow keys
 
-I also recommend adding the following
-to your `.inputrc` so that the arrow
-keys will work in Bash and other
-programs that use libreadline.
+Hackerb9 also recommends adding the following to your `.inputrc` so
+that the arrow keys will work in Bash and other programs that use
+libreadline.
 
 	$if term=td200
 	    Control-^: previous-history
@@ -220,8 +219,8 @@ ENTER too many times as it won't change baud rate once they match.
 ### Optional: Change getty's default baud rate
 
 You may wish to change the default baud rate so that it only connects
-at 9600 baud. I suggest adding 19200 baud to the list since the Tandy
-200 can handle that and it is a significant improvement.
+at 9600 baud. Hackerb9 suggests adding 19200 baud to the list since
+the Tandy 200 can handle that and it is a significant improvement.
 
 To do that, copy the symlink that `enable` created into a file, make a
 symlink to the new file (because systemd is overly persnickety), and
@@ -260,7 +259,8 @@ To connect at 19200 baud, you'll need to type this into TELCOM:
         key_up=^^, key_down=^_,
         key_left=^], key_right=^\,
 
-  However, see the workaround above for Bash and other readline programs.
+  However, see the .inputrc workaround above for Bash and other
+  readline programs.
 
 * If control-L clears the screen, but certain programs show
   uninterpreted escape sequences (e.g., `0;m`), then the problem is
@@ -271,7 +271,7 @@ To connect at 19200 baud, you'll need to type this into TELCOM:
 
 ### Reportedly buggy programs
 
-  * man (workaround, `export PAGER=more`)
+  * man (workaround, `export MANPAGER=more`)
   * bash's PS1 prompt, tab completion when ambiguous
   * gcc error messages (workaround, `export GCC_COLORS=""`)
   * w3m colors (workaround `w3m -color=0` or use **O**ptions to set
@@ -286,9 +286,9 @@ To connect at 19200 baud, you'll need to type this into TELCOM:
 
   You can test if an application is indeed buggy by running `xterm -ti
   vt52 -tn vt52`. If that terminal shows the same errors as on your
-  Tandy 200 (or Model 100), then it is the program that is at fault
-  and you should file a bug report with that project. On the other
-  hand, if vt52 works (does not show escape sequences), please file a
+  Tandy 200, then it is the program that is at fault and you should
+  file a bug report with that project. On the other hand, if xterm's
+  vt52 emulation works (does not show escape sequences), please file a
   bug with this project. (Bug reports are always appreciated.)
 
 ### Ssh disables flow control
@@ -313,7 +313,8 @@ local host after ssh has started and run:
 
 ## Table of Escape Sequences
 
-Here are the escape sequences which my Tandy 200 responds to.
+The Escape sequences listed in the official manual were incomplete.
+Here are the escape sequences which hackerb9's Tandy 200 responds to.
 
 Sequence | Meaning | Notes
 ---------|---------|------
@@ -322,12 +323,14 @@ Sequence | Meaning | Notes
  \eC     | cursor Right
  \eD     | cursor Left | ^H may be equivalent.
  \eE     | clear screen | \ej may be equivalent, undocumented in [TELCOM manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n48/mode/1up), but this is what the sample TERMCAP in the same manual actually uses.
+ \eF     | ignored (but see Alternate Character Set section below)
+ \eG     | ignored
  \eH     | cursor home
- \eI     | type answerback id | Types **"#RSM200"** on my Radio-Shack Model 200.
+ \eI     | type answerback id | Types **"#RSM200"** on hackerb9's **R**adio-**S**hack **M**odel **200**.
  \eJ     | clear to the end of screen
  \eK     | clear to the end of line
- \eL     | insert line
- \eM     | delete line
+ \eL     | insert line (moves lines below down)
+ \eM     | delete line (moves lines below up)
  \eP     | cursor normal
  \eQ     | cursor invisible
  \eR     | restore saved line | _not documented,_ currently used by dsl to restore status line.
@@ -359,7 +362,7 @@ back, your Tandy portable will muck up the screen and type its
 1. Additionally, the sequences expected for the arrow keys have been
 redefined to control characters. This is rather inconvenient as those
 control characters were already used for other things and it is a
-rather questionable decision to redefine them. I would bet dollars to
+rather questionable decision to redefine them. I'd bet dollars to
 donuts that Radio-Shack came up with this kludge after writing a
 program that sends exactly one byte for each key and only realizing at
 the last minute that it's not always true.
@@ -376,10 +379,10 @@ as π. It would at first glance appear that TELCOM does not support it
 since the VT52 \eF and \eG escape sequences which enter and exit ACS
 are ignored.
 
-However, I realized it is possible to embed 8-bit codes into the
-terminfo file, so I could use Tandy's Extended ASCII to represent
+However, hackerb9 realized it is possible to embed 8-bit codes into
+the terminfo file and could use Tandy's Extended ASCII to represent
 those characters directly in the acs_chars string. Here's the mapping
-I came up with:
+hackerb9 came up with:
 
     acs_chars=}\243.\231\,\233+\232
               -\230h\345~\325a\377
@@ -391,10 +394,10 @@ I came up with:
 
 #### [acschars.c](acschars.c)
 
-I created a simple [ncurses test program](acschars.c) which shows all
-the ACS characters on the screen. It works on any terminal, and if a
-terminal supported all the possible ACS characters, the output would
-look something like:
+Here is a simple [ncurses test program](acschars.c) written by
+hackerb9 which shows all the ACS characters on the screen. It works on
+any terminal, not just Tandy portables. If a terminal were to support
+all the possible ACS characters, the output would look something like:
 
 		  NCURSES EXTENDED CHARACTERS
 
@@ -472,7 +475,7 @@ original Tandy 16/Xenix termcap entry from [page 72 of the TELCOM Manual](https:
 Using captoinfo we can convert the above entry to
 [terminfo](orig.terminfo) and compare it to [the current
 terminfo](tandy.terminfo) for this project. As you can see, there was
-a lot I was able to add.
+a lot hackerb9 was able to add.
 
     $ infocmp -L -d origtd200 td200 | tr , : | column -t -s:
     comparing origtd200 to td200.
@@ -507,7 +510,7 @@ and TODO below).
 
 ## Implementation Notes
 
-* What Tandy calls "LABELS" I call a
+* What Tandy calls "LABELS" hackerb9 calls a
   "Status Line" because in terminfo
   parlance "Soft Labels" is for text
   above reprogrammable Function keys.
@@ -520,12 +523,12 @@ and TODO below).
 
 * Terminfo allows codes to overwrite
   the status line using tsl/fsl. We
-  could implement tsl, but I don't
-  see how we'd define fsl which is
+  could implement tsl, but how would
+  we define fsl which is
   supposed to pop back to the
   previous cursor location. Since
   ncurses never uses tsl/fsl, there's
-  probably no point in trying.
+  probably also no point in trying.
 
   For anyone who cares to try, the
   following will overwrite your
@@ -536,16 +539,15 @@ and TODO below).
 	  sleep 1
 	  echo $'\eU\eY0 \eR\eT'
 
-* Why I overloaded dsl:
+* Why hackerb9 overloaded dsl:
 
-  Terminfo doesn't support enabling status lines. It can, however,
-  disable them with "dsl". I used dsl in this normal way for the
-  terminal types without a status line (e.g., `td200`).
+  Terminfo doesn't support enabling status lines (a strange lack). It
+  can, however, disable them with "dsl". dsl is used in this standard
+  way for the terminal types without a status line (e.g., `td200`).
 
-  However, I made a kludge that I think actually works pretty well:
-  the "dsl" sequence for variants _with_ status lines actually enables
-  it. I think terminfo ought to add "*enable*_status_line" to match
-  "*disable*_status_line".
+  However, hackerb9 made a kludge that actually works pretty well: the
+  "dsl" sequence for variants _with_ status lines (e.g., `td200-s`)
+  actually enables it.
 
   Just for fun, my dsl strings also
   save and restore the labels in the
@@ -561,12 +563,9 @@ and TODO below).
       $ TERM=td200-s
       $ tput dsl
 
-  By default, the Tandy terminals do
-  *not* rewrite the last line of the
-  screen when the status line is
-  enabled with an escape sequence. That
-  means you would not get back the line
-  that says "Prev Down Up Full".
+  By default, the Tandy terminals do *not* rewrite the status line
+  when it is enabled with an escape sequence. That means you would not
+  get back the line that says "Prev Down Up Full".
 
 * Reminder to self: although scroll backward can be faked with HOME,
   Insert Line (\eH\eL), there's no point in doing it since ncurses
@@ -574,7 +573,7 @@ and TODO below).
 
 * The `td200` entry defaults to presuming the status line is _off_
   (which is the preferred way to use it), not _on_ (which is how the
-  TELCOM software always starts up).
+  TELCOM software always starts up). 
 
 
 ## Questions
