@@ -380,9 +380,27 @@ I came up with:
               w\363u\371t\364v\370
               l\360k\362x\365,
 
+#### [acschars.c](acschars.c)
+
 I created a simple [ncurses test program](acschars.c) which shows all
-the ACS characters on the screen. It works on any terminal, but here's
-what it looks like on the Tandy 200:
+the ACS characters on the screen. It works on any terminal, and if a
+terminal supported all the possible ACS characters, the output would
+look something like:
+
+		  NCURSES EXTENDED CHARACTERS
+
+		↑         Diamond ◆      Scan ⎺⎻─⎼⎽
+	  ┌─┬─┐       Board   ⯐      Pi      π
+	  │ │ │       CkBoard ▒      PlMinus ±
+	 ←├─┼─┤→      Block   █      LEqual  ≤
+	  │ │ │       Bullet  ·      GEqual  ≥
+	  └─┴─┘       Degree  °      NEqual  ≠
+		↓         Lantern ɸ      Strling £
+
+Tandy's Extended ASCII lacks some of those characters, such as the
+scan lines and Less-Than-or-Equal-To. Ncurses automatically replaces
+undefined ACS chars with similar ASCII, so here's what it looks like
+on the Tandy 200:
 
 <img src="README.md.d/acschars.jpg">
 
