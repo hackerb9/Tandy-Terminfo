@@ -113,7 +113,6 @@ int main(void)
   /* Exit, but don't use endwin as that has the titeInhibit bug which
      clears the screen annoyingly. Use reset_shell_mode() instead. */
 
-  putp(pkey_xmit);		/* (Need for gnome-terminal, shift+pageup.  */
   putp(keypad_local);		/* disable application keys mode.  */  
   reset_shell_mode();		/* reset the terminal but don't clear screen. */
 
