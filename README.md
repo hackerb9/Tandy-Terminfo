@@ -361,29 +361,31 @@ line, toggle status line, and hide cursor.
 
 ### Alternate Character Set
 
-One feature supported by the VT52 is Alternate Character Set (ACS)
+One feature supported by the DEC VT52 is Alternate Character Set (ACS)
 mode. ACS uses 7-bit ASCII characters for box drawing and glyphs such
 as π. It would at first glance appear that TELCOM does not support it
 since the VT52 \eF and \eG escape sequences which enter and exit ACS
 are ignored.
 
-However, since it is possible to embed 8-bit codes into the terminfo
-file, we can use Tandy's Extended ASCII to represent those characters
-directly in the acs_chars string.
+However, I realized it is possible to embed 8-bit codes into the
+terminfo file, so I could use Tandy's Extended ASCII to represent
+those characters directly in the acs_chars string. Here's the mapping
+I came up with:
 
     acs_chars=}\243.\231\,\233+\232
-			  -\230h\345~\325a\377
-			  f\246`\235{\210q\361
-			  i\251n\372y\251m\366
-			  j\367|\212g\2150\357
-			  w\363u\371t\364v\370
-			  l\360k\362x\365,
-    enter_alt_charset_mode=\eF,
-    exit_alt_charset_mode=\eG,
+              -\230h\345~\325a\377
+              f\246`\235{\210q\361
+              i\251n\372m\366
+              j\367|\212g\2150\357
+              w\363u\371t\364v\370
+              l\360k\362x\365,
 
-Note that although TELCOM doesn't need the enter/exit_alt_charset_mode
-sequences, setting them to \eF and \eG is compatible with the VT52
-definition and causes no harm.
+I created a simple [ncurses test program](acschars.c) which shows all
+the ACS characters on the screen. It works on any terminal, but here's
+what it looks like on the Tandy 200:
+
+<img src="README.md.d/acschars.jpg">
+
 
 #### ACS Chars as a table
 
