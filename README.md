@@ -168,6 +168,85 @@ your .emacs file:
 	;; XON/XOFF flow control.
 	(enable-flow-control-on "td200" "td100" "td102")
 
+## Notes on using the TELCOM program
+
+* For a standard serial port @9600 baud, type this command in TELCOM:
+
+    stat 88n1enn
+
+* 19200 baud works fine if your UNIX getty is configured to talk that speed:
+
+    stat 98n1enn
+
+* Software flow control (XON/XOFF) is absolutely necessary as the 8250
+  UART has a one byte buffer. If you see text followed by garbage, try
+  `stty ixon ixoff -ixany` .
+
+* Hardware flow control (RTS/CTS) is not available.
+
+* To connect to a PC running UNIX, you'll need a null modem cable.
+
+* The Tandy Model 200 has a *FEMALE* 25 pin RS-232c port.
+
+### Special keys:
+
+    \    GRPH -          Backslash
+    |    GRPH SHIFT _    Pipe
+    `    GRPH [          Backtick
+    ~    GRPH SHIFT ]    Tilde
+    {    GRPH 9          Open curly brace
+    }    GRPH 0          Close curly brace
+    ^@   GRPH P          Sends 0x80, useful in Emacs to set the mark
+
+Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
+
+## Enabling a serial login on Unix systems with systemd and agetty
+
+If you have a UNIX box running `systemd`, such as Debian GNU/Linux,
+you can enable a serial port login like so:
+
+    systemctl enable serial-getty@ttyS0
+    systemctl start serial-getty@ttyS0
+
+If you have a USB to serial converter, try `ttyACM0` instead of `ttyS0`.
+
+When you connect with your Tandy portable, you'll see some garbage
+characters instead of a Login prompt and need to hit ENTER several
+times. This is because getty tries 115,200 then 38,400 and finally
+9600 baud. Every time you hit ENTER it should detect that the speed is
+mismatched and switch to the next one. There is no harm in hitting
+ENTER too many times as it won't change baud rate once they match.
+
+### Optional: Change getty's default baud rate
+
+You may wish to change the default baud rate so that it only connects
+at 9600 baud. I suggest adding 19200 baud to the list since the Tandy
+200 can handle that and it is a significant improvement.
+
+To do that, copy the symlink that `enable` created into a file, make a
+symlink to the new file (because systemd is overly persnickety), and
+then edit the file by hand.
+
+	sudo -s
+    systemctl enable serial-getty@ttyS0
+    cd /etc/systemd/system/getty.target.wants/
+	cp serial-getty@ttyS0.service ..
+    ln -sf ../serial-getty@ttyS0.service 
+    editor serial-getty@ttyS0.service
+	exit
+
+When editing, change the line that says:
+
+	ExecStart=-/sbin/agetty -o '-p -- \\u' --keep-baud 115200,38400,9600 %I $TERM
+
+to
+
+	ExecStart=-/sbin/agetty -o '-p -- \\u' --keep-baud 19200,9600 %I $TERM
+
+To connect at 19200 baud, you'll need to type this into TELCOM:
+
+    stat 98n1enn
+
 
 ## Problems
 
@@ -212,85 +291,15 @@ your .emacs file:
   hand, if vt52 works (does not show escape sequences), please file a
   bug with this project. (Bug reports are always appreciated.)
 
-## Notes on using the TELCOM program
+### Ssh disables flow control
 
-* For a standard serial port @9600 baud, type this command in TELCOM:
+Because `ssh` disables flow control, it will often have garbage shown
+on the screen. A workaround is to login from another terminal on the
+local host after ssh has started and run:
 
-    stat 88n1enn
+    stty -F /dev/ttyS0 ixon ixoff
 
-* 19200 bps works fine if your UNIX getty is configured to talk that speed:
-
-    stat 98n1enn
-
-* Software flow control (XON/XOFF) is absolutely necessary as the 8250
-  UART has a one byte buffer.
-
-* Hardware flow control (RTS/CTS) is not available.
-
-* Because `ssh` disables flow control, it will often have garbage
-  shown on the screen. A workaround is to login from another terminal
-  on the local host after ssh has started and run:
-
-      stty -F /dev/ttyS0 ixoff
-
-  (Where `ttyS0` is the name of the serial port you are logging in from.)
-
-* To connect to a PC running UNIX, you'll need a null modem cable.
-
-* The Tandy Model 200 has a *FEMALE* 25 pin RS-232c port.
-
-### Special keys:
-
-    \    GRPH -          Backslash
-    |    GRPH SHIFT _    Pipe
-    `    GRPH [          Backtick
-    ~    GRPH SHIFT ]    Tilde
-    {    GRPH 9          Open curly brace
-    }    GRPH 0          Close curly brace
-    ^@   GRPH P          Sends 0x80, useful in Emacs to set the mark
-
-Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
-
-## Enabling a serial login on Unix systems with systemd and agetty
-
-If you have a UNIX box running `systemd`, such as Debian GNU/Linux,
-you can enable a serial port login like so:
-
-    systemctl enable serial-getty@ttyS0
-    systemctl start serial-getty@ttyS0
-
-Presuming you have a serial port on `ttyS0`, of course. If you have a
-USB to serial converter, try `ttyACM0`.
-
-### Optional: allow different baud rates
-
-The default baud rates should work with the Tandy portables as 9600 is
-one of the standard ones. However, I wanted to allow both higher and
-lower speeds as I use different terminals.
-
-There may be a way to change the baud rates accepted using systemd,
-but I don't know it. What I did is copy over the symlink that `enable`
-created, made a symlink to it because systemd is persnickety, and then
-edited the file by hand.
-
-    cd /etc/systemd/system/getty.target.wants/
-    rm serial-getty@ttyS0.service
-    cp /lib/systemd/system/serial-getty@.service serial-getty@ttyS0.service.real
-    ln -s serial-getty@ttyS0.service.real serial-getty@ttyS0.service
-    emacs serial-getty@ttyS0.service
-
-If you set the baud rate to multiple values, the agetty program will
-switch to the next one, if it's at the wrong speed, whenever you hit
-the ENTER key. For example, you could use the following:
-
-    ExecStart=-/sbin/agetty 115200,19200,9600,300 %I $TERM
-
-When you connect with your Tandy portable, you'll see some garbage
-characters instead of a Login prompt because it is talking at 115,200
-bps. When you hit Enter, it'll try again at 19200. If you still get
-line noise, hit Enter once more for 9600. (There is no harm in hitting
-Enter too many times as it won't change baud rate when it is correctly
-detected.)
+(Where `ttyS0` is the name of the serial port your Tandy is on.)
 
 ## Further Reading
 
