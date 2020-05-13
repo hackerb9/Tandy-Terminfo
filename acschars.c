@@ -109,10 +109,10 @@ int main(void)
   printw("\n");
 
   printw("\n");
-  char *p=ttytype;
+  char *p=ttytype;		/* Long name is last string after pipe */
   while (*p++)
     ;
-  while (*p--!='|')
+  while (p>=ttytype && *p--!='|')
     ;
   p+=2;
 
