@@ -323,14 +323,14 @@ Sequence | Meaning | Notes
  \eC     | cursor Right
  \eD     | cursor Left | ^H may be equivalent.
  \eE     | clear screen | \ej may be equivalent, undocumented in [TELCOM manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n48/mode/1up), but this is what the sample TERMCAP in the same manual actually uses.
- \eF     | ignored (but see Alternate Character Set section below)
+ \eF     | ignored | see Alternate Character Set section below
  \eG     | ignored
  \eH     | cursor home
  \eI     | type answerback id | Types **"#RSM200"** on hackerb9's **R**adio-**S**hack **M**odel **200**.
  \eJ     | clear to the end of screen
  \eK     | clear to the end of line
- \eL     | insert line (moves lines below down)
- \eM     | delete line (moves lines below up)
+ \eL     | insert line | moves lines below down
+ \eM     | delete line | moves lines below up
  \eP     | cursor normal
  \eQ     | cursor invisible
  \eR     | restore saved line | _not documented,_ currently used by dsl to restore status line.
