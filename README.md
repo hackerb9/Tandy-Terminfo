@@ -545,7 +545,7 @@ and TODO below).
   can, however, disable them with "dsl". dsl is used in this standard
   way for the terminal types without a status line (e.g., `td200`).
 
-  However, hackerb9 made a kludge that actually works pretty well: the
+  However, hackerb9 made a kludge that seems to work pretty well: the
   "dsl" sequence for variants _with_ status lines (e.g., `td200-s`)
   actually enables it.
 
