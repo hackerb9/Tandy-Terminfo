@@ -441,7 +441,7 @@ Glyph|Name | VT100<br/>Name | Model 100<br/>charset<br/>(octal) | Notes
 ≤ |less-than-or-equal-to  | y         | \251
 └ |lower left corner      | m         | \366
 ┘ |lower right corner     | j         | \367
-≠ |not-equal              | |         | \212
+≠ |not-equal              | \|        | \212
 ± |plus/minus             | g         | \215
 ⎺ |scan line 1            | o         |         | NO TANDY 200 EQUIVALENT
 ⎻ |scan line 3            | p         |         | NO TANDY 200 EQUIVALENT
