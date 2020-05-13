@@ -342,7 +342,7 @@ Sequence | Meaning | Notes
  \eY     | Move to cursor address *r,c* | cursor_address=\eY%p1%' '%+%c%p2%' '%+%c <br/> Row and column are sent as single bytes which start at 32 (ASCII space) for zero.
  \ej     | Clear screen | _not used,_ \eE is the same
  \el     | Clear line | _not used,_ terminfo does not define this function. Unlike Delete line (\eM), this does not close the gap by moving lines up.
- \ep     | Inverse text
+ \ep     | Reverse text
  \eq     | Normal text
  \er     | mystery! | _not used._ Erases current line and displays **"7A tua"** on my Tandy 200.
 
@@ -399,15 +399,15 @@ hackerb9 which shows all the ACS characters on the screen. It works on
 any terminal, not just Tandy portables. If a terminal were to support
 all the possible ACS characters, the output would look something like:
 
-		  NCURSES EXTENDED CHARACTERS
+          NCURSES EXTENDED CHARACTERS
 
-		↑         Diamond ◆      Scan ⎺⎻─⎼⎽
-	  ┌─┬─┐       Board   ⯐      Pi      π
-	  │ │ │       CkBoard ▒      PlMinus ±
-	 ←├─┼─┤→      Block   █      LEqual  ≤
-	  │ │ │       Bullet  ·      GEqual  ≥
-	  └─┴─┘       Degree  °      NEqual  ≠
-		↓         Lantern ɸ      Strling £
+        ↑         Diamond ◆      Scan ⎺⎻─⎼⎽
+      ┌─┬─┐       Board   ⯐      Pi      π
+      │ │ │       CkBoard ▒      PlMinus ±
+     ←├─┼─┤→      Block   █      LEqual  ≤
+      │ │ │       Bullet  ·      GEqual  ≥
+      └─┴─┘       Degree  °      NEqual  ≠
+        ↓         Lantern ɸ      Strling £
 
 Tandy's Extended ASCII lacks some of those characters, such as the
 scan lines and Less-Than-or-Equal-To. Ncurses automatically replaces
