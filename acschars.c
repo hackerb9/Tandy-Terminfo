@@ -8,8 +8,6 @@ int main(void)
   attroff(A_REVERSE);
   printw("\n");
 
-  mvprintw(LINES-1, COLS-1,"x");
-
   int col=1;
   int row=2;
   mvprintw(row++, col ,"   ");
@@ -108,8 +106,9 @@ int main(void)
   addch(ACS_STERLING);
   printw("\n");
 
+/*Long name is last string after pipe*/
   printw("\n");
-  char *p=ttytype;		/* Long name is last string after pipe */
+  char *p=ttytype;		
   while (*p++)
     ;
   while (p>=ttytype && *p--!='|')
@@ -118,6 +117,8 @@ int main(void)
 
   printw("Terminal type: %s\n", p);
   printw("\n");
+
+  move(LINES-1, 0);
 
   refresh();
 
