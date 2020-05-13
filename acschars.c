@@ -108,6 +108,17 @@ int main(void)
   addch(ACS_STERLING);
   printw("\n");
 
+  printw("\n");
+  char *p=ttytype;
+  while (*p++)
+    ;
+  while (*p--!='|')
+    ;
+  p+=2;
+
+  printw("Terminal type: %s\n", p);
+  printw("\n");
+
   refresh();
 
   /* Exit, but don't use endwin as that has the titeInhibit bug which
