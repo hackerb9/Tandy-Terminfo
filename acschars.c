@@ -3,13 +3,19 @@
 int main(void)
 {
   initscr();
-  attron(A_REVERSE);
-  mvprintw(0,0,"      NCURSES EXTENDED CHARACTERS       \n");
-  attroff(A_REVERSE);
-  printw("\n");
+
+  int startrow=2;
+  if (LINES<12) startrow=0;
+
+  if (LINES>=12) {
+    attron(A_REVERSE);
+    mvprintw(0,0,"      NCURSES EXTENDED CHARACTERS       \n");
+    attroff(A_REVERSE);
+    printw("\n");
+  }
 
   int col=1;
-  int row=2;
+  int row=startrow;
   mvprintw(row++, col ,"   ");
   addch(ACS_UARROW);
   printw("  ");
@@ -66,7 +72,7 @@ int main(void)
   printw("\n");
 
   col=14;
-  row=2;
+  row=startrow;
   mvprintw(row++, col, "Diamond ");
   addch(ACS_DIAMOND);
   mvprintw(row++, col, "Board   ");
@@ -84,7 +90,7 @@ int main(void)
   
   
   col=29;
-  row=2;
+  row=startrow;
   printw("\n");
   mvprintw(row++,col, "Scan ");
   addch(ACS_S1);
@@ -106,24 +112,23 @@ int main(void)
   addch(ACS_STERLING);
   printw("\n");
 
-/*Long name is last string after pipe*/
-  printw("\n");
-  char *p=ttytype;		
-  while (*p++)
-    ;
-  while (p>=ttytype && *p--!='|')
-    ;
-  p+=2;
-
-  printw("Terminal type: %s\n", p);
-  printw("\n");
+  if (LINES>=12) {
+    /*Long name is last string after pipe*/
+    printw("\n");
+    char *p=ttytype;		
+    while (*p++)
+      ;
+    while (p>=ttytype && *p--!='|')
+      ;
+    p+=2;
+    printw("Terminal type: %s\n", p);
+  }
 
   move(LINES-1, 0);
-
   refresh();
 
-  /* Exit, but don't use endwin as that has the titeInhibit bug which
-     clears the screen annoyingly. Use reset_shell_mode() instead. */
+  /* Exit, but don't use endwin as that has the titeInhibit misfeature
+     which clears the screen annoyingly. Use reset_shell_mode() instead. */
 
   putp(keypad_local);		/* disable application keys mode.  */  
   reset_shell_mode();		/* reset the terminal but don't clear screen. */
