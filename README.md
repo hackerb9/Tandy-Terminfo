@@ -107,7 +107,7 @@ you must source it by `source td200` or
     export MANPAGER=more
     export MANWIDTH=40
     export GCC_COLORS=""
-    alias nano="nano -Op"
+    alias nano="nano -Opx"
     alias w3m="w3m -color=0"
 
     if [ $SHLVL -gt 1 ]; then
