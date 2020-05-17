@@ -102,6 +102,8 @@ you must source it by `source td200` or
     stty erase ^H
     # Right arrow key sends ^\, so don't use that to abort and dump core.
     stty quit undef
+    # Translate Carriage Return to Newline (for uploads > N_TTY_BUF_SIZE)
+    stty icrnl
 
     # Workarounds
     export MANPAGER=more

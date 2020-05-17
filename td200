@@ -10,8 +10,10 @@ stty ixon ixoff
 stty rows 16 cols 40
 # Backspace key sends ^H not ^?
 stty erase ^H
-# Right arrow key sends ^\, so don't use that to abort and dump core.
+# Right arrow key sends ^\, so don't use that to abort and dump core
 stty quit undef
+# Translate Carriage Return to Newline (for uploads > N_TTY_BUF_SIZE)
+stty icrnl
 
 # Workarounds
 export MANPAGER=more
