@@ -603,6 +603,10 @@ and TODO below).
 * Investigate creating a new charmap for locale. (See `locale -m` and
   `locale(1)`)
 
+  This would let UTF-8 unicode show up correctly on the Tandy 200
+  plus, it would allow us to type in 8-bit Extended ASCII to enter
+  Unicode characters.
+
 * Maybe get cursor keys working in Emacs.
 
   Cursor keys work in vi, but not in Emacs. Emacs is doing something
