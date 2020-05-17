@@ -339,7 +339,7 @@ Sequence | Meaning | Notes
  \eS     | save current line | _not documented,_ currently used by dsl to save status line.
  \eT     | enable status line | used in init for variants which have a status line (e.g. td200-s).
  \eU     | disable status line | used in init_1string for variants which have no status line (e.g. td200).
- \eV     | disable scrolling | _not used,_ not defined by terminfo. (Was this ever useful?)
+ \eV     | disable scrolling | _not used,_ not defined by terminfo. Overwrites bottom line repeatedly. May be useful for downloading large files as it saves one second per kilobyte (18% less time).
  \eW     | enable scrolling | used in init_2string for `reset`.
  \eY     | Move to cursor address *r,c* | cursor_address=\eY%p1%' '%+%c%p2%' '%+%c <br/> Row and column are sent as single bytes which start at 32 (ASCII space) for zero.
  \ej     | Clear screen | _not used,_ \eE is the same
