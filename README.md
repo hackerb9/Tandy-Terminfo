@@ -346,7 +346,7 @@ Sequence | Meaning | Notes
  \el     | Clear line | _not used,_ terminfo does not define this function. Unlike Delete line (\eM), this does not close the gap by moving lines up.
  \ep     | Reverse text
  \eq     | Normal text
- \er     | mystery! | _not used._ Erases current line and displays **"7A tua"** on my Tandy 200.
+ \er     | mystery! | _not used._ Erases current line and displays bits of strange text on my Tandy 200, such as "7a tua". It does not type it into the terminal, so it is not an answerback sequence.
 
 ### Comparison with VT52
 
