@@ -327,7 +327,7 @@ Sequence | Meaning | Notes
  \eE     | clear screen | \ej may be equivalent, undocumented in [TELCOM manual](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n48/mode/1up), but this is what the sample TERMCAP in the same manual actually uses.
  \eF     | ignored | see Alternate Character Set section below
  \eG     | ignored
- \eH     | cursor home
+ \eH     | cursor home | Cursor moves to upper left corner
  \eI     | type answerback id | Types **"#RSM200"** on hackerb9's **R**adio-**S**hack **M**odel **200**.
  \eJ     | clear to the end of screen
  \eK     | clear to the end of line
