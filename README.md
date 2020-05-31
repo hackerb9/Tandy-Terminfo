@@ -153,10 +153,12 @@ libreadline.
 	    Control-^: previous-history
 	    Control-_: next-history
 	    Control-]: backward-char
-	    # Use 'stty quit undef' to make right arrow work.
+	    # Note: Use 'stty quit undef' to make right arrow work.
 	    Control-\: forward-char
 	    # Shift + BkSp to delete next char.
 	    "\d": delete-char
+	    # While we're here, disable ANSI colors for tab completion
+	    set colored-completion-prefix off
 	$endif
 
 ### .emacs for flow control
