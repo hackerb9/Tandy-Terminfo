@@ -3,6 +3,7 @@
 # Tandy-Terminfo
 Tandy Model 100, 102, 200 Terminfo for screen control on UNIX machines
 
+
 ## What is this?
 
 When using the TELCOM terminal program on a Tandy portable computer
@@ -15,6 +16,7 @@ variable.
 This repository provides both the [source TERMINFO](tandy.terminfo)
 file and the [compiled versions](.terminfo/t/).
 
+
 ## Installation
 
 Download the [source TERMINFO](tandy.terminfo) file and compile it
@@ -24,6 +26,7 @@ with `tic` on your UNIX host.
 
 That will create the proper files in your `.terminfo` directory so
 they can be used immediately.
+
 
 ## Usage
 
@@ -47,6 +50,7 @@ not wish to disable the status line, use the `-s` variant, like so,
 For convenience, there are aliases so you can refer to the TERM by
 number of lines instead of whether it has a status line (`td200-15`).
 
+
 ## The list of available terminals
 
 * `td200`: Tandy Model 200 (no status line). 40 columns x 16 rows.
@@ -62,6 +66,7 @@ number of lines instead of whether it has a status line (`td200-15`).
 * `td102-s`: Tandy Model 102 (has status line). 40 columns x 7 rows.
   Alias: `td102-7`
 
+
 ## Testing
 
 You can test whether it worked by pressing Control-L. If it clears the
@@ -69,6 +74,7 @@ screen, then you have correctly installed the TERMINFO files. You can
 also try running a `curses` program, such as the BSD game "worms"
 which animates ASCII worms crawling on your screen. (`apt install
 bsdgames`).
+
 
 ## Suggestions
 
@@ -104,6 +110,8 @@ you must source it by `source td200` or
     stty quit undef
     # Translate Carriage Return to Newline (for uploads > N_TTY_BUF_SIZE)
     stty icrnl
+    # Don't logout when exiting terminal mode in TELCOM
+    stty clocal
 
     # Workarounds
     export MANPAGER=more
@@ -133,8 +141,8 @@ the full path. For example, `. td200` .
 
 Tip 2: You can automatically source the
 td200 script from your .bash_profile
-automatically when logging in from a
-serial port like so:
+when logging in from a serial port like
+so:
 
     # If logging in from a serial console,
     # it's my Tandy 200 Portable Computer.
@@ -169,6 +177,7 @@ your .emacs file:
 	;; XON/XOFF flow control.
 	(enable-flow-control-on "td200" "td100" "td102")
 
+
 ## Notes on using the TELCOM program
 
 * For a standard serial port @9600 baud, type this command in TELCOM:
@@ -200,6 +209,7 @@ your .emacs file:
     ^@   GRPH P          Sends 0x80, useful in Emacs to set the mark
 
 Note that Tandy docs say CTRL-@ is supposed to work, but it does not.
+
 
 ## Enabling a serial login on Unix systems with systemd and agetty
 
@@ -303,6 +313,7 @@ local host after ssh has started and run:
 
 (Where `ttyS0` is the name of the serial port your Tandy is on.)
 
+
 ## Further Reading
 
 * terminfo(5) - terminal capability data base
@@ -312,6 +323,7 @@ local host after ssh has started and run:
   Particularly:
   * [Table of Escape Sequence Codes](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n48/mode/1up)
   * [TERMCAP for use with Microsoft Xenix](https://archive.org/details/Telcom_for_Tandy_200_1985_Microsoft/page/n40/mode/1up):
+
 
 ## Table of Escape Sequences
 
@@ -510,6 +522,7 @@ databases used by BSD and GNU/Linux systems, but it'd be good to find
 out all the undocumented features before doing that. (See Questions
 and TODO below).
 
+
 ## Implementation Notes
 
 * What Tandy calls "LABELS" hackerb9 calls a
@@ -577,6 +590,37 @@ and TODO below).
   (which is the preferred way to use it), not _on_ (which is how the
   TELCOM software always starts up). 
 
+* Why `clocal` is suggested and included in the [td200](td200) script.
+  When UNIX detects that a serial login has disconnected, it sends the
+  HUP (hangup) signal to the user's processes and logs the user out.
+  Unfortunately, exiting to the MENU from TELCOM (even if we answer
+  "no" to the "disconnect?" question) will trigger this. Fortunately,
+  there's a workaround, tell UNIX this is a "local" terminal, not a
+  modem: `stty clocal`.
+
+  [Technically, exiting from TELCOM to the MENU drops the DTR ("Data
+  Terminal Ready") line on the serial port. DTR is wired to the UNIX
+  box's DCD ("Data Carrier Detect"). Back in the days of modems, it
+  was critical to detect when carrier was dropped, otherwise the next
+  person dialing in would get the previous person's session, already
+  logged in!]
+
+  With clocal set, one can interact with a remote program using a
+  different Tandy 200 program, such as BASIC. As a simple example, if
+  one wants to upload the ASCII version of a Tandy BASIC program, they
+  could do the following:
+
+  1. In TELCOM, login to foreign host.
+  1. `cat > somefilename.txt`
+  1. Exit TELCOM (F8), then switch to BASIC.
+  1. `LOAD "PROGNAME.BA"`
+  1. `SAVE "COM:98N1E",A`
+  1. Exit BASIC (F8), run TELCOM, and reconnect (F4).
+  1. Press Control-D (at the beginning of a newline)
+     to finish writing to `somefilename.txt`.
+
+  [Thank you to @Dawidi for this tip!]
+
 
 ## Questions
 
@@ -590,6 +634,7 @@ and TODO below).
 
 * Do all escape sequences (including the undocumented ones) work the
   same on a Model 100?
+
 
 ## TODO
 

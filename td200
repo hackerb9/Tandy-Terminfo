@@ -10,10 +10,12 @@ stty ixon ixoff
 stty rows 16 cols 40
 # Backspace key sends ^H not ^?
 stty erase ^H
-# Right arrow key sends ^\, so don't use that to abort and dump core
+# Right arrow key sends ^\, so don't use that to abort and dump core.
 stty quit undef
 # Translate Carriage Return to Newline (for uploads > N_TTY_BUF_SIZE)
 stty icrnl
+# Don't logout when exiting terminal mode in TELCOM
+stty clocal
 
 # Workarounds
 export MANPAGER=more
@@ -35,4 +37,3 @@ if [ $SHLVL -gt 1 ]; then
   echo
   exit 1
 fi
-
