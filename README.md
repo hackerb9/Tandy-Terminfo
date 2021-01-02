@@ -523,6 +523,46 @@ out all the undocumented features before doing that. (See Questions
 and TODO below).
 
 
+## Questions
+
+* Is it possible to read the Function keys?
+
+* Eight bit codes show up as graphics characters, but they are not in
+  Latin-1 order. Is there something that can be done about that? It'd
+  be nice to have umlauts and such. What is easiest: hacking the
+  TELCOM binary, writing a C program to create a PTY and translate
+  character by character, or create a "locale charmap"?
+
+* Do all escape sequences (including the undocumented ones) work the
+  same on a Model 100?
+
+
+## TODO
+
+* Figure out why man pages have `\e[m` sent at the end of each line,
+  but *only* when my PAGER is `less`. Note that `nroff | less` doesn't
+  have the same problem.
+
+* Maybe report bugs to projects which presume ANSI colors are always
+  available. Why don't programs like `git` link with ncurses?
+
+* Investigate creating a new charmap for locale. (See `locale -m` and
+  `locale(1)`)
+
+  This would let UTF-8 unicode show up correctly on the Tandy 200
+  plus, it would allow us to type in 8-bit Extended ASCII to enter
+  Unicode characters.
+
+* Maybe get cursor keys working in Emacs.
+
+  Cursor keys work in vi, but not in Emacs. Emacs is doing something
+  clever to get around xon/xoff brain damage. Right (^]) takes over
+  for Search Forward (normally ^S) and Up (^^) is bound to quote next
+  character (usually ^Q). This is actually kind of handy for me since
+  I never use the arrow keys. I just wish they had bound one of the
+  others to run Help, since that is missing as ^H.
+
+
 ## Implementation Notes
 
 * What Tandy calls "LABELS" hackerb9 calls a
@@ -621,43 +661,4 @@ and TODO below).
 
   [Thank you to @Dawidi for this tip!]
 
-
-## Questions
-
-* Is it possible to read the Function keys?
-
-* Eight bit codes show up as graphics characters, but they are not in
-  Latin-1 order. Is there something that can be done about that? It'd
-  be nice to have umlauts and such. What is easiest: hacking the
-  TELCOM binary, writing a C program to create a PTY and translate
-  character by character, or create a "locale charmap"?
-
-* Do all escape sequences (including the undocumented ones) work the
-  same on a Model 100?
-
-
-## TODO
-
-* Figure out why man pages have `\e[m` sent at the end of each line,
-  but *only* when my PAGER is `less`. Note that `nroff | less` doesn't
-  have the same problem.
-
-* Maybe report bugs to projects which presume ANSI colors are always
-  available. Why don't programs like `git` link with ncurses?
-
-* Investigate creating a new charmap for locale. (See `locale -m` and
-  `locale(1)`)
-
-  This would let UTF-8 unicode show up correctly on the Tandy 200
-  plus, it would allow us to type in 8-bit Extended ASCII to enter
-  Unicode characters.
-
-* Maybe get cursor keys working in Emacs.
-
-  Cursor keys work in vi, but not in Emacs. Emacs is doing something
-  clever to get around xon/xoff brain damage. Right (^]) takes over
-  for Search Forward (normally ^S) and Up (^^) is bound to quote next
-  character (usually ^Q). This is actually kind of handy for me since
-  I never use the arrow keys. I just wish they had bound one of the
-  others to run Help, since that is missing as ^H.
 
