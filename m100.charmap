@@ -9,6 +9,8 @@
 % 	  European TRS-80 Model 100 character set which is identical
 % 	  to Hackerb9's American Model 200.
 
+% See charmap(5) for info on this format and how to use it with locale.
+
 % <hackerb9@member.fsf.org>, 2020
 
 % alias TD200
