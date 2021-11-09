@@ -153,11 +153,17 @@ so:
 
 ### .inputrc for arrow keys
 
-Hackerb9 also recommends adding the following to your `.inputrc` so
-that the arrow keys will work in Bash and other programs that use
-libreadline.
+Hackerb9 also recommends adding the
+following to your
+[`.inputrc`](dot.inputrc) so that the
+arrow keys will work in Bash and other
+programs that use libreadline.
 
 	$if term=td200
+	    # No ANSI colors for tab completion
+	    set colored-completion-prefix off
+
+	    # Bind Model T's TELCOM keys
 	    Control-^: previous-history
 	    Control-_: next-history
 	    Control-]: backward-char
