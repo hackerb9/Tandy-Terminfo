@@ -7,7 +7,7 @@ Tandy Model 100, 102, 200 Terminfo for screen control on UNIX machines
 ## What is this?
 
 When using the TELCOM terminal program on a Tandy portable computer
-such as the Model 200, the remote host needs to know how to send
+such as the Tandy 200, the remote host needs to know how to send
 escape sequences to do things like clear the screen, move the cursor,
 show text in reverse, and so on. In UNIX, that information is stored
 in the TERMINFO database and then used by setting the TERM environment
@@ -15,7 +15,6 @@ variable.
 
 This repository provides both the [source TERMINFO](tandy.terminfo)
 file and the [compiled versions](.terminfo/t/).
-
 
 ## Installation
 
@@ -201,11 +200,20 @@ your .emacs file:
   UART has a one byte buffer. If you see text followed by garbage, try
   `stty ixon ixoff -ixany` .
 
-* Hardware flow control (RTS/CTS) is not available.
+* Hardware flow control (RTS/CTS) is not available in TELCOM.
 
 * To connect to a PC running UNIX, you'll need a null modem cable.
 
 * The Tandy Model 200 has a *FEMALE* 25 pin RS-232c port.
+
+* You should have no data corruption when using XON/XOFF flow control,
+  no matter how much text is sent. If you do, you may need a new
+  serial adapter on your host computer. Some PC serial cards and USB
+  RS232 adapters do not work with XON/XOFF due to too large of a FIFO
+  (e.g., 16550). The solution is to purchase a higher quality adapter
+  with hardware-level ("on-chip") xon/xoff support. UART chips like
+  the 16950 provide this, as do most chips from FTDI, and some
+  ProLific chips.
 
 ### Special keys:
 
