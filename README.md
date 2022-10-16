@@ -94,6 +94,8 @@ Because it sets environment variables,
 you must source it by `source td200` or
 `. td200`.
 
+<details><summary>td200 script</summary>
+
     # Set terminal type to Tandy 200
     export TERM=td200
     # Send ASCII, not Unicode UTF-8 chars
@@ -133,6 +135,7 @@ you must source it by `source td200` or
       echo
       exit 1
     fi
+</details>
 
 Tip 1: If you put the `td200` program
 in your PATH and make it executable,
