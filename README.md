@@ -364,8 +364,8 @@ Sequence | Meaning | Notes
  \eM     | delete line | moves lines below up
  \eP     | cursor normal
  \eQ     | cursor invisible
- \eR     | restore saved line | _not documented,_ currently used by dsl to restore status line.
- \eS     | save current line | _not documented,_ currently used by dsl to save status line.
+ \eR     | restore saved line from first buffer | _not documented,_ currently used by dsl to restore status line. May only work on Tandy 200.
+ \eS     | save current line to first buffer | _not documented,_ currently used by dsl to save status line. May only work on Tandy 200.
  \eT     | enable status line | used in init for variants which have a status line (e.g. td200-s).
  \eU     | disable status line | used in init_1string for variants which have no status line (e.g. td200).
  \eV     | disable scrolling | _not used,_ not defined by terminfo. Overwrites bottom line repeatedly. May be useful for downloading large files as it saves one second per kilobyte (18% less time).
@@ -375,7 +375,8 @@ Sequence | Meaning | Notes
  \el     | Clear line | _not used,_ terminfo does not define this function. Unlike Delete line (\eM), this does not close the gap by moving lines up.
  \ep     | Reverse text
  \eq     | Normal text
- \er     | mystery! | _not used._ Erases current line and displays bits of strange text on my Tandy 200, such as "7a tua". It does not type it into the terminal, so it is not an answerback sequence.
+ \er     | restore saved line from second buffer | _not documented,_ currently unused. May only work on Tandy 200.
+ \es     | save current line to second buffer | _not documented,_ currently unused. May only work on Tandy 200.
 
 ### Comparison with VT52
 
@@ -393,14 +394,16 @@ back, your Tandy portable will muck up the screen and type its
 1. Additionally, the sequences expected for the arrow keys have been
 redefined to control characters. This is rather inconvenient as those
 control characters were already used for other things and it is a
-rather questionable decision to redefine them. I'd bet dollars to
-donuts that Radio-Shack came up with this kludge after writing a
-program that sends exactly one byte for each key and only realizing at
-the last minute that it's not always true.
+rather questionable decision to redefine them. 
 
 1. A final downside of using the VT52 terminfo file is that extra
 capabilities that TELCOM has will not be used: reverse mode, delete
 line, toggle status line, and hide cursor.
+
+Perhaps of interest is that the Model T escape sequences seem to
+actually be much closer to a VT52-clone called the the Heathkit H29
+(Zenith Z-29) which Microsoft was known to be using at that time for
+development. For more information, see the [h19](h19.md) page.
 
 ### Alternate Character Set
 
