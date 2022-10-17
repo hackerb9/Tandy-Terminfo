@@ -11,10 +11,10 @@ such as the Tandy 200, the remote host needs to know how to send
 escape sequences to do things like clear the screen, move the cursor,
 show text in reverse, and so on. In UNIX, that information is stored
 in the TERMINFO database and then used by setting the TERM environment
-variable.
+variable. 
 
 This repository provides both the [source TERMINFO](tandy.terminfo)
-file and the [compiled versions](.terminfo/t/).
+file and the [compiled versions](.terminfo/t/). 
 
 ## Installation
 
@@ -35,7 +35,7 @@ example,
 
     export TERM=td200
 
-There are different terminal types for the Model 100 (`td100`) and the
+There are different terminal types for the Model 100 (`m100`) and the
 Model 200 (`td200`) as those have a different number of lines.
 
 <img src="README.md.d/labelbutton.jpg" align="right">
@@ -56,14 +56,10 @@ number of lines instead of whether it has a status line (`td200-15`).
   Aliases: `td200-ns`, `td200-16`.
 * `td200-s`: Tandy Model 200 (has status line). 40 columns x 15 rows.
   Alias:`td200-15`.
-* `td100`: Tandy Model 100 (no status line). 40 columns x 8 rows.
-  Aliases: `td100-ns`, `td100-8`
-* `td100-s`: Tandy Model 100 (has status line). 40 columns x 7 rows.
-  Alias: `td100-7`
-* `td102`: Tandy Model 102 (no status line). 40 columns x 8 rows.
-  Aliases: `td102-ns`, `td102-8`
-* `td102-s`: Tandy Model 102 (has status line). 40 columns x 7 rows.
-  Alias: `td102-7`
+* `m100`: Tandy Model 100 (no status line). 40 columns x 8 rows.
+  Aliases: `m100-ns`, `m100-8`
+* `m100-s`: Tandy Model 100 (has status line). 40 columns x 7 rows.
+  Alias: `m100-7`
 
 
 ## Testing
@@ -183,7 +179,7 @@ your .emacs file:
 
 	;; Tandy 200/100/102 requires
 	;; XON/XOFF flow control.
-	(enable-flow-control-on "td200" "td100" "td102")
+	(enable-flow-control-on "td200" "m100" "td102")
 
 
 ## Notes on using the TELCOM program
@@ -236,7 +232,7 @@ you can enable a serial port login like so:
     systemctl enable serial-getty@ttyS0
     systemctl start serial-getty@ttyS0
 
-(For a USB to serial converter, try `ttyACM0` instead of `ttyS0`.)
+(For a USB to serial converter, try `ttyUSB0` instead of `ttyS0`.)
 
 When you connect with your Tandy portable, you'll see some garbage
 characters instead of a Login prompt and need to hit ENTER several
@@ -545,7 +541,17 @@ and TODO below).
 
 ## Questions
 
+* Why not use TERM=vt52
+
+  While Model T escape codes are very similar to the VT52 — and even
+  more similar to the H19 — Tandy portables are missing important
+  functionality. In particular, full screen programs will send the
+  **Reverse Index** escape code ('\eI') to try to scroll the text down
+  on the page. TELCOM interprets that as "Send Answerback".
+
 * Is it possible to read the Function keys?
+
+  It does not appear so.
 
 * Eight bit codes show up as graphics characters, but they are not in
   Latin-1 order. Is there something that can be done about that? It'd
@@ -554,7 +560,10 @@ and TODO below).
   character by character, or create a "locale charmap"?
 
 * Do all escape sequences (including the undocumented ones) work the
-  same on a Model 100?
+  same on a Model 100? 
+
+  No. It appears the sequences for saving and restoring an entire line
+  do not exist. 
 
 
 ## TODO
