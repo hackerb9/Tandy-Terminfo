@@ -382,10 +382,10 @@ screen clearing are the same, it is just different enough to cause
 problems.
 
 1. Perhaps most noteworthy is that TELCOM uses one of the escape
-sequences, \eI, the VT52's scroll_reverse, for a completely different
-purpose. So, if you are editing a file with `TERM=vt52` and you scroll
-back, your Tandy portable will muck up the screen and type its
-"Answerback ID" into your file.
+sequences, \eI, the VT52's scroll_reverse (AKA "reverse index"), for a
+completely different purpose. So, if you are editing a file with
+`TERM=vt52` and you scroll back, your Tandy portable will muck up the
+screen and type its "Answerback ID" into your file.
 
 1. Additionally, the sequences expected for the arrow keys have been
 redefined to control characters. This is rather inconvenient as those
@@ -397,9 +397,10 @@ capabilities that TELCOM has will not be used: reverse mode, delete
 line, toggle status line, and hide cursor.
 
 Perhaps of interest is that the Model T escape sequences seem to
-actually be much closer to a VT52-clone called the the Heathkit H29
-(Zenith Z-29) which Microsoft was known to be using at that time for
-development. For more information, see the [h19](h19.md) page.
+actually be much closer to a VT52-clone called the the Heathkit H19
+(Zenith Z-19) which Microsoft was known to be using at that time for
+development. For more information, please see the [h19](h19.md) and
+[h19 comparison](compare.md) pages.
 
 ### Alternate Character Set
 
