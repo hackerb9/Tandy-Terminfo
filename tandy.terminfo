@@ -1,12 +1,11 @@
-# Hackerb9's terminfo for early 80's Tandy/Radio-Shack portable computers.
-# Works with the simple TELCOM program built into ROM.
-#   "td200" for the Tandy 200, 40 cols by 16 rows.
-#    "m100" for the TRS-80 Model 100 and Tandy 102, 40 cols by 8 rows.
-
-# Use "m100" for similar portables: Tandy 102, Kyocera Kyotronic-85,
+# Terminfo for early 80's Tandy/Radio-Shack portable computers with TELCOM.
+# Download latest version from https://github.com/hackerb9/Tandy-Terminfo/
+#
+#   "td200", 40 cols by 16 rows, for the Tandy 200.
+#    "m100", 40 cols by  8 rows, for the TRS-80 Model 100 and Tandy 102.
+#
+# "m100" also works for similar portables: Tandy 102, Kyocera Kyotronic-85,
 # Olivetti M-10, and NEC PC-8200/8201A/8300.
-
-# If the system labels are on, you lose a row and should use the -s variant.
 
 # Only known difference between td200 and m100 TELCOM is number of lines.
 m100|m100-8-ns|m100-8|m100-ns|TRS-80 Model 100 no status line,
@@ -15,17 +14,14 @@ m100|m100-8-ns|m100-8|m100-ns|TRS-80 Model 100 no status line,
 m100-7-s|m100-7|m100-s|TRS-80 Model 100 with status line,
     lines#7, use=td200-15-s,
 
-# Convenience aliases
-td100|td100-8-ns|td100-8|td100-ns|TRS-80 Model 100 no status line, use=m100,
-td100-7-s|td100-7|td100-s|TD-80 Model 100 with status line, use=m100-7-s,
-
-
+# If the system labels are on, we lose a row and should use the -s variant.
 td200-15-s|td200-15|td200-s|Tandy 200 with status line,
 	lines#15, has_status_line,
 	init_1string=\ET,
 	dis_status_line=\EU\EY0 \ER\EA\EK\ET,
 	use=td200-16-ns,
 
+# This terminal is best used with system labels turned off.
 td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
 	lines#16, has_status_line@, 
 	columns#40, init_tabs#8,
@@ -75,4 +71,4 @@ td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
 # line for terminal variants like
 # td200-s that have a status line.
 
-# Report bugs to https://github.com/hackerb9/Tandy-Terminfo/issues
+# Please report bugs to https://github.com/hackerb9/Tandy-Terminfo/issues
