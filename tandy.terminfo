@@ -1,37 +1,34 @@
-# Terminfo for the Tandy portable computers from the early 1980's
-# which came with a simple TELCOM program in ROM.
-# td200 is the Tandy 200, 40 cols by 16 rows.
-# td100 is the TRS-80 Model 100, 40 cols by 8 rows.
-# If the status line is on, you lose a row and should use the -s variant.
+# Terminfo for early 80's Tandy/Radio-Shack portable computers with TELCOM.
+# Download latest version from https://github.com/hackerb9/Tandy-Terminfo/
+#
+#   "td200", 40 cols by 16 rows, for the Tandy 200.
+#    "m100", 40 cols by  8 rows, for the TRS-80 Model 100 and Tandy 102.
+#
+# "m100" also works for similar portables: Tandy 102, Kyocera Kyotronic-85,
+# Olivetti M-10, and NEC PC-8200/8201A/8300.
 
-
-# Only known difference between td200 and td100 TELCOM is number of lines.
-td100|td100-8-ns|td100-8|td100-ns|TRS-80 Model 100 no status line,
+# Only known difference between td200 and m100 TELCOM is number of lines.
+m100|m100-8-ns|m100-8|m100-ns|TRS-80 Model 100 no status line,
     lines#8, use=td200-16-ns,
 
-td100-7-s|td100-7|td100-s|TRS-80 Model 100 with status line,
+m100-7-s|m100-7|m100-s|TRS-80 Model 100 with status line,
     lines#7, use=td200-15-s,
 
-# Is there any difference between the Model 100 and the Model 102?
-td102|td102-8-ns|td102-8|td102-ns|TRS-80 Model 102 no status line,
-    use=td100,
-
-td102-7-s|td102-7|td102-s|TRS-80 Model 102 with status line,
-    use=td100-7-s,
-
+# If the system labels are on, we lose a row and should use the -s variant.
 td200-15-s|td200-15|td200-s|Tandy 200 with status line,
 	lines#15, has_status_line,
 	init_1string=\ET,
 	dis_status_line=\EU\EY0 \ER\EA\EK\ET,
 	use=td200-16-ns,
 
+# This terminal is best used with system labels turned off.
 td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
 	lines#16, has_status_line@, 
 	columns#40, init_tabs#8,
 	init_1string=\EU,
 	init_2string=\EW\Eq\EE,
 	auto_left_margin,auto_right_margin,
-	backspaces_with_bs,
+	backspaces_with_bs, move_standout_mode,
 	dest_tabs_magic_smso, xon_xoff,
 	bell=^G, carriage_return=^M,
 	clr_eol=\EK, clr_eos=\EJ,
@@ -47,9 +44,9 @@ td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
 	cursor_normal=\EP,
 	cursor_invisible=\EQ,
 	dis_status_line=\EU\EY0 \ES\EM,
-	enter_reverse_mode=\Ep,
 	enter_standout_mode=\Ep,
 	exit_standout_mode=\Eq,
+	enter_reverse_mode=\Ep,
 	exit_attribute_mode=\Eq,
 	key_backspace=^H, tab=^I,
 	key_up=^^, key_down=^_,
@@ -73,3 +70,5 @@ td200|td200-16-ns|td200-16|td200-ns|Tandy 200 no status line,
 # to mean both. It enables the status
 # line for terminal variants like
 # td200-s that have a status line.
+
+# Please report bugs to https://github.com/hackerb9/Tandy-Terminfo/issues

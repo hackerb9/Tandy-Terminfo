@@ -16,6 +16,9 @@ stty quit undef
 stty icrnl
 # Don't logout when exiting terminal mode in TELCOM
 stty clocal
+# Nice short prompt
+PS1='\$ '
+
 
 # Workarounds
 export MANPAGER=more
@@ -23,6 +26,10 @@ export MANWIDTH=40
 export GCC_COLORS=""
 alias nano="nano -Opx"
 alias w3m="w3m -color=0"
+
+# No ANSI colors in Bash tab completion
+bind 'set colored-completion-prefix off'
+# See .inputrc for more td200 settings.
 
 if [ $SHLVL -gt 1 ]; then
   echo "Error, do not run this script."

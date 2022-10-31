@@ -7,15 +7,14 @@ Tandy Model 100, 102, 200 Terminfo for screen control on UNIX machines
 ## What is this?
 
 When using the TELCOM terminal program on a Tandy portable computer
-such as the Model 200, the remote host needs to know how to send
+such as the Tandy 200, the remote host needs to know how to send
 escape sequences to do things like clear the screen, move the cursor,
 show text in reverse, and so on. In UNIX, that information is stored
 in the TERMINFO database and then used by setting the TERM environment
-variable.
+variable. 
 
 This repository provides both the [source TERMINFO](tandy.terminfo)
-file and the [compiled versions](.terminfo/t/).
-
+file and the [compiled versions](.terminfo/t/). 
 
 ## Installation
 
@@ -36,7 +35,7 @@ example,
 
     export TERM=td200
 
-There are different terminal types for the Model 100 (`td100`) and the
+There are different terminal types for the Model 100 (`m100`) and the
 Model 200 (`td200`) as those have a different number of lines.
 
 <img src="README.md.d/labelbutton.jpg" align="right">
@@ -57,14 +56,10 @@ number of lines instead of whether it has a status line (`td200-15`).
   Aliases: `td200-ns`, `td200-16`.
 * `td200-s`: Tandy Model 200 (has status line). 40 columns x 15 rows.
   Alias:`td200-15`.
-* `td100`: Tandy Model 100 (no status line). 40 columns x 8 rows.
-  Aliases: `td100-ns`, `td100-8`
-* `td100-s`: Tandy Model 100 (has status line). 40 columns x 7 rows.
-  Alias: `td100-7`
-* `td102`: Tandy Model 102 (no status line). 40 columns x 8 rows.
-  Aliases: `td102-ns`, `td102-8`
-* `td102-s`: Tandy Model 102 (has status line). 40 columns x 7 rows.
-  Alias: `td102-7`
+* `m100`: Tandy Model 100 (no status line). 40 columns x 8 rows.
+  Aliases: `m100-ns`, `m100-8`
+* `m100-s`: Tandy Model 100 (has status line). 40 columns x 7 rows.
+  Alias: `m100-7`
 
 
 ## Testing
@@ -93,6 +88,8 @@ up workarounds for some programs.
 Because it sets environment variables,
 you must source it by `source td200` or
 `. td200`.
+
+<details><summary>td200 script</summary>
 
     # Set terminal type to Tandy 200
     export TERM=td200
@@ -133,6 +130,7 @@ you must source it by `source td200` or
       echo
       exit 1
     fi
+</details>
 
 Tip 1: If you put the `td200` program
 in your PATH and make it executable,
@@ -153,11 +151,17 @@ so:
 
 ### .inputrc for arrow keys
 
-Hackerb9 also recommends adding the following to your `.inputrc` so
-that the arrow keys will work in Bash and other programs that use
-libreadline.
+Hackerb9 also recommends adding the
+following to your
+[`.inputrc`](dot.inputrc) so that the
+arrow keys will work in Bash and other
+programs that use libreadline.
 
 	$if term=td200
+	    # No ANSI colors for tab completion
+	    set colored-completion-prefix off
+
+	    # Bind Model T's TELCOM keys
 	    Control-^: previous-history
 	    Control-_: next-history
 	    Control-]: backward-char
@@ -177,7 +181,7 @@ your .emacs file:
 
 	;; Tandy 200/100/102 requires
 	;; XON/XOFF flow control.
-	(enable-flow-control-on "td200" "td100" "td102")
+	(enable-flow-control-on "td200" "m100" "td102")
 
 
 ## Notes on using the TELCOM program
@@ -194,11 +198,20 @@ your .emacs file:
   UART has a one byte buffer. If you see text followed by garbage, try
   `stty ixon ixoff -ixany` .
 
-* Hardware flow control (RTS/CTS) is not available.
+* Hardware flow control (RTS/CTS) is not available in TELCOM.
 
 * To connect to a PC running UNIX, you'll need a null modem cable.
 
 * The Tandy Model 200 has a *FEMALE* 25 pin RS-232c port.
+
+* You should have no data corruption when using XON/XOFF flow control,
+  no matter how much text is sent. If you do, you may need a new
+  serial adapter on your host computer. Some PC serial cards and USB
+  RS232 adapters do not work with XON/XOFF due to too large of a FIFO
+  (e.g., 16550). The solution is to purchase a higher quality adapter
+  with hardware-level ("on-chip") xon/xoff support. UART chips like
+  the 16950 provide this, as do most chips from FTDI, and some
+  ProLific chips.
 
 ### Special keys:
 
@@ -221,7 +234,7 @@ you can enable a serial port login like so:
     systemctl enable serial-getty@ttyS0
     systemctl start serial-getty@ttyS0
 
-(For a USB to serial converter, try `ttyACM0` instead of `ttyS0`.)
+(For a USB to serial converter, try `ttyUSB0` instead of `ttyS0`.)
 
 When you connect with your Tandy portable, you'll see some garbage
 characters instead of a Login prompt and need to hit ENTER several
@@ -349,8 +362,8 @@ Sequence | Meaning | Notes
  \eM     | delete line | moves lines below up
  \eP     | cursor normal
  \eQ     | cursor invisible
- \eR     | restore saved line | _not documented,_ currently used by dsl to restore status line.
- \eS     | save current line | _not documented,_ currently used by dsl to save status line.
+ \eR     | restore saved line from first buffer | _not documented,_ currently used by dsl to restore status line. May only work on Tandy 200.
+ \eS     | save current line to first buffer | _not documented,_ currently used by dsl to save status line. May only work on Tandy 200.
  \eT     | enable status line | used in init for variants which have a status line (e.g. td200-s).
  \eU     | disable status line | used in init_1string for variants which have no status line (e.g. td200).
  \eV     | disable scrolling | _not used,_ not defined by terminfo. Overwrites bottom line repeatedly. May be useful for downloading large files as it saves one second per kilobyte (18% less time).
@@ -360,7 +373,8 @@ Sequence | Meaning | Notes
  \el     | Clear line | _not used,_ terminfo does not define this function. Unlike Delete line (\eM), this does not close the gap by moving lines up.
  \ep     | Reverse text
  \eq     | Normal text
- \er     | mystery! | _not used._ Erases current line and displays bits of strange text on my Tandy 200, such as "7a tua". It does not type it into the terminal, so it is not an answerback sequence.
+ \er     | restore saved line from second buffer | _not documented,_ currently unused. May only work on Tandy 200.
+ \es     | save current line to second buffer | _not documented,_ currently unused. May only work on Tandy 200.
 
 ### Comparison with VT52
 
@@ -370,22 +384,25 @@ screen clearing are the same, it is just different enough to cause
 problems.
 
 1. Perhaps most noteworthy is that TELCOM uses one of the escape
-sequences, \eI, the VT52's scroll_reverse, for a completely different
-purpose. So, if you are editing a file with `TERM=vt52` and you scroll
-back, your Tandy portable will muck up the screen and type its
-"Answerback ID" into your file.
+sequences, \eI, the VT52's scroll_reverse (AKA "reverse index"), for a
+completely different purpose. So, if you are editing a file with
+`TERM=vt52` and you scroll back, your Tandy portable will muck up the
+screen and type its "Answerback ID" into your file.
 
 1. Additionally, the sequences expected for the arrow keys have been
 redefined to control characters. This is rather inconvenient as those
 control characters were already used for other things and it is a
-rather questionable decision to redefine them. I'd bet dollars to
-donuts that Radio-Shack came up with this kludge after writing a
-program that sends exactly one byte for each key and only realizing at
-the last minute that it's not always true.
+rather questionable decision to redefine them. 
 
 1. A final downside of using the VT52 terminfo file is that extra
 capabilities that TELCOM has will not be used: reverse mode, delete
 line, toggle status line, and hide cursor.
+
+Perhaps of interest is that the Model T escape sequences seem to
+actually be much closer to a VT52-clone called the the Heathkit H19
+(Zenith Z-19) which Microsoft was known to be using at that time for
+development. For more information, please see the [h19](h19.md) and
+[h19 comparison](compare.md) pages.
 
 ### Alternate Character Set
 
@@ -527,7 +544,17 @@ and TODO below).
 
 ## Questions
 
+* Why not use TERM=vt52
+
+  While Model T escape codes are very similar to the VT52 — and even
+  more similar to the H19 — Tandy portables are missing important
+  functionality. In particular, full screen programs will send the
+  **Reverse Index** escape code ('\eI') to try to scroll the text down
+  on the page. TELCOM interprets that as "Send Answerback".
+
 * Is it possible to read the Function keys?
+
+  It does not appear so.
 
 * Eight bit codes show up as graphics characters, but they are not in
   Latin-1 order. Is there something that can be done about that? It'd
@@ -536,7 +563,10 @@ and TODO below).
   character by character, or create a "locale charmap"?
 
 * Do all escape sequences (including the undocumented ones) work the
-  same on a Model 100?
+  same on a Model 100? 
+
+  No. It appears the sequences for saving and restoring an entire line
+  do not exist. 
 
 
 ## TODO
