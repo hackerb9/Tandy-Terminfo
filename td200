@@ -1,3 +1,5 @@
+# Source this -*- shell-script -*- 
+
 # Set terminal type to Tandy 200
 export TERM=td200
 # Send ASCII, not Unicode UTF-8 chars
@@ -26,9 +28,12 @@ export MANWIDTH=40
 export GCC_COLORS=""
 alias nano="nano -Opx"
 alias w3m="w3m -color=0"
+alias git="git -c color.ui=never"
 
 # No ANSI colors in Bash tab completion
 bind 'set colored-completion-prefix off'
+# Do not send Esc ? 2004 h before each prompt
+bind 'set enable-bracketed-paste off'
 # See .inputrc for more td200 settings.
 
 if [ $SHLVL -gt 1 ]; then
