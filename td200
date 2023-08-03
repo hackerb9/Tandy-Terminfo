@@ -2,14 +2,17 @@
 
 # Set terminal type to Tandy 200
 export TERM=td200
-# Send ASCII, not Unicode UTF-8 chars
-export LANG=C
+# Try hackerb9's 8-bit Model-T locale.
+export LANG=$(locale -a|grep -om1 T200)
+# Fallback to ASCII, not Unicode chars.
+export LANG=${LANG:-C}
 # Reset the terminal (turns off labels)
 reset
 # Turn on software flow control (^S/^Q)
 stty ixon ixoff
 # Some apps ignore the size in TERMINFO
 stty rows 16 cols 40
+export LINES=16 COLUMNS=40
 # Backspace key sends ^H not ^?
 stty erase ^H
 # Right arrow key sends ^\, so don't use that to abort and dump core.
@@ -23,20 +26,33 @@ PS1='\$ '
 
 
 # Workarounds
-export MANPAGER=more
-export MANWIDTH=40
 export GCC_COLORS=""
 alias nano="nano -Opx"
 alias w3m="w3m -color=0"
 alias git="git -c color.ui=never"
+export MANWIDTH=40
+export MANPAGER=less
+# man-db splats colors willy-nilly.
+export GROFF_NO_SGR=1
+# Allow Esc p, Esc q for reverse text.
+# (Also prevents less from appending Esc [m to every line.)
+export LESSANSIENDCHARS=pq
 
 # No ANSI colors in Bash tab completion
 bind 'set colored-completion-prefix off'
-# Do not send Esc ? 2004 h before each prompt
+# Omit ^[?2004h before each prompt.
 bind 'set enable-bracketed-paste off'
-# See .inputrc for more td200 settings.
 
-if [ $SHLVL -gt 1 ]; then
+# BTW: ~/.inputrc is the better
+# place to put these bind settings:
+# 
+#  $if term=td200
+#    set colored-completion-prefix off 
+#    set enable-bracketed-paste off
+#  $endif
+
+
+if [ $0 != bash -a $SHLVL -gt 1 ]; then
   echo "Error, do not run this script."
   echo "It must be sourced, like so:"
   echo -ne "\n\t"
@@ -47,5 +63,5 @@ if [ $SHLVL -gt 1 ]; then
     echo "source $0"
   fi
   echo
-  exit 1
+  false			# Return error, but without using 'exit' or 'return'
 fi
