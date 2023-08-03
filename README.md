@@ -490,6 +490,14 @@ Glyph|Name | VT100<br/>Name | Model 100<br/>charset<br/>(octal) | Notes
 │ |vertical line          | x         | \365
 
 
+## Charmap
+
+Hackerb9 has created a new locale charmap. (See `locale -m` and
+`locale(1)`) This lets UTF-8 unicode show up correctly on the Tandy
+200 for any program that uses the GNU C Library. One can also convert
+back and forth between Tandy's Extended ASCII and Unicode characters
+using `iconv`. Please see [tandy-locale](../tandy-locale) for details.
+
 ## History
 
 This started out as a woefully inadequate TERMCAP entry for
@@ -557,10 +565,11 @@ and TODO below).
   It does not appear so.
 
 * Eight bit codes show up as graphics characters, but they are not in
-  Latin-1 order. Is there something that can be done about that? It'd
-  be nice to have umlauts and such. What is easiest: hacking the
-  TELCOM binary, writing a C program to create a PTY and translate
-  character by character, or create a "locale charmap"?
+  Latin-1 order. Is there something that can be done about that? Yes!
+  Hackerb9 has created a project which sets up a T200 locale which
+  will automatically translate from Unicode to display "extended
+  ASCII" characters on the Tandy 200. It works by compiling a gconv
+  module for glibc/iconv. Please see [tandy-locale](../tandy-locale).
 
 * Do all escape sequences (including the undocumented ones) work the
   same on a Model 100? 
@@ -577,13 +586,6 @@ and TODO below).
 
 * Maybe report bugs to projects which presume ANSI colors are always
   available. Why don't programs like `git` link with ncurses?
-
-* Investigate creating a new charmap for locale. (See `locale -m` and
-  `locale(1)`)
-
-  This would let UTF-8 unicode show up correctly on the Tandy 200
-  plus, it would allow us to type in 8-bit Extended ASCII to enter
-  Unicode characters.
 
 * Maybe get cursor keys working in Emacs.
 
