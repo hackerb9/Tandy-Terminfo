@@ -35,7 +35,7 @@ In the tables below, '\e' stands for <kbd>Esc</kbd>.
 | \ep                  | Reverse text                 | ✓    |        |
 | \eq                  | Normal text                  | ✓    |        |
 
-: ✓ = same as on Model T
+> ✓ = same as on Model T
 
 ## Input escape sequences
 
