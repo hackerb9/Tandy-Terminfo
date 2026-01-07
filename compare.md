@@ -11,29 +11,29 @@ In the tables below, '\e' stands for <kbd>Esc</kbd>.
 
 ## Output escape sequences
 
-| Sequence | Meaning (on a Model T)       | H19  | VT52   |
-|----------|------------------------------|:----:|:------:|
-| \eA      | cursor Up                    | ☒    | ☒      |
-| \eB      | cursor Down                  | ☒    | ☒      |
-| \eC      | cursor Right                 | ☒    | ☒      |
-| \eD      | cursor Left                  | ☒    | ☒      |
-| \eE      | clear screen                 | ☒    | \eH\eJ |
-| \eH      | cursor home                  | ☒    | ☒      |
-| \eJ      | clear to the end of screen   | ☒    | ☒      |
-| \eK      | clear to the end of line     | ☒    | ☒      |
-| \eL      | insert line                  | ☒    |        |
-| \eM      | delete line                  | ☒    |        |
-| \eP      | cursor normal                | \ey5 |        |
-| \eQ      | cursor invisible             | \ex5 |        |
-| \eT      | enable status line           |      |        |
-| \eU      | disable status line          |      |        |
-| \eV      | disable scrolling            | \e[  |        |
-| \eW      | enable scrolling             | \e\  |        |
-| \eY      | Move to cursor address *r,c* | ☒    | ☒      |
-| \ej      | Clear screen (alias)         | \eE  | \eH\eJ |
-| \el      | Clear line                   | ☒    |        |
-| \ep      | Reverse text                 | ☒    |        |
-| \eq      | Normal text                  | ☒    |        |
+| Model T<br/>Sequence | Meaning (on a Model T)       | H19  | VT52   |
+|----------------------|------------------------------|:----:|:------:|
+| \eA                  | cursor Up                    | ✓    | ✓      |
+| \eB                  | cursor Down                  | ✓    | ✓      |
+| \eC                  | cursor Right                 | ✓    | ✓      |
+| \eD                  | cursor Left                  | ✓    | ✓      |
+| \eE                  | clear screen                 | ✓    | \eH\eJ |
+| \eH                  | cursor home                  | ✓    | ✓      |
+| \eJ                  | clear to the end of screen   | ✓    | ✓      |
+| \eK                  | clear to the end of line     | ✓    | ✓      |
+| \eL                  | insert line                  | ✓    |        |
+| \eM                  | delete line                  | ✓    |        |
+| \eP                  | cursor normal                | \ey5 |        |
+| \eQ                  | cursor invisible             | \ex5 |        |
+| \eT                  | enable status line           |      |        |
+| \eU                  | disable status line          |      |        |
+| \eV                  | disable scrolling            | \e[  |        |
+| \eW                  | enable scrolling             | \e\  |        |
+| \eY                  | Move to cursor address *r,c* | ✓    | ✓      |
+| \ej                  | Clear screen (alias)         | \eE  | \eH\eJ |
+| \el                  | Clear line                   | ✓    |        |
+| \ep                  | Reverse text                 | ✓    |        |
+| \eq                  | Normal text                  | ✓    |        |
 
 ## Input escape sequences
 
@@ -41,7 +41,7 @@ The Model T computers do not define keys the same way as VT52/H19. In
 fact, they always send a single byte (a control character), not an
 escape sequence.
 
-| Sequence | Meaning (on a Model T) | H19 and VT52 |
+| Model T<br/>Sequence | Meaning (on a Model T) | H19 and VT52 |
 |----------|------------------------|--------------|
 | ^^       | Arrow Up               | \eA          |
 | ^_       | Arrow Down             | \eB          |
