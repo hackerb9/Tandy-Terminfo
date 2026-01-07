@@ -492,11 +492,14 @@ Glyph|Name | VT100<br/>Name | Model 100<br/>charset<br/>(octal) | Notes
 
 ## Charmap
 
-Hackerb9 has created a new locale charmap. (See `locale -m` and
-`locale(1)`) This lets UTF-8 unicode show up correctly on the Tandy
-200 for any program that uses the GNU C Library. One can also convert
-back and forth between Tandy's Extended ASCII and Unicode characters
-using `iconv`. Please see [tandy-locale](../tandy-locale) for details.
+Hackerb9 has created a new locale [charmap][charmap]. (See `locale -m`
+and `locale(1)`) This lets UTF-8 unicode show up correctly on the
+Tandy 200 for any program that uses the GNU C Library. One can also
+convert back and forth between Tandy's Extended ASCII character set
+and Unicode characters using `iconv`. Please see
+[tandy-locale](../tandy-locale) for details.
+
+[charmap]: m100.charmap "Model 100 charset to Unicode in POSIX charmap format" 
 
 ## History
 
