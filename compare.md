@@ -11,7 +11,7 @@ In the tables below, '\e' stands for <kbd>Esc</kbd>.
 
 ## Output escape sequences
 
-| Model T<br/>Sequence | Meaning (on a Model T)       | H19  | VT52   |
+| Model T<br/>Sequence | Meaning<br/>(on a Model T)   | H19  | VT52   |
 |----------------------|------------------------------|:----:|:------:|
 | \eA                  | cursor Up                    | ✓    | ✓      |
 | \eB                  | cursor Down                  | ✓    | ✓      |
@@ -35,18 +35,20 @@ In the tables below, '\e' stands for <kbd>Esc</kbd>.
 | \ep                  | Reverse text                 | ✓    |        |
 | \eq                  | Normal text                  | ✓    |        |
 
+: ✓ = same as on Model T
+
 ## Input escape sequences
 
 The Model T computers do not define keys the same way as VT52/H19. In
 fact, they always send a single byte (a control character), not an
 escape sequence.
 
-| Model T<br/>Sequence | Meaning (on a Model T) | H19 and VT52 |
-|----------|------------------------|--------------|
-| ^^       | Arrow Up               | \eA          |
-| ^_       | Arrow Down             | \eB          |
-| ^\       | Arrow Right            | \eC          |
-| ^]       | Arrow Left             | \eD          |
+| Model T<br/>Sequence | Meaning<br/>(on a Model T) | H19 and VT52 |
+|----------------------|----------------------------|--------------|
+| ^^                   | Arrow Up                   | \eA          |
+| ^_                   | Arrow Down                 | \eB          |
+| ^\                   | Arrow Right                | \eC          |
+| ^]                   | Arrow Left                 | \eD          |
 
 
 
