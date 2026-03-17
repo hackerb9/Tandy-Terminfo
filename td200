@@ -7,7 +7,7 @@ export LANG=$(locale -a|grep -om1 T200)
 # Fallback to ASCII, not Unicode chars.
 export LANG=${LANG:-C}
 # Reset the terminal (turns off labels)
-reset
+tset -r
 # Turn on software flow control (^S/^Q)
 stty ixon ixoff
 # Some apps ignore the size in TERMINFO
@@ -31,12 +31,14 @@ alias nano="nano -Opx"
 alias w3m="w3m -color=0"
 alias git="git -c color.ui=never"
 export MANWIDTH=40
-export MANPAGER=less
+export MANPAGER=more
 # man-db splats colors willy-nilly.
 export GROFF_NO_SGR=1
 # Allow Esc p, Esc q for reverse text.
 # (Also prevents less from appending Esc [m to every line.)
 export LESSANSIENDCHARS=pq
+# LESS has no way to countermand --use-color, so we have to remove it.
+export LESS="${LESS/--use-color}"
 
 # No ANSI colors in Bash tab completion
 bind 'set colored-completion-prefix off'
@@ -51,6 +53,11 @@ bind 'set enable-bracketed-paste off'
 #    set enable-bracketed-paste off
 #  $endif
 
+# Don't let systemd mess up the prompt
+PROMPT_COMMAND=( "${PROMPT_COMMAND[@]/*systemd*}") 
+if [[ $PS0 =~ __systemd_osc_context_ps0 ]]; then
+    unset PS0
+fi
 
 if [ $0 != bash -a $SHLVL -gt 1 ]; then
   echo "Error, do not run this script."
