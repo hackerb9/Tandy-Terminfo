@@ -144,7 +144,7 @@ so:
 
     # If logging in from a serial console,
     # it's my Tandy 200 Portable Computer.
-    if [[ $(tty) =~ /dev/tty(S|ACM) ]]
+    if [[ $(tty) =~ /dev/tty(S|USB|ACM|E) ]]
     then
        source $HOME/bin/td200
     fi
